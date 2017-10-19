@@ -3,17 +3,18 @@ require 'json'
 class ScenarioTemplate
   def initialize(scenario)
     @scenario = scenario
+    @scenario_name = scenario['scenario']
     @templated = false
   end
 
   def as_wiremock_stub
     build_template
-    as_json
+    [scenario_name, as_json]
   end
 
   private
 
-  attr_reader :scenario
+  attr_reader :scenario, :scenario_name
   attr_accessor :templated
 
   def request
@@ -37,8 +38,6 @@ class ScenarioTemplate
   end
 
   def move_scenario_to_headers
-    scenario_name = scenario['scenario']
-
     assign_scenario_header scenario_name
 
     scenario.delete 'scenario'
@@ -90,4 +89,5 @@ end
 def scenarios_from_file(path)
   json_from_file(path)
     .collect { |scenario| ScenarioTemplate.new(scenario).as_wiremock_stub }
+    .to_h
 end
