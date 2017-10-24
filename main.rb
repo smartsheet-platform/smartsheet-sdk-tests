@@ -1,5 +1,4 @@
 require 'cli'
-require 'rest-client'
 require 'pp'
 require_relative 'scenario_wiremock_template'
 require_relative 'colorize'
@@ -10,25 +9,17 @@ CROSS = '✗'.red
 settings = CLI.new do
   option :port, description: 'Port at which the wiremock server resides', default: 8082
   switch :debug, description: 'Print failure information'
-  argument :path, description: 'Path of the JSON file containing scenarios'
+  argument :scenario_path, description: 'Path of the JSON file containing scenarios'
+  argument :output_path, description: 'Path to store the wiremock mapping files'
 end.parse!
 
 failures = []
 summary = []
 
-scenarios_from_file(settings.path).each_pair do |name, scenario|
-  url = "localhost:#{settings.port}/__admin/mappings"
-
-  begin
-    RestClient.post(
-      url,
-      scenario,
-      :'Content-Type' => 'application/json'
-    )
+scenarios_from_file(settings.scenario_path).each_pair do |name, scenario|
+  File.open(settings.output_path + name + '.json', 'w') do |f|
+    f.write(scenario)
     summary.push "#{CHECK}  #{name}"
-  rescue RestClient::ExceptionWithResponse => e
-    failures.push(name: name, scenario: scenario, response: e.response)
-    summary.push "#{CROSS}  #{name}"
   end
 end
 
