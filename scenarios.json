@@ -108,8 +108,745 @@
       }
     }
   },
+
   {
-    "scenario": "Update Rows - Assign Values",
+    "scenario": "Add Rows - Assign Values - String",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Apple"
+            },
+            {
+              "columnId": 102,
+              "value": "Red Fruit"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Banana"
+            },
+            {
+              "columnId": 102,
+              "value": "Yellow Fruit"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Apple",
+                "displayValue": "Apple"
+              },
+              {
+                "columnId": 102,
+                "value": "Red Fruit",
+                "displayValue": "Red Fruit"
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "rowNumber": 2,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Banana",
+                "displayValue": "Banana"
+              },
+              {
+                "columnId": 102,
+                "value": "Yellow Fruit",
+                "displayValue": "Yellow Fruit"
+              }
+            ]
+          }
+        ],
+        "version": 14
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Assign Values - Int",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": 100
+            },
+            {
+              "columnId": 102,
+              "value": "One Hundred"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": 2.1
+            },
+            {
+              "columnId": 102,
+              "value": "Two Point One"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": 100,
+                "displayValue": "100"
+              },
+              {
+                "columnId": 102,
+                "value": "One Hundred",
+                "displayValue": "One Hundred"
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "rowNumber": 2,
+            "siblingId": 10,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": 2.1,
+                "displayValue": "2.1"
+              },
+              {
+                "columnId": 102,
+                "value": "Two Point One",
+                "displayValue": "Two Point One"
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Assign Values - Bool",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": true
+            },
+            {
+              "columnId": 102,
+              "value": "This is True"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": false
+            },
+            {
+              "columnId": 102,
+              "value": "This is False"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": true,
+                "displayValue": "true"
+              },
+              {
+                "columnId": 102,
+                "value": "This is True",
+                "displayValue": "This is True"
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "rowNumber": 2,
+            "siblingId": 10,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": false,
+                "displayValue": "false"
+              },
+              {
+                "columnId": 102,
+                "value": "This is False",
+                "displayValue": "This is False"
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Assign Formulae",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "formula": "=SUM([Column2]3, [Column2]4)*2"
+            },
+            {
+              "columnId": 102,
+              "formula": "=SUM([Column2]3, [Column2]3, [Column2]4)"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 11,
+            "rowNumber": 5,
+            "expanded": true,
+            "createdAt": "2017-10-18T20:21:51Z",
+            "modifiedAt": "2017-10-18T20:32:40Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": 14,
+                "displayValue": "14",
+                "formula": "=SUM([Column2]3, [Column2]4)*2"
+              },
+              {
+                "columnId": 102,
+                "value": 10,
+                "displayValue": "10",
+                "formula": "=SUM([Column2]3, [Column2]3, [Column2]4)"
+              }
+            ]
+          }
+        ],
+        "version": 8
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Assign Values - Hyperlink",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Google",
+              "hyperlink": {
+                "url": "http://google.com"
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Bing",
+              "hyperlink": {
+                "url": "http://bing.com"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Google",
+                "displayValue": "Google",
+                "hyperlink": {
+                  "url": "http://google.com"
+                }
+              },
+              {
+                "columnId": 102,
+                "value": "Bing",
+                "displayValue": "Bing",
+                "hyperlink": {
+                  "url": "http://bing.com"
+                }
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Assign Values - Hyperlink SheetID",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Sheet2",
+              "hyperlink": {
+                "sheetId": 2
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Sheet3",
+              "hyperlink": {
+                "sheetId": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Sheet2",
+                "displayValue": "Sheet2",
+                "hyperlink": {
+                  "sheetId": 2
+                }
+              },
+              {
+                "columnId": 102,
+                "value": "Sheet3",
+                "displayValue": "Sheet3",
+                "hyperlink": {
+                  "sheetId": 3
+                }
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Assign Values - Hyperlink ReportID",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Report9",
+              "hyperlink": {
+                "reportId": 9
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Report8",
+              "hyperlink": {
+                "reportId": 8
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Report9",
+                "displayValue": "Report9",
+                "hyperlink": {
+                  "reportId": 9
+                }
+              },
+              {
+                "columnId": 102,
+                "value": "Report8",
+                "displayValue": "Report8",
+                "hyperlink": {
+                  "reportId": 8
+                }
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Invalid - Assign Value and Formulae",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "formula": "=SUM([Column2]3, [Column2]4)*2",
+              "value": "20"
+            },
+            {
+              "columnId": 102,
+              "formula": "=SUM([Column2]3, [Column2]3, [Column2]4)"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "statusMessage": "Bad Request",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "errorCode": 1163,
+        "message": "If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.",
+        "refId": "123abc",
+        "detail": {
+          "index": 0,
+          "rowId": 10
+        }
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Invalid - Assign Hyperlink URL and SheetId",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Google",
+              "hyperlink": {
+                "url": "http://google.com",
+                "sheetId": 2
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Bing",
+              "hyperlink": {
+                "url": "http://bing.com"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "statusMessage": "Bad Request",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "errorCode": 1112,
+        "message": "hyperlink.url must be null for sheet, report, or Sight hyperlinks.",
+        "refId": "dbwn8owxskam",
+        "detail": {
+          "index": 0
+        }
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Location - Top",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "toTop": true,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Apple"
+            },
+            {
+              "columnId": 102,
+              "value": "Red Fruit"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Apple",
+                "displayValue": "Apple"
+              },
+              {
+                "columnId": 102,
+                "value": "Red Fruit",
+                "displayValue": "Red Fruit"
+              }
+            ]
+          }
+        ],
+        "version": 14
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Location - Bottom",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "toBottom": true,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Apple"
+            },
+            {
+              "columnId": 102,
+              "value": "Red Fruit"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 100,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Apple",
+                "displayValue": "Apple"
+              },
+              {
+                "columnId": 102,
+                "value": "Red Fruit",
+                "displayValue": "Red Fruit"
+              }
+            ]
+          }
+        ],
+        "version": 14
+      }
+    }
+  },
+
+  {
+    "scenario": "Update Rows - Assign Values - String",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -200,6 +937,188 @@
     }
   },
   {
+    "scenario": "Update Rows - Assign Values - Int",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": 100
+            },
+            {
+              "columnId": 102,
+              "value": "One Hundred"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": 2.1
+            },
+            {
+              "columnId": 102,
+              "value": "Two Point One"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": 100,
+                "displayValue": "100"
+              },
+              {
+                "columnId": 102,
+                "value": "One Hundred",
+                "displayValue": "One Hundred"
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "rowNumber": 2,
+            "siblingId": 10,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": 2.1,
+                "displayValue": "2.1"
+              },
+              {
+                "columnId": 102,
+                "value": "Two Point One",
+                "displayValue": "Two Point One"
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Assign Values - Bool",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": true
+            },
+            {
+              "columnId": 102,
+              "value": "This is True"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": false
+            },
+            {
+              "columnId": 102,
+              "value": "This is False"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": true,
+                "displayValue": "true"
+              },
+              {
+                "columnId": 102,
+                "value": "This is True",
+                "displayValue": "This is True"
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "rowNumber": 2,
+            "siblingId": 10,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": false,
+                "displayValue": "false"
+              },
+              {
+                "columnId": 102,
+                "value": "This is False",
+                "displayValue": "This is False"
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
     "scenario": "Update Rows - Assign Formulae",
     "request": {
       "method": "PUT",
@@ -236,7 +1155,6 @@
           {
             "id": 11,
             "rowNumber": 5,
-            "siblingId": 10,
             "expanded": true,
             "createdAt": "2017-10-18T20:21:51Z",
             "modifiedAt": "2017-10-18T20:32:40Z",
@@ -261,6 +1179,216 @@
     }
   },
   {
+    "scenario": "Update Rows - Assign Values - Hyperlink",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Google",
+              "hyperlink": {
+                "url": "http://google.com"
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Bing",
+              "hyperlink": {
+                "url": "http://bing.com"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Google",
+                "displayValue": "Google",
+                "hyperlink": {
+                  "url": "http://google.com"
+                }
+              },
+              {
+                "columnId": 102,
+                "value": "Bing",
+                "displayValue": "Bing",
+                "hyperlink": {
+                  "url": "http://bing.com"
+                }
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Assign Values - Hyperlink SheetID",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Sheet2",
+              "hyperlink": {
+                "sheetId": 2
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Sheet3",
+              "hyperlink": {
+                "sheetId": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Sheet2",
+                "displayValue": "Sheet2",
+                "hyperlink": {
+                  "sheetId": 2
+                }
+              },
+              {
+                "columnId": 102,
+                "value": "Sheet3",
+                "displayValue": "Sheet3",
+                "hyperlink": {
+                  "sheetId": 3
+                }
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Assign Values - Hyperlink ReportID",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Report9",
+              "hyperlink": {
+                "reportId": 9
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Report8",
+              "hyperlink": {
+                "reportId": 8
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Report9",
+                "displayValue": "Report9",
+                "hyperlink": {
+                  "reportId": 9
+                }
+              },
+              {
+                "columnId": 102,
+                "value": "Report8",
+                "displayValue": "Report8",
+                "hyperlink": {
+                  "reportId": 8
+                }
+              }
+            ]
+          }
+        ],
+        "version": 7
+      }
+    }
+  },
+  {
     "scenario": "Update Rows - Invalid - Assign Value and Formulae",
     "request": {
       "method": "PUT",
@@ -273,12 +1401,12 @@
           "id": 10,
           "cells": [
             {
-              "columnId": 100,
+              "columnId": 101,
               "formula": "=SUM([Column2]3, [Column2]4)*2",
               "value": "20"
             },
             {
-              "columnId": 101,
+              "columnId": 102,
               "formula": "=SUM([Column2]3, [Column2]3, [Column2]4)"
             }
           ]
@@ -301,5 +1429,54 @@
         }
       }
     }
+  },
+  {
+    "scenario": "Update Rows - Invalid - Assign Hyperlink URL and SheetId",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "Google",
+              "hyperlink": {
+                "url": "http://google.com",
+                "sheetId": 2
+              }
+            },
+            {
+              "columnId": 102,
+              "value": "Bing",
+              "hyperlink": {
+                "url": "http://bing.com"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "statusMessage": "Bad Request",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "jsonBody": {
+        "errorCode": 1112,
+        "message": "hyperlink.url must be null for sheet, report, or Sight hyperlinks.",
+        "refId": "dbwn8owxskam",
+        "detail": {
+          "index": 0,
+          "rowId": 10
+        }
+      }
+    }
   }
 ]
+
