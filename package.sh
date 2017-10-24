@@ -39,7 +39,10 @@ mkdir -p $MAPPINGS_DIR
 cp $SCENARIO "$SCENARIO_DIR/scenarios.json"
 
 # add mappings
-ruby main.rb $SCENARIO $MAPPINGS_DIR
+ruby gen_mappings.rb $SCENARIO $MAPPINGS_DIR
+
+# add readme
+ruby gen_docs.rb --output "$PACKAGE_NAME/readme.md" $SCENARIO 
 
 # add wiremock JAR
 cp $WIREMOCK_JAR "$PACKAGE_NAME/wiremock.jar"
