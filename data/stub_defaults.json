@@ -1,0 +1,14 @@
+{
+    "request": {
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    },
+    "response": {
+        "status": 200,
+        "statusMessage": "OK",
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+    }
+}

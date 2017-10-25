@@ -5,6 +5,7 @@ WIREMOCK_JAR=$2
 SCENARIO='data/scenarios.json'
 LAUNCH_SCRIPT='data/launch.sh'
 PACKAGE_README='data/README.md'
+STUB_DEFAULTS='data/stub_defaults.json'
 
 INVALID_INPUT=0
 if [ -z $PACKAGE_NAME ]; then
@@ -40,7 +41,7 @@ mkdir -p $MAPPINGS_DIR
 cp $SCENARIO "$SCENARIO_DIR/scenarios.json"
 
 # add mappings
-ruby gen_mappings.rb $SCENARIO $MAPPINGS_DIR
+ruby gen_mappings.rb --stub-defaults $STUB_DEFAULTS $SCENARIO $MAPPINGS_DIR
 
 # add readme
 cp $PACKAGE_README "$PACKAGE_NAME/README.md"
