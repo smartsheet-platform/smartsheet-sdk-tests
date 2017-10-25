@@ -1,6 +1,7 @@
 [
   {
     "scenario": "List Sheets - No Params",
+    "description": "Gets a list of sheets without query parameters. Returns a valid response with a list of sheets.",
     "request": {
       "method": "GET",
       "urlPath": "/sheets"
@@ -39,6 +40,7 @@
   },
   {
     "scenario": "List Sheets - Include Owner Info",
+    "description": "Gets a list of sheets with a owner info query parameters. Returns a valid response with a list of sheets.",
     "request": {
       "method": "GET",
       "urlPath": "/sheets",
@@ -84,6 +86,7 @@
   },
   {
     "scenario": "Create Sheet - Invalid - No Columns",
+    "description": "Creates a new sheet without providing column details. Returns a bad request failure response.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets",
@@ -111,6 +114,7 @@
 
   {
     "scenario": "Add Rows - Assign Values - String",
+    "description": "Creates new rows containing cells with string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -199,6 +203,7 @@
   },
   {
     "scenario": "Add Rows - Assign Values - Int",
+    "description": "Creates new rows containing cells with numerical values. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -288,6 +293,7 @@
   },
   {
     "scenario": "Add Rows - Assign Values - Bool",
+    "description": "Creates new rows containing cells with boolean values. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -377,6 +383,7 @@
   },
   {
     "scenario": "Add Rows - Assign Formulae",
+    "description": "Creates new rows containing cells with formulae. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -436,6 +443,7 @@
   },
   {
     "scenario": "Add Rows - Assign Values - Hyperlink",
+    "description": "Creates new rows containing cells with hyperlink objects to url and string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -505,6 +513,7 @@
   },
   {
     "scenario": "Add Rows - Assign Values - Hyperlink SheetID",
+    "description": "Creates new rows containing cells with hyperlink object to sheet and string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -574,6 +583,7 @@
   },
   {
     "scenario": "Add Rows - Assign Values - Hyperlink ReportID",
+    "description": "Creates new rows containing cells with hyperlink object to report and string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -643,6 +653,7 @@
   },
   {
     "scenario": "Add Rows - Invalid - Assign Value and Formulae",
+    "description": "Creates new rows containing cells with values and formulae. Returns a bad request failure response",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -684,6 +695,7 @@
   },
   {
     "scenario": "Add Rows - Invalid - Assign Hyperlink URL and SheetId",
+    "description": "Creates new rows containing cells with hyperlink object of url and sheet. Returns a bad request failure response",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -730,6 +742,7 @@
   },
   {
     "scenario": "Add Rows - Location - Top",
+    "description": "Creates new rows containing cells with string values to be set as the top row. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -788,6 +801,7 @@
   },
   {
     "scenario": "Add Rows - Location - Bottom",
+    "description": "Creates new rows containing cells with string values to be set as the bottom row. Returns a valid response with a list of rows.",
     "request": {
       "method": "POST",
       "urlPath": "/sheets/1/rows",
@@ -847,6 +861,7 @@
 
   {
     "scenario": "Update Rows - Assign Values - String",
+    "description": "Updates rows with cells containing string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -938,6 +953,7 @@
   },
   {
     "scenario": "Update Rows - Assign Values - Int",
+    "description": "Updates rows with cells containing numerical values. Returns a valid response with a list of rows.",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -1029,6 +1045,7 @@
   },
   {
     "scenario": "Update Rows - Assign Values - Bool",
+    "description": "Updates rows with cells containing boolean values. Returns a valid response with a list of rows.",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -1120,6 +1137,7 @@
   },
   {
     "scenario": "Update Rows - Assign Formulae",
+    "description": "Updates rows with cells containing formulae. Returns a valid response with a list of rows.",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -1180,6 +1198,7 @@
   },
   {
     "scenario": "Update Rows - Assign Values - Hyperlink",
+    "description": "Updates rows with cells containing hyperlink objects to url and string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -1250,6 +1269,7 @@
   },
   {
     "scenario": "Update Rows - Assign Values - Hyperlink SheetID",
+    "description": "Updates rows with cells containing hyperlink object to sheet and string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -1320,6 +1340,7 @@
   },
   {
     "scenario": "Update Rows - Assign Values - Hyperlink ReportID",
+    "description": "Updates rows with cells containing hyperlink object to report and string values. Returns a valid response with a list of rows.",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -1390,6 +1411,7 @@
   },
   {
     "scenario": "Update Rows - Invalid - Assign Value and Formulae",
+    "description": "Updates rows with cells containing values and formulae. Returns a bad request failure response",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",
@@ -1432,6 +1454,7 @@
   },
   {
     "scenario": "Update Rows - Invalid - Assign Hyperlink URL and SheetId",
+    "description": "Updates rows with cells containing hyperlink object of url and sheet. Returns a bad request failure response",
     "request": {
       "method": "PUT",
       "urlPath": "/sheets/1/rows",

@@ -77,6 +77,7 @@ class ScenarioTemplate
     assign_scenario_header scenario_name
 
     scenario.delete 'scenario'
+    scenario.delete 'description'
   end
 
   def assign_scenario_header(scenario_name)
