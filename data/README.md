@@ -1,4 +1,4 @@
-# WireMock SmartSheet Scenarios
+# WireMock SmartSheet Server
 A custom WireMock JAR with SmartSheet specific configuration
 
 ## Installation
@@ -19,3 +19,4 @@ This will launch a fully configured WireMock server running on port 8082.
 
 The scenarios listed in the scenario section below can be called as specified. For example, the 'List Sheets' endpoint can be called by making a GET request to http://localhost:8082/sheets.
 
+# Configured Scenarios

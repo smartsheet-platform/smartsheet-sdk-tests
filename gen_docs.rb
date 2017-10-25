@@ -7,10 +7,8 @@ settings = CLI.new do
     argument :path, description: 'Path of the JSON file containing scenarios'
 end.parse!
 
-markdown = JSON.parse(File.read(settings.path), symbolize_names: true)
-    .map {|scenario| ScenarioMarkdown.new(scenario).to_markdown }
-    .join("\n\n")
-
+scenarios = JSON.parse(File.read(settings.path), symbolize_names: true)
+markdown = ScenariosMarkdown.new(scenarios).to_markdown
 
 if settings.output.empty?
     puts markdown

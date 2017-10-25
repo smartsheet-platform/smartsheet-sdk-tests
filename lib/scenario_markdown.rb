@@ -1,5 +1,32 @@
 require 'json'
 
+class ScenariosMarkdown
+    def initialize(scenarios)
+        @scenarios = scenarios
+    end
+
+    def to_markdown
+        markdown = []
+
+        markdown << table_of_contents
+        markdown << @scenarios
+            .map {|s| ScenarioMarkdown.new(s).to_markdown}
+            .join("\n\n")
+
+        markdown.join("\n\n")
+    end
+
+    private
+
+    def table_of_contents
+        @scenarios.map do |s|
+            scenario_link = "##{s[:scenario].gsub(/\s+/, '-').downcase}"
+            
+            "* [#{s[:scenario]}](#{scenario_link})"
+        end.join("\n")
+    end
+end
+
 class ScenarioMarkdown
     def initialize(scenario)
         @scenario = scenario
@@ -12,10 +39,17 @@ class ScenarioMarkdown
         markdown << description_md
         markdown << "### Expected Request"
         markdown << '#### ' + request_method_md
-        markdown << '#### Headers' if @scenario[:request].key?(:headers)
-        markdown << request_headers_md if @scenario[:request].key?(:headers)
-        markdown << '#### Body' if @scenario[:request].key?(:body)
-        markdown << request_body_md if @scenario[:request].key?(:body)
+
+        if @scenario[:request].key?(:headers)
+            markdown << '#### Headers' 
+            markdown << request_headers_md
+        end
+        
+        if @scenario[:request].key?(:body)
+            markdown << '#### Body' 
+            markdown << request_body_md
+        end
+
         markdown << "### Response"
         markdown << '#### ' + response_status_md
         markdown << response_body_md
