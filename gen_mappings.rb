@@ -8,7 +8,7 @@ CROSS = '✗'.red
 
 settings = CLI.new do
   argument :scenario_path, description: 'Path of the JSON file containing scenarios'
-  argument :output_path, description: 'Directory mappings will output to'
+  argument :output_path, description: 'Path to store the wiremock mapping files'
 end.parse!
 
 failures = []
