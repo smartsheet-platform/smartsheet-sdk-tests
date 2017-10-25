@@ -2,8 +2,9 @@
 
 PACKAGE_NAME=$1
 WIREMOCK_JAR=$2
-SCENARIO='scenarios.json'
-LAUNCH_SCRIPT='launch.sh'
+SCENARIO='data/scenarios.json'
+LAUNCH_SCRIPT='data/launch.sh'
+PACKAGE_README='data/README.md'
 
 INVALID_INPUT=0
 if [ -z $PACKAGE_NAME ]; then
@@ -42,7 +43,8 @@ cp $SCENARIO "$SCENARIO_DIR/scenarios.json"
 ruby gen_mappings.rb $SCENARIO $MAPPINGS_DIR
 
 # add readme
-ruby gen_docs.rb --output "$PACKAGE_NAME/readme.md" $SCENARIO 
+cp $PACKAGE_README "$PACKAGE_NAME/README.md"
+ruby gen_docs.rb $SCENARIO >> "$PACKAGE_NAME/README.md"
 
 # add wiremock JAR
 cp $WIREMOCK_JAR "$PACKAGE_NAME/wiremock.jar"

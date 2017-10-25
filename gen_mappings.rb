@@ -1,6 +1,6 @@
 require 'cli'
 require 'pp'
-require_relative 'scenario_wiremock_template'
+require_relative 'lib/scenario_wiremock_template'
 require_relative 'colorize'
 
 CHECK = '✓'.green
