@@ -1,14 +1,12 @@
 require 'cli'
 require 'pp'
-require_relative 'scenario_wiremock_template'
+require_relative 'lib/scenario_wiremock_template'
 require_relative 'colorize'
 
 CHECK = '✓'.green
 CROSS = '✗'.red
 
 settings = CLI.new do
-  option :port, description: 'Port at which the wiremock server resides', default: 8082
-  switch :debug, description: 'Print failure information'
   argument :scenario_path, description: 'Path of the JSON file containing scenarios'
   argument :output_path, description: 'Path to store the wiremock mapping files'
 end.parse!
