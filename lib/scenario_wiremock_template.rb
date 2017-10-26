@@ -61,9 +61,11 @@ class ScenarioTemplate
     return if templated
 
     build_params_conditions
+    build_url_condition
     move_scenario_to_headers
     build_headers_conditions
     move_body_to_pattern
+    remove_description
 
     self.templated = true
   end
@@ -73,11 +75,20 @@ class ScenarioTemplate
     request['queryParameters'] = hash_to_conditions request['queryParameters']
   end
 
+  def build_url_condition
+    request['urlPathPattern'] = request['urlPath'] + '\/?'
+
+    request.delete 'urlPath'
+  end
+
+  def remove_description
+    scenario.delete 'description'
+  end
+
   def move_scenario_to_headers
     assign_scenario_header scenario_name
 
     scenario.delete 'scenario'
-    scenario.delete 'description'
   end
 
   def assign_scenario_header(scenario_name)
