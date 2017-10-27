@@ -40,12 +40,17 @@ class ScenarioMarkdown
         markdown << "### Expected Request"
         markdown << '#### ' + request_method_md
 
-        if @scenario[:request].key?(:headers)
+        if scenario[:request].key?(:headers)
             markdown << '#### Headers' 
             markdown << request_headers_md
         end
+
+        if scenario[:request].key?(:queryParameters)
+            markdown << '#### Query Parameters'
+            markdown << request_params_md
+        end
         
-        if @scenario[:request].key?(:body)
+        if scenario[:request].key?(:body)
             markdown << '#### Body' 
             markdown << request_body_md
         end
@@ -59,35 +64,45 @@ class ScenarioMarkdown
 
     private
 
+    attr_reader :scenario
+
     def title_md
-        "#{@scenario[:scenario]}"
+        "#{scenario[:scenario]}"
     end
 
     def description_md
-        "#{@scenario[:description]}"
+        "#{scenario[:description]}"
     end
     
     def request_method_md
-        "#{@scenario[:request][:method]} - #{@scenario[:request][:urlPath]}"
+        "#{scenario[:request][:method]} - #{scenario[:request][:urlPath]}"
     end
 
     def request_headers_md
-        @scenario[:request][:headers].map {|k, v| "* #{k}: #{v}"}.join("\n")
+        hash_to_bulleted_md(scenario[:request][:headers])
+    end
+
+    def request_params_md
+        hash_to_bulleted_md(scenario[:request][:queryParameters])
+    end
+
+    def hash_to_bulleted_md(h)
+        h.map {|k, v| "* #{k}: #{v}"}.join("\n")
     end
 
     def request_body_md
         '```json' + "\n" +
-            "#{JSON.pretty_generate(@scenario[:request][:body])}\n" +
+            "#{JSON.pretty_generate(scenario[:request][:body])}\n" +
             '```'
     end
 
     def response_status_md
-        "Status - #{@scenario[:response][:status]} #{@scenario[:response][:statusMessage]}"
+        "Status - #{scenario[:response][:status]} #{scenario[:response][:statusMessage]}"
     end
 
     def response_body_md
         '```json' + "\n" +
-            "#{JSON.pretty_generate(@scenario[:response][:jsonBody])}\n" +
+            "#{JSON.pretty_generate(scenario[:response][:jsonBody])}\n" +
             '```'
     end
 end
