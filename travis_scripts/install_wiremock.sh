@@ -8,4 +8,4 @@ RELEASE_DOWNLOAD_URL='https://github.com/stollgr/wiremock-scenario-templating/re
 curl $RELEASE_DOWNLOAD_URL -L -s -o $WIREMOCK_DOWNLOAD
 
 # unzip wiremock
-unzip -qq $WIREMOCK_DOWNLOAD
+unzip -qq -d $WIREMOCK_INSTALL_DIR $WIREMOCK_DOWNLOAD
