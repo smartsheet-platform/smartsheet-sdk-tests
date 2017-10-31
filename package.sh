@@ -52,3 +52,7 @@ cp $WIREMOCK_JAR "$PACKAGE_NAME/wiremock.jar"
 
 # add launch script
 cp $LAUNCH_SCRIPT "$PACKAGE_NAME/launch.sh"
+
+# create zip
+(cd $PACKAGE_NAME; zip -q -r "$PACKAGE_NAME.zip" *)
+mv "$PACKAGE_NAME/$PACKAGE_NAME.zip" .
