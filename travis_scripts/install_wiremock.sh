@@ -2,10 +2,14 @@
 
 WIREMOCK_DOWNLOAD='Smartsheet-WireMock-Bundle.zip'
 WIREMOCK_INSTALL_DIR='Smartsheet-WireMock-Bundle'
-RELEASE_DOWNLOAD_URL='https://github.com/stollgr/wiremock-scenario-templating/releases/download/0.12/Smartsheet-WireMock-Bundle.zip'
+
+if [ -z "$MOCK_API_RELEASE_URL" ]; then
+    echo "Must set MOCK_API_RELEASE_URL environment variable"
+    exit 1
+fi
 
 # download wiremock
-curl $RELEASE_DOWNLOAD_URL -L -s -o $WIREMOCK_DOWNLOAD
+curl $MOCK_API_RELEASE_URL -L -s -o $WIREMOCK_DOWNLOAD
 
 # unzip wiremock
 unzip -qq -d $WIREMOCK_INSTALL_DIR $WIREMOCK_DOWNLOAD
