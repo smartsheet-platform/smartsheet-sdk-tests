@@ -1,60 +1,38 @@
 require 'json'
 
 class ScenarioTemplates
-  def initialize(scenarios, defaults)
+  def initialize(scenarios)
     @scenarios = scenarios
-    @defaults = defaults
   end
 
   def as_wiremock_stubs
-    scenarios.map {|s| ScenarioTemplate.new(s, defaults).as_wiremock_stub}
+    scenarios.map {|s| ScenarioTemplate.new(s).as_wiremock_stub}
   end
 
   private
 
-  attr_reader :scenarios, :defaults
+  attr_reader :scenarios
 end
 
 class ScenarioTemplate
-  def initialize(scenario, defaults)
+  def initialize(scenario)
     @scenario = scenario
-    @defaults = defaults
     @scenario_name = scenario['scenario']
     @templated = false
   end
 
   def as_wiremock_stub
-    apply_defaults
     build_template
     [scenario_name, as_json]
   end
 
   private
 
-  attr_reader :scenario_name, :defaults
+  attr_reader :scenario_name
   attr_accessor :templated, :scenario
 
   def request
     scenario['request']
-  end
-
-  def apply_defaults
-    @scenario = apply_default_value(@scenario, defaults)
-  end
-
-  def apply_default_value(scenario_value, default_value)
-    if default_value.is_a?(Hash)
-      scenario_value = {} unless scenario_value.is_a?(Hash)
-      default_value.each do |k, v|
-        if !scenario_value.key?(k) || scenario_value[k].is_a?(Hash)
-          scenario_value[k] = apply_default_value(scenario_value[k], v)
-        end
-      end
-
-      scenario_value
-    else
-      default_value
-    end
   end
 
   def build_template
