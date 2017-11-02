@@ -6,4 +6,4 @@ WIREMOCK_INSTALL_DIR='Smartsheet-WireMock-Bundle'
 (cd $WIREMOCK_INSTALL_DIR; ./launch.sh &)
 
 # wait for wiremock to start
-sleep 5
+sleep 10
