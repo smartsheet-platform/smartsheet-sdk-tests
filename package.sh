@@ -32,20 +32,21 @@ fi
 WIREMOCK_ROOT="$(cd "$(dirname "$WIREMOCK_ROOT_REL_PATH")"; pwd)/$(basename "$WIREMOCK_ROOT_REL_PATH")"
 MAPPINGS_DIR="$PACKAGE_NAME/mappings/"
 SCENARIO_DIR="$PACKAGE_NAME/__files/__scenarios/"
+SCENARIO_WITH_DEFAULTS="$SCENARIO_DIR/scenarios.json"
 
 # make wiremock root directory
 mkdir -p $SCENARIO_DIR
 mkdir -p $MAPPINGS_DIR
 
-# add scenario
-cp $SCENARIO "$SCENARIO_DIR/scenarios.json"
+# add scenario and apply defaults
+ruby apply_defaults.rb --output $SCENARIO_WITH_DEFAULTS $STUB_DEFAULTS $SCENARIO 
 
 # add mappings
-ruby gen_mappings.rb --stub-defaults $STUB_DEFAULTS $SCENARIO $MAPPINGS_DIR
+ruby gen_mappings.rb $SCENARIO_WITH_DEFAULTS $MAPPINGS_DIR
 
 # add readme
 cp $PACKAGE_README "$PACKAGE_NAME/README.md"
-ruby gen_docs.rb $SCENARIO >> "$PACKAGE_NAME/README.md"
+ruby gen_docs.rb $SCENARIO_WITH_DEFAULTS >> "$PACKAGE_NAME/README.md"
 
 # add wiremock JAR
 cp $WIREMOCK_JAR "$PACKAGE_NAME/wiremock.jar"

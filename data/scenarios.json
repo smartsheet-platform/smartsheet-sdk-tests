@@ -7,11 +7,6 @@
       "urlPath": "/sheets"
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "pageNumber": 1,
         "pageSize": 100,
@@ -49,11 +44,6 @@
       }
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "pageNumber": 1,
         "pageSize": 100,
@@ -101,9 +91,6 @@
     "response": {
       "status": 400,
       "statusMessage": "Bad Request",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "errorCode": 1054,
         "message": "The new sheet requires either a fromId or columns.",
@@ -149,11 +136,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -238,11 +220,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -328,11 +305,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -406,11 +378,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -472,11 +439,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -542,11 +504,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -612,11 +569,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -679,9 +631,6 @@
     "response": {
       "status": 400,
       "statusMessage": "Bad Request",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "errorCode": 1163,
         "message": "If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.",
@@ -727,9 +676,6 @@
     "response": {
       "status": 400,
       "statusMessage": "Bad Request",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "errorCode": 1112,
         "message": "hyperlink.url must be null for sheet, report, or Sight hyperlinks.",
@@ -766,11 +712,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -825,11 +766,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -898,11 +834,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -990,11 +921,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -1082,11 +1008,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -1161,11 +1082,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -1228,11 +1144,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -1299,11 +1210,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -1370,11 +1276,6 @@
       ]
     },
     "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
@@ -1438,9 +1339,6 @@
     "response": {
       "status": 400,
       "statusMessage": "Bad Request",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "errorCode": 1163,
         "message": "If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.",
@@ -1487,9 +1385,6 @@
     "response": {
       "status": 400,
       "statusMessage": "Bad Request",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
       "jsonBody": {
         "errorCode": 1112,
         "message": "hyperlink.url must be null for sheet, report, or Sight hyperlinks.",
