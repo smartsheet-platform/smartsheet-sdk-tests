@@ -2,7 +2,7 @@
 
 PACKAGE_NAME=$1
 WIREMOCK_JAR=$2
-SCENARIO='data/scenarios.json'
+DATA_SCENARIO_DIR='data/scenarios'
 LAUNCH_SCRIPT='data/launch.sh'
 PACKAGE_README='data/README.md'
 STUB_DEFAULTS='data/stub_defaults.json'
@@ -29,24 +29,26 @@ if [ $INVALID_INPUT == 1 ]; then
     exit 1
 fi
 
-WIREMOCK_ROOT="$(cd "$(dirname "$WIREMOCK_ROOT_REL_PATH")"; pwd)/$(basename "$WIREMOCK_ROOT_REL_PATH")"
-MAPPINGS_DIR="$PACKAGE_NAME/mappings/"
-SCENARIO_DIR="$PACKAGE_NAME/__files/__scenarios/"
-SCENARIO_WITH_DEFAULTS="$SCENARIO_DIR/scenarios.json"
+PACKAGE_MAPPINGS_DIR="$PACKAGE_NAME/mappings/"
+PACKAGE_SCENARIO_DIR="$PACKAGE_NAME/__files/__scenarios/"
+PACKAGE_SCENARIOS="$PACKAGE_SCENARIO_DIR/scenarios.json"
+TMP_SCENARIOS=".tmp_scenarios.json"
 
 # make wiremock root directory
-mkdir -p $SCENARIO_DIR
-mkdir -p $MAPPINGS_DIR
+mkdir -p $PACKAGE_SCENARIO_DIR
+mkdir -p $PACKAGE_MAPPINGS_DIR
 
 # add scenario and apply defaults
-ruby apply_defaults.rb --output $SCENARIO_WITH_DEFAULTS $STUB_DEFAULTS $SCENARIO 
+node concat_scenarios.js --scenarios="$DATA_SCENARIO_DIR" --output="$TMP_SCENARIOS"
+ruby apply_defaults.rb --output $PACKAGE_SCENARIOS $STUB_DEFAULTS $TMP_SCENARIOS 
+rm $TMP_SCENARIOS
 
 # add mappings
-ruby gen_mappings.rb $SCENARIO_WITH_DEFAULTS $MAPPINGS_DIR
+ruby gen_mappings.rb $PACKAGE_SCENARIOS $PACKAGE_MAPPINGS_DIR
 
 # add readme
 cp $PACKAGE_README "$PACKAGE_NAME/README.md"
-ruby gen_docs.rb $SCENARIO_WITH_DEFAULTS >> "$PACKAGE_NAME/README.md"
+ruby gen_docs.rb $PACKAGE_SCENARIOS >> "$PACKAGE_NAME/README.md"
 
 # add wiremock JAR
 cp $WIREMOCK_JAR "$PACKAGE_NAME/wiremock.jar"

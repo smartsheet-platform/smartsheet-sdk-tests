@@ -1,0 +1,101 @@
+[
+  {
+    "scenario": "List Sheets - No Params",
+    "description": "Gets a list of sheets without query parameters. Returns a valid response with a list of sheets.",
+    "request": {
+      "method": "GET",
+      "urlPath": "/sheets"
+    },
+    "response": {
+      "jsonBody": {
+        "pageNumber": 1,
+        "pageSize": 100,
+        "totalPages": 1,
+        "totalCount": 2,
+        "data": [
+          {
+            "id": 1,
+            "name": "Copy of Sample Sheet",
+            "accessLevel": "OWNER",
+            "permalink": "https://app.smartsheet.com/b/home?lx=*****************",
+            "createdAt": "2017-10-09T01:54:15Z",
+            "modifiedAt": "2017-10-09T01:54:15Z"
+          },
+          {
+            "id": 2,
+            "name": "Task Tracking Document",
+            "accessLevel": "EDITOR_SHARE",
+            "permalink": "https://app.smartsheet.com/b/home?lx=*****************",
+            "createdAt": "2017-09-21T18:36:23Z",
+            "modifiedAt": "2017-10-17T22:30:57Z"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "scenario": "List Sheets - Include Owner Info",
+    "description": "Gets a list of sheets with a owner info query parameters. Returns a valid response with a list of sheets.",
+    "request": {
+      "method": "GET",
+      "urlPath": "/sheets",
+      "queryParameters": {
+        "include": "ownerInfo"
+      }
+    },
+    "response": {
+      "jsonBody": {
+        "pageNumber": 1,
+        "pageSize": 100,
+        "totalPages": 1,
+        "totalCount": 2,
+        "data": [
+          {
+            "id": 1,
+            "name": "Copy of Sample Sheet",
+            "accessLevel": "OWNER",
+            "owner": "john.doe@smartsheet.com",
+            "ownerId": 10,
+            "permalink": "https://app.smartsheet.com/b/home?lx=*****************",
+            "createdAt": "2017-10-09T01:54:15Z",
+            "modifiedAt": "2017-10-09T01:54:15Z"
+          },
+          {
+            "id": 2,
+            "name": "Task Tracking Document",
+            "accessLevel": "EDITOR_SHARE",
+            "owner": "john.doe@smartsheet.com",
+            "ownerId": 10,
+            "permalink": "https://app.smartsheet.com/b/home?lx=*****************",
+            "createdAt": "2017-09-21T18:36:23Z",
+            "modifiedAt": "2017-10-17T22:30:57Z"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "scenario": "Create Sheet - Invalid - No Columns",
+    "description": "Creates a new sheet without providing column details. Returns a bad request failure response.",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "New Sheet",
+        "columns": []
+      }
+    },
+    "response": {
+      "status": 400,
+      "statusMessage": "Bad Request",
+      "jsonBody": {
+        "errorCode": 1054,
+        "message": "The new sheet requires either a fromId or columns.",
+        "refId": "123abc"
+      }
+    }
+  }
+]
