@@ -694,7 +694,6 @@
       }
     }
   },
-  
   {
     "scenario": "Update Rows - Assign Values - String",
     "description": "Updates rows with cells containing string values. Returns a valid response with a list of rows.",
@@ -1293,6 +1292,376 @@
           "index": 0,
           "rowId": 10
         }
+      }
+    }
+  },
+  {
+    "scenario": "Add Rows - Assign Object Value - Predecessor List",
+    "description": "Tests the predecessor list object type. Verifies extra fields (value, formula) are not set.",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "cells": [
+            {
+              "columnId": 101,
+              "objectValue": {
+                "objectType": "PREDECESSOR_LIST",
+                "predecessors": [
+                  {
+                    "rowId": 10,
+                    "type": "FS",
+                    "lag": {
+                      "objectType": "DURATION",
+                      "days": 2,
+                      "hours": 4
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 11,
+            "sheetId": 1,
+            "rowNumber": 2,
+            "siblingId": 10,
+            "expanded": true,
+            "createdAt": "2017-11-02T20:58:34Z",
+            "modifiedAt": "2017-11-02T20:58:34Z",
+            "cells": [
+              {
+                "columnId": 102,
+                "value": "2017-11-07T13:00:00",
+                "formula": "=CALCSTART(Duration3, Start2, Finish2, 0, 72000000)"
+              },
+              {
+                "columnId": 101,
+                "value": "2FS +2d 4h",
+                "displayValue": "2FS +2d 4h"
+              }
+            ]
+          }
+        ],
+        "version": 5
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Clear Value - Text Number",
+    "description": "Tests the ability to send an empty string to clear a text/number cell value",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-11-03T15:31:33Z",
+            "modifiedAt": "2017-11-03T15:43:27Z",
+            "cells": [
+              {
+                "columnId": 101
+              }
+            ]
+          }
+        ],
+        "version": 8
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Clear Value - Checkbox",
+    "description": "Tests the ability to send an empty string to clear a cell value in a checkbox column. The cell will be set to false rather than cleared",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-11-03T15:31:33Z",
+            "modifiedAt": "2017-11-03T15:43:27Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": false
+              }
+            ]
+          }
+        ],
+        "version": 8
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Clear Value - Hyperlink",
+    "description": "Tests the ability to to clear a cell with a hyper link.",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "",
+              "hyperlink": null
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-11-03T15:31:33Z",
+            "modifiedAt": "2017-11-03T15:43:27Z",
+            "cells": [
+              {
+                "columnId": 101
+              }
+            ]
+          }
+        ],
+        "version": 8
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Clear Value - Cell Link",
+    "description": "Tests the ability to to clear a cell with a cell link.",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "",
+              "linkInFromCell": null
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-11-03T15:31:33Z",
+            "modifiedAt": "2017-11-03T15:43:27Z",
+            "cells": [
+              {
+                "columnId": 101
+              }
+            ]
+          }
+        ],
+        "version": 8
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Invalid - Assign Hyperlink and Cell Link",
+    "description": "Attempts to assign both a hyperlink and cell link to a cell",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "cells": [
+            {
+              "columnId": 101,
+              "value": "",
+              "linkInFromCell": {
+                "sheetId": 2,
+                "rowId": 20,
+                "columnId": 201
+              },
+              "hyperlink": {
+                "url": "www.google.com"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "errorCode": 1109,
+        "message": "Only one of cell.hyperlink or cell.linkInFromCell may be non-null.",
+        "refId": "4ns6urv44dgrw",
+        "detail": {
+          "index": 0,
+          "rowId": 10
+        }
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Location - Top",
+    "description": "Move rows containing cells with string values to the top. Returns a valid response with a list of rows.",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "toTop": true
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 1,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Apple",
+                "displayValue": "Apple"
+              },
+              {
+                "columnId": 102,
+                "value": "Red Fruit",
+                "displayValue": "Red Fruit"
+              }
+            ]
+          }
+        ],
+        "version": 14
+      }
+    }
+  },
+  {
+    "scenario": "Update Rows - Location - Bottom",
+    "description": "Moves rows containing cells with string values to the bottom. Returns a valid response with a list of rows.",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "id": 10,
+          "toBottom": true
+        }
+      ]
+    },
+    "response": {
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 10,
+            "rowNumber": 100,
+            "expanded": true,
+            "createdAt": "2017-10-17T23:16:08Z",
+            "modifiedAt": "2017-10-17T23:20:18Z",
+            "cells": [
+              {
+                "columnId": 101,
+                "value": "Apple",
+                "displayValue": "Apple"
+              },
+              {
+                "columnId": 102,
+                "value": "Red Fruit",
+                "displayValue": "Red Fruit"
+              }
+            ]
+          }
+        ],
+        "version": 14
       }
     }
   }
