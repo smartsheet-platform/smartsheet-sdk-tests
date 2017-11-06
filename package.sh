@@ -44,7 +44,7 @@ ruby apply_defaults.rb --output $PACKAGE_SCENARIOS $STUB_DEFAULTS $TMP_SCENARIOS
 rm $TMP_SCENARIOS
 
 # add mappings
-ruby gen_mappings.rb $PACKAGE_SCENARIOS $PACKAGE_MAPPINGS_DIR
+node gen_mappings.js --scenarios=$PACKAGE_SCENARIOS --output_dir=$PACKAGE_MAPPINGS_DIR
 
 # add readme
 cp $PACKAGE_README "$PACKAGE_NAME/README.md"
