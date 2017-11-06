@@ -1,6 +1,10 @@
 # wiremock-scenario-templating
 Scripts for packaging and deploying a custom WireMock server.
 
+## Requirements
+* Ruby 2.4 or newer
+* Node 6.11 or newer
+
 ## Usage
 This repository provides a number of scripts that can be used to bundle a WireMock server with Smartsheet scenario configuration files. It also contains scripts that can be used by Travis builds to install and run a WireMock server bundle.
 
