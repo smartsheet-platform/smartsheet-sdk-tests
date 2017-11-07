@@ -48,7 +48,7 @@ node gen_mappings.js --scenarios=$PACKAGE_SCENARIOS --output_dir=$PACKAGE_MAPPIN
 
 # add readme
 cp $PACKAGE_README "$PACKAGE_NAME/README.md"
-ruby gen_docs.rb $PACKAGE_SCENARIOS >> "$PACKAGE_NAME/README.md"
+node gen_docs.js --scenarios=$PACKAGE_SCENARIOS >> "$PACKAGE_NAME/README.md"
 
 # add wiremock JAR
 cp $WIREMOCK_JAR "$PACKAGE_NAME/wiremock.jar"

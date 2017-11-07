@@ -6,7 +6,7 @@ var scenarioDocs = require('../lib/scenario_docs');
 describe("Scenario Docs Test", function () {
     function givenFullScenario() {
         return {
-            "scenario": "Scenario Name",
+            "scenario": "Scenario Name - Some Test",
             "description": "scenarioDescription",
             "request": {
                 "method": "scenarioMethod",
@@ -68,7 +68,7 @@ describe("Scenario Docs Test", function () {
 
             var tableOfContents = scenarioDocs.buildTableOfContents(scenarios);
 
-            assertContainsSubstring(tableOfContents, "[Scenario Name](#scenario-name)")
+            assertContainsSubstring(tableOfContents, "[Scenario Name - Some Test](#scenario-name---some-test)")
         });
 
         it("includes all scenarios", function () {
@@ -77,7 +77,7 @@ describe("Scenario Docs Test", function () {
             var tableOfContents = scenarioDocs.buildTableOfContents(scenarios);
             
             for(var i = 0; i < 10; i++) {
-                assertContainsSubstring(tableOfContents, "Scenario Name" + i);
+                assertContainsSubstring(tableOfContents, "Scenario Name - Some Test" + i);
             }
         });
     });
@@ -91,18 +91,18 @@ describe("Scenario Docs Test", function () {
             var docs = scenarioDocs.buildScenariosDocs(scenarios);
             
             for(var i = 0; i < 10; i++) {
-                assertContainsSubstring(docs, "Scenario Name" + i);
+                assertContainsSubstring(docs, "Scenario Name - Some Test" + i);
             }
         });
     });
     
     describe("#buildScenarioDoc", function() {
-        it("contains scenario name", function() {
+        it("contains Scenario Name - Some Test", function() {
             var scenario = givenFullScenario();
             
             var doc = scenarioDocs.buildScenarioDoc(scenario);
             
-            assertContainsSubstring(doc, 'Scenario Name');
+            assertContainsSubstring(doc, 'Scenario Name - Some Test');
         });
 
         it("contains description", function() {
