@@ -1,6 +1,5 @@
 var fs = require('fs');
 var _ = require('underscore');
-var colors = require('colors/safe');
 
 var scenarioDefaults = require('./lib/scenario_defaults');
 
