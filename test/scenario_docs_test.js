@@ -6,7 +6,7 @@ var scenarioDocs = require('../lib/scenario_docs');
 describe("Scenario Docs Test", function () {
     function givenFullScenario() {
         return {
-            "scenario": "scenarioName",
+            "scenario": "Scenario Name",
             "description": "scenarioDescription",
             "request": {
                 "method": "scenarioMethod",
@@ -50,18 +50,40 @@ describe("Scenario Docs Test", function () {
             }
         }
     }
-    
-    describe("#buildScenariosDocs", function () {
-        function givenFullScenarios(numScenarios) {
-            var scenarios = [];
-            for (var i = 0; i < numScenarios; i++) {
-                var scenario = givenFullScenario();
-                scenario.scenario = scenario.scenario + i;
-                scenarios.push(scenario);
-            }
-            
-            return scenarios;
+
+    function givenFullScenarios(numScenarios) {
+        var scenarios = [];
+        for (var i = 0; i < numScenarios; i++) {
+            var scenario = givenFullScenario();
+            scenario.scenario = scenario.scenario + i;
+            scenarios.push(scenario);
         }
+        
+        return scenarios;
+    }
+    
+    describe("#buildTableOfContents", function () {
+        it("correctly creates links", function () {
+            var scenarios = [givenFullScenario()];
+
+            var tableOfContents = scenarioDocs.buildTableOfContents(scenarios);
+
+            assertContainsSubstring(tableOfContents, "[Scenario Name](#scenario-name)")
+        });
+
+        it("includes all scenarios", function () {
+            var scenarios = givenFullScenarios(10);
+            
+            var tableOfContents = scenarioDocs.buildTableOfContents(scenarios);
+            
+            for(var i = 0; i < 10; i++) {
+                assertContainsSubstring(tableOfContents, "Scenario Name" + i);
+            }
+        });
+    });
+
+    describe("#buildScenariosDocs", function () {
+        
         
         it("documents each scenario", function() {
             var scenarios = givenFullScenarios(10);
@@ -69,7 +91,7 @@ describe("Scenario Docs Test", function () {
             var docs = scenarioDocs.buildScenariosDocs(scenarios);
             
             for(var i = 0; i < 10; i++) {
-                assertContainsSubstring(docs, "scenarioName" + i);
+                assertContainsSubstring(docs, "Scenario Name" + i);
             }
         });
     });
@@ -80,7 +102,7 @@ describe("Scenario Docs Test", function () {
             
             var doc = scenarioDocs.buildScenarioDoc(scenario);
             
-            assertContainsSubstring(doc, 'scenarioName');
+            assertContainsSubstring(doc, 'Scenario Name');
         });
 
         it("contains description", function() {
