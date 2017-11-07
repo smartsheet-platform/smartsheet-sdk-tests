@@ -26,23 +26,23 @@ class ScenarioWithDefaults
     private
 
     attr_reader :scenario, :defaults
-
-    # def apply_defaults
-    #     @scenario = apply_default_value(@scenario, defaults)
-    # end
     
     def apply_default_value(scenario_value, default_value)
-        if default_value.is_a?(Hash)
-            scenario_value = {} unless scenario_value.is_a?(Hash)
-            default_value.each do |k, v|
-                if !scenario_value.key?(k) || scenario_value[k].is_a?(Hash)
-                    scenario_value[k] = apply_default_value(scenario_value[k], v)
-                end
-            end
-            
-            scenario_value
-        else
-            default_value
+        if scenario_value == nil
+            return default_value
         end
+
+        unless default_value.is_a?(Hash)
+            return scenario_value
+        end
+
+        scenario_value = {} unless scenario_value.is_a?(Hash)
+        default_value.each do |k, v|
+            if !scenario_value.key?(k) || scenario_value[k].is_a?(Hash)
+                scenario_value[k] = apply_default_value(scenario_value[k], v)
+            end
+        end
+        
+        scenario_value
     end
 end

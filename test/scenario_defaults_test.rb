@@ -25,7 +25,9 @@ describe ScenarioWithDefaults do
                         "Content-Type" => "application/json"
                     },
                     "jsonBody" => {
-                        "someField" => 234
+                        "someField" => {
+                            "somethingElse" => 345
+                        }
                     }
                 }
             }
@@ -78,9 +80,7 @@ describe ScenarioWithDefaults do
             @defaults = {
                 "response" => {
                     "jsonBody" => {
-                        "someField" => {
-                            "somethingElse" => 345
-                        }
+                        "someField" => 234
                     }
                 }
             }
@@ -113,10 +113,10 @@ describe ScenarioWithDefaults do
 
         it 'does not overwrite existing values when types differ' do
             given_full_scenario
-            given_defaults_with_content_type
+            given_defaults_with_different_type
 
             scenario = ScenarioWithDefaults.new(@scenario, @defaults).with_defaults
-            scenario['response']['jsonBody']['someField'].must_equal(234)
+            scenario['response']['jsonBody']['someField']['somethingElse'].must_equal(345)
         end
     end
 end
