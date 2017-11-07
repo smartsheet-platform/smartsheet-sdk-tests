@@ -1564,6 +1564,8 @@
       ]
     },
     "response": {
+      "status": 400,
+      "statusMessage": "Bad Request",
       "jsonBody": {
         "errorCode": 1109,
         "message": "Only one of cell.hyperlink or cell.linkInFromCell may be non-null.",
