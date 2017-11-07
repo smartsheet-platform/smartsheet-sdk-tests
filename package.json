@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha \"test/**/*_test.js\""
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,12 @@
   },
   "homepage": "https://github.com/stollgr/wiremock-scenario-templating#readme",
   "dependencies": {
+    "colors": "^1.1.2",
     "underscore": "^1.8.3",
     "yargs": "^10.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "should": "^13.1.3"
   }
 }
