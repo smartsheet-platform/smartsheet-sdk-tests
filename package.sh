@@ -40,7 +40,7 @@ mkdir -p $PACKAGE_MAPPINGS_DIR
 
 # add scenario and apply defaults
 node concat_scenarios.js --scenarios="$DATA_SCENARIO_DIR" --output="$TMP_SCENARIOS"
-ruby apply_defaults.rb --output $PACKAGE_SCENARIOS $STUB_DEFAULTS $TMP_SCENARIOS 
+node apply_defaults.js --output=$PACKAGE_SCENARIOS --defaults=$STUB_DEFAULTS --scenarios=$TMP_SCENARIOS 
 rm $TMP_SCENARIOS
 
 # add mappings

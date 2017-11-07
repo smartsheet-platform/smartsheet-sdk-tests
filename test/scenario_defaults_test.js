@@ -111,5 +111,14 @@ describe("Scenario Defaults Test", function () {
             should.exist(scenariosWithDefaults.request.headers);
             scenariosWithDefaults.request.headers['Content-Type'].should.equal('some type');
         });
+
+        it("does not make changes when no defaults are provided", function() {
+            var scenario = givenFullScenario();
+            var defaults = {};
+
+            var scenariosWithDefaults = scenarioDefaults.buildScenarioWithDefaults(scenario, defaults);
+
+            scenariosWithDefaults.should.deepEqual(scenario);
+        });
     });
 });
