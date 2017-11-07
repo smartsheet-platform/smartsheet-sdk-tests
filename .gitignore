@@ -1,11 +1,1 @@
-# ruby
-/.bundle/
-/Gemfile.lock
-/doc/
-/pkg/
-/spec/reports/
-/tmp/
-/.idea/
-
-# node
 node_modules/
