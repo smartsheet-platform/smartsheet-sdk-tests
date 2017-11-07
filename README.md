@@ -2,7 +2,6 @@
 Scripts for packaging and deploying a custom WireMock server.
 
 ## Requirements
-* Ruby 2.4 or newer
 * Node 6.11 or newer
 
 ## Usage
