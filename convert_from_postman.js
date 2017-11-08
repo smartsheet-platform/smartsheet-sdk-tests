@@ -19,5 +19,5 @@ var scenariosJson = JSON.stringify(scenarios, null, '  ');
 
 fs.writeFileSync(argv.output, scenariosJson);
 
-console.log('Successfully converted Postman export to Scenario file.');
+console.log('Success.\n');
 console.log('Before generating a new package, please clean up the generated scenarios to ensure they do not have Postman variables, extra headers, and/or unsanitized data.');

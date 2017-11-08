@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# exit on error
+set -e
+
 WIREMOCK_DOWNLOAD='Smartsheet-WireMock-Bundle.zip'
 WIREMOCK_INSTALL_DIR='Smartsheet-WireMock-Bundle'
 
