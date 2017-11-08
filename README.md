@@ -1,5 +1,5 @@
-# wiremock-scenario-templating
-Scripts for packaging and deploying a custom WireMock server.
+# smartsheet-sdk-tests
+Mock test suite for all language SDKs
 
 ## Requirements
 * Node 6.11 or newer
