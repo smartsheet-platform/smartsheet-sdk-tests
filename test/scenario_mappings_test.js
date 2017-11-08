@@ -135,7 +135,7 @@ describe("Scenario Mappings Test", function () {
             mapping.request.should.not.have.ownProperty('queryParameters');
         });
 
-        it("does not set body when there are none", function() {
+        it("does not set body when there isn't one", function() {
             var scenario = givenMinimalScenario();
             
             var mapping = scenarioMappings.buildMappingFromScenario(scenario);
