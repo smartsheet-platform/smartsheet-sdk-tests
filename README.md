@@ -7,6 +7,18 @@ Scripts for packaging and deploying a custom WireMock server.
 ## Usage
 This repository provides a number of scripts that can be used to bundle a WireMock server with Smartsheet scenario configuration files. It also contains scripts that can be used by Travis builds to install and run a WireMock server bundle.
 
+## Creating Scenarios
+Scenarios can either be written by hand following the scenario spec here (TODO: document spec) or by converting a Postman collections export file.
+
+### Converting Postman Export Files
+Scenario files can be created from Postman export files, version 2. See [here](https://www.getpostman.com/docs/postman/collections/data_formats) for information on how to export a Postman collection. Scenario files are converted using the `convert_from_postman.js` script:
+
+```bash
+$ node convert_from_postman.js --collection=path/to/collection.json --output=my_scenarios.json
+```
+
+Once the scenario file has been converted, it must be cleaned up a bit. Postman variables will have to be converted into literals, the url path may need to be changed from absolute to relative, extra headers (such as `Authorization`) should be removed, and data should be sanitized.
+
 ## Bundling Packages
 To bundle a package, run the following in a bash terminal:
 
