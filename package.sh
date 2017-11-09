@@ -2,6 +2,8 @@
 
 PACKAGE_NAME=$1
 WIREMOCK_JAR=$2
+EXTENSION_JAR=$3
+
 DATA_SCENARIO_DIR='data/scenarios'
 LAUNCH_SCRIPT='data/launch.sh'
 PACKAGE_README='data/README.md'
@@ -23,7 +25,12 @@ if [ -z $WIREMOCK_JAR ] || [ ! -f $WIREMOCK_JAR ]; then
     INVALID_INPUT=1
 fi
 
-USAGE_TEXT="Usage: ./$0 package-name wiremock-jar"
+if [ -z $EXTENSION_JAR ] || [ ! -f $EXTENSION_JAR ]; then
+    echo 'Could not find extension JAR'
+    INVALID_INPUT=1
+fi
+
+USAGE_TEXT="Usage: ./$0 package-name wiremock-standalone.jar diff-extension.jar"
 if [ $INVALID_INPUT == 1 ]; then
     echo $USAGE_TEXT
     exit 1
@@ -40,7 +47,7 @@ mkdir -p $PACKAGE_MAPPINGS_DIR
 
 # add scenario and apply defaults
 node concat_scenarios.js --scenarios="$DATA_SCENARIO_DIR" --output="$TMP_SCENARIOS"
-node apply_defaults.js --output=$PACKAGE_SCENARIOS --defaults=$STUB_DEFAULTS --scenarios=$TMP_SCENARIOS 
+node apply_defaults.js --output=$PACKAGE_SCENARIOS --defaults=$STUB_DEFAULTS --scenarios=$TMP_SCENARIOS
 rm $TMP_SCENARIOS
 
 # add mappings
@@ -50,8 +57,10 @@ node gen_mappings.js --scenarios=$PACKAGE_SCENARIOS --output_dir=$PACKAGE_MAPPIN
 cp $PACKAGE_README "$PACKAGE_NAME/README.md"
 node gen_docs.js --scenarios=$PACKAGE_SCENARIOS >> "$PACKAGE_NAME/README.md"
 
-# add wiremock JAR
-cp $WIREMOCK_JAR "$PACKAGE_NAME/wiremock.jar"
+# add wiremock JARs
+mkdir -p "$PACKAGE_NAME/lib"
+cp $WIREMOCK_JAR "$PACKAGE_NAME/lib/"
+cp $EXTENSION_JAR "$PACKAGE_NAME/lib/"
 
 # add launch script
 cp $LAUNCH_SCRIPT "$PACKAGE_NAME/launch.sh"
