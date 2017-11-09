@@ -1,0 +1,32 @@
+{
+  "name": "wiremock-scenario-templating",
+  "version": "1.0.0",
+  "description": "A set of scripts designed to create a Smartsheet SDK WireMock bundle",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha \"test/**/*_test.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stollgr/wiremock-scenario-templating.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stollgr/wiremock-scenario-templating/issues"
+  },
+  "homepage": "https://github.com/stollgr/wiremock-scenario-templating#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "underscore": "^1.8.3",
+    "yargs": "^10.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "should": "^13.1.3"
+  }
+}
