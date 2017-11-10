@@ -2,10 +2,17 @@
 Mock test suite for all language SDKs
 
 ## Requirements
-* Node 6.11 or newer
+* Node 6.11+
+* Java 7+
 
 ## Usage
 This repository provides a number of scripts that can be used to bundle a WireMock server with Smartsheet scenario configuration files. It also contains scripts that can be used by Travis builds to install and run a WireMock server bundle.
+
+## Contents
+* [Creating Scenarios](#creating-scenarios)
+* [Bundling Packages](#bundling-packages)
+* [Releasing a Package](#releasing-a-package)
+* [Using with Travis CI](#using-with-travis-ci)
 
 ## Creating Scenarios
 Scenarios can either be written by hand following the [scenario spec](#scenario-specification) or by [converting a Postman collections export file](#converting-postman-export-files).
