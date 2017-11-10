@@ -8,7 +8,65 @@ Mock test suite for all language SDKs
 This repository provides a number of scripts that can be used to bundle a WireMock server with Smartsheet scenario configuration files. It also contains scripts that can be used by Travis builds to install and run a WireMock server bundle.
 
 ## Creating Scenarios
-Scenarios can either be written by hand following the scenario spec here (TODO: document spec) or by converting a Postman collections export file.
+Scenarios can either be written by hand following the [scenario spec](#scenario-specification) or by [converting a Postman collections export file](#converting-postman-export-files).
+
+### Scenario Specification
+Scenario files should have the following structure:
+
+```json
+[
+  {
+    "scenario": "The scenario name",
+    "description": "A description of what you are testing. This will only appear in the generated docs.",
+    "request": {
+      "method": "The HTTP method: GET, POST, DELETE, etc",
+      "urlPath": "The relative path of the url: /sheets/1",
+      "queryParameters": {
+        "some query key": "some query value"
+      },
+      "headers": {
+        "some header key": "some header value"
+      },
+      "body": {
+        "this is the full, expected JSON body.": 123
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "some header key": "some header value"
+      },
+      "jsonBody": {
+        "this is the JSON body that will be returned.": 123
+      }
+    }
+  }
+]
+```
+
+Not all fields shown above are required. The minimal required fields are as follows:
+
+```json
+[
+  {
+    "scenario": "The scenario name",
+    "request": {
+      "method": "The HTTP method: GET, POST, DELETE, etc",
+      "urlPath": "The relative path of the url: /sheets/1"
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "jsonBody": {
+        "this is the JSON body that will be returned.": 123
+      }
+    }
+  }
+]
+```
+
+Note that some fields are added through the use of defaults. See the file `data/stub_defaults.json` to see which fields will be added. Note, defaults will only be added when the field does not exist in the scenario - they do not override values.
 
 ### Converting Postman Export Files
 Scenario files can be created from Postman export files, version 2. See [here](https://www.getpostman.com/docs/postman/collections/data_formats) for information on how to export a Postman collection. Scenario files are converted using the `convert_from_postman.js` script:
