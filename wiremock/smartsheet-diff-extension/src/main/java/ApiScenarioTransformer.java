@@ -1,7 +1,7 @@
-import wiremock.com.fasterxml.jackson.annotation.*;
-import wiremock.com.fasterxml.jackson.databind.JsonNode;
-import wiremock.com.fasterxml.jackson.databind.ObjectMapper;
-import wiremock.com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.common.Json;

@@ -1,22 +1,16 @@
-import com.github.tomakehurst.wiremock.http.Request;
 import com.github.tomakehurst.wiremock.http.RequestMethod;
-import com.github.tomakehurst.wiremock.servlet.WireMockHttpServletRequestAdapter;
 import javafx.util.Pair;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
-import wiremock.com.fasterxml.jackson.databind.JsonNode;
-import wiremock.com.fasterxml.jackson.databind.ObjectMapper;
-import wiremock.com.fasterxml.jackson.databind.node.ObjectNode;
-import wiremock.org.eclipse.jetty.server.HttpChannel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import javax.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class RequestDiffTest {
 	private MockRequest request;
