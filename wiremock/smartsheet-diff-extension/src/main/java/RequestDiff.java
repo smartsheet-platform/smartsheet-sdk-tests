@@ -28,29 +28,27 @@ class RequestDiff {
 	}
 
 	private static String diffBody(Request request, JsonNode scenario) {
-
-		if(request.getMethod().toString().toUpperCase() == "GET"){
-			return "";
-		}
-
 		JsonNode scenarioBody = scenario.get(SCENARIO_REQUEST_FIELD).get(SCENARIO_BODY_FIELD);
-		if( scenarioBody == null){
-			return "Test scenario's request body was not defined or failed to parse.";
+
+		String scenarioBodyString = "";
+		if(scenarioBody != null){
+			scenarioBodyString = scenarioBody.toString();
 		}
 
-		String result = "";
-
-		String scenarioBodyString = scenarioBody.toString();
 		String requestBodyString = request.getBodyAsString();
 
+		return getJsonDiff(scenarioBodyString, requestBodyString);
+	}
+
+	private static String getJsonDiff(String scenarioBodyString, String requestBodyString) {
 		try {
 			assertJsonEquals(scenarioBodyString, requestBodyString);
 		}
 		catch(AssertionError e) {
-			result = "Body differs from expectation - " + e.getMessage();
+			return "Body differs from expectation - " + e.getMessage();
 		}
 
-		return result;
+		return "";
 	}
 
 	private static String diffUrl(Request request, JsonNode scenario) {
@@ -161,11 +159,11 @@ class RequestDiff {
 
 	private static String diffExpectedQueryParam(Request request, Map.Entry<String, JsonNode> queryParam) {
 		QueryParameter requestParam = request.queryParameter(queryParam.getKey());
-		if(requestParam == null || requestParam.key() == null || requestParam.key().isEmpty()){
+		if(requestParam == null || !requestParam.isPresent()){
 			return String.format("Expected Query Parameters: Expected %s, but not found. ", queryParam.getKey());
 		}
 
-		if (!requestParam.containsValue(queryParam .getValue().asText())) {
+		if (!requestParam.containsValue(queryParam.getValue().asText())) {
 			return formatAssert("Expected Query Parameter:" + queryParam.getKey(), queryParam.getValue().asText(), requestParam.firstValue());
 		}
 

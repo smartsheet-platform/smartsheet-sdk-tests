@@ -9,8 +9,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class RequestDiffTest {
 	private MockRequest request;
@@ -23,12 +22,29 @@ public class RequestDiffTest {
 				.method(RequestMethod.POST)
 				.header("header1", "headerValue1")
 				.header("header2", "headerValue2")
-				.body("{\"someField\": \"someValue\"}");
+				.body("{\"someField\": \"someValue\", \"someOtherField\": \"someOtherValue\"}");
+	}
+
+	private void givenMinimalRequest() {
+		request = new MockRequest()
+				.url("/sheets/1")
+				.method(RequestMethod.GET)
+				.body("");
 	}
 
 	private void givenFullRequestWithPath(String path) {
 		givenFullRequest();
 		request.url(path + "?query1=param1&query2=param2");
+	}
+
+	private void givenFullRequestWithBody(String body) {
+		givenFullRequest();
+		request.body(body);
+	}
+
+	private void givenMinimalRequestWithBody(String body) {
+		givenMinimalRequest();
+		request.body(body);
 	}
 
 	private void givenFullRequestWithMethod(RequestMethod method) {
@@ -70,6 +86,10 @@ public class RequestDiffTest {
 		givenScenario(buildFullScenarioRequest());
 	}
 
+	private void givenMinimalScenario() {
+		givenScenario(buildMinimalScenarioRequest());
+	}
+
 	private ObjectNode buildFullScenarioRequest() {
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -83,6 +103,7 @@ public class RequestDiffTest {
 
 		ObjectNode body = mapper.createObjectNode();
 		body.put("someField", "someValue");
+		body.put("someOtherField", "someOtherValue");
 
 		ObjectNode scenarioRequest = mapper.createObjectNode();
 		scenarioRequest.put("method", "POST");
@@ -90,6 +111,16 @@ public class RequestDiffTest {
 		scenarioRequest.put("headers", headers);
 		scenarioRequest.put("queryParameters", params);
 		scenarioRequest.put("body", body);
+
+		return scenarioRequest;
+	}
+
+	private ObjectNode buildMinimalScenarioRequest() {
+		ObjectMapper mapper = new ObjectMapper();
+
+		ObjectNode scenarioRequest = mapper.createObjectNode();
+		scenarioRequest.put("method", "GET");
+		scenarioRequest.put("urlPath", "/sheets/1");
 
 		return scenarioRequest;
 	}
@@ -109,9 +140,19 @@ public class RequestDiffTest {
 	}
 
 	@Test
-	public void noDiffForMatch() {
+	public void returnsNoDiffForFullMatch() {
 		givenFullRequest();
 		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertEquals("", diff);
+	}
+
+	@Test
+	public void returnsNoDiffForMinimalMatch() {
+		givenMinimalRequest();
+		givenMinimalScenario();
 
 		whenGetDiffIsCalled();
 
@@ -240,6 +281,19 @@ public class RequestDiffTest {
 	}
 
 	@Test
+	public void returnsDiffForExtraQueryParamsWhenNotExpecting() {
+		List<Pair<String, String>> params = new ArrayList<Pair<String, String>>();
+		params.add(new Pair<String, String>("query1", "param1"));
+
+		givenFullRequestWithQueryParams(params);
+		givenMinimalScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.containsString("query1"));
+	}
+
+	@Test
 	public void returnsDiffForQueryParamsWithDifferentValue() {
 		List<Pair<String, String>> params = new ArrayList<Pair<String, String>>();
 		params.add(new Pair<String, String>("query1", "notRightOne"));
@@ -252,5 +306,55 @@ public class RequestDiffTest {
 
 		assertThat(diff, CoreMatchers.containsString("notRightOne"));
 		assertThat(diff, CoreMatchers.containsString("wrongTwo"));
+	}
+
+	@Test
+	public void returnsDiffForBodyWhenNotExpectingBody() {
+		givenMinimalRequestWithBody("{\"someCrazyField\": \"value\"}");
+		givenMinimalScenario();
+
+		whenGetDiffIsCalled();
+
+		assertNotEquals("", diff);
+	}
+
+	@Test
+	public void returnsDiffForNoBody() {
+		givenFullRequestWithBody("");
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertNotEquals("", diff);
+	}
+
+	@Test
+	public void returnsDiffForBodyWithMissingFields() {
+		givenFullRequestWithBody("{\"someField\": \"someValue\"}");
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.containsString("someOtherField"));
+	}
+
+	@Test
+	public void returnsDiffForBodyWithExtraFields() {
+		givenFullRequestWithBody("{\"someField\": \"someValue\", \"someOtherField\": \"someOtherValue\", \"someExtraField\": \"someExtraValue\"}");
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.containsString("someExtraField"));
+	}
+
+	@Test
+	public void returnsDiffForBodyWithDifferentValue() {
+		givenFullRequestWithBody("{\"someField\": \"someValue\", \"someOtherField\": \"someCrazyValue\"}");
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.containsString("someCrazyValue"));
 	}
 }
