@@ -150,7 +150,9 @@ public class MockRequest implements Request {
 	@Override
 	public QueryParameter queryParameter(String key) {
 		Map<String, QueryParameter> queryParams = Urls.splitQuery(URI.create(url));
-		return queryParams.get(key);
+		return queryParams.get(key) == null ?
+				QueryParameter.absent(key) :
+				queryParams.get(key);
 	}
 
 	@Override
