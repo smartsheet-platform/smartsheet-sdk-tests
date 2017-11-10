@@ -51,6 +51,27 @@ public class RequestDiffTest {
 		}
 	}
 
+	private void givenFullRequestWithQueryParams(List<Pair<String, String>> paramPairs) {
+		givenFullRequest();
+		String url = request.getUrl();
+		String baseUrl = url.split("\\?", 2)[0];
+
+		if (paramPairs.isEmpty()) {
+			request.url(baseUrl);
+			return;
+		}
+
+		List<String> params = new ArrayList<String>();
+		for (Pair<String,String> paramPair: paramPairs) {
+			params.add(paramPair.getKey() + "=" + paramPair.getValue());
+		}
+
+		String newUrl = baseUrl + "?";
+		newUrl += String.join("&", params);
+
+		request.url(newUrl);
+	}
+
 	private void givenFullScenario() {
 		givenScenario(buildFullScenarioRequest());
 	}
@@ -179,37 +200,63 @@ public class RequestDiffTest {
 		assertThat(diff, CoreMatchers.containsString("notRight1"));
 		assertThat(diff, CoreMatchers.containsString("alsoWrong2"));
 	}
-//
-//	@Test
-//	public void returnsDiffForMissingQueryParams() {
-//		givenFullRequestWithPath("/some/wrong/path");
-//		givenFullScenario();
-//
-//		whenGetDiffIsCalled();
-//
-//		assertThat(diff, CoreMatchers.containsString("/some/wrong/path"));
-//		assertTrue(false);
-//	}
-//
-//	@Test
-//	public void returnsDiffForExtraQueryParams() {
-//		givenFullRequestWithPath("/some/wrong/path");
-//		givenFullScenario();
-//
-//		whenGetDiffIsCalled();
-//
-//		assertThat(diff, CoreMatchers.containsString("/some/wrong/path"));
-//		assertTrue(false);
-//	}
-//
-//	@Test
-//	public void returnsDiffForIncorrectQueryParams() {
-//		givenFullRequestWithPath("/some/wrong/path");
-//		givenFullScenario();
-//
-//		whenGetDiffIsCalled();
-//
-//		assertThat(diff, CoreMatchers.containsString("/some/wrong/path"));
-//		assertTrue(false);
-//	}
+
+	@Test
+	public void returnsDiffForNoQueryParams() {
+		List<Pair<String, String>> params = new ArrayList<>();
+
+		givenFullRequestWithQueryParams(params);
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.containsString("query1"));
+		assertThat(diff, CoreMatchers.containsString("query2"));
+	}
+
+	@Test
+	public void returnsDiffForMissingQueryParams() {
+		List<Pair<String, String>> params = new ArrayList<Pair<String, String>>();
+		params.add(new Pair<String, String>("query1", "param1"));
+
+		givenFullRequestWithQueryParams(params);
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.not(CoreMatchers.containsString("query1")));
+		assertThat(diff, CoreMatchers.containsString("query2"));
+	}
+
+	@Test
+	public void returnsDiffForExtraQueryParams() {
+		List<Pair<String, String>> params = new ArrayList<Pair<String, String>>();
+		params.add(new Pair<String, String>("query1", "param1"));
+		params.add(new Pair<String, String>("query2", "param2"));
+		params.add(new Pair<String, String>("query3", "param3"));
+
+		givenFullRequestWithQueryParams(params);
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.not(CoreMatchers.containsString("query1")));
+		assertThat(diff, CoreMatchers.not(CoreMatchers.containsString("query2")));
+		assertThat(diff, CoreMatchers.containsString("query3"));
+	}
+
+	@Test
+	public void returnsDiffForQueryParamsWithDifferentValue() {
+		List<Pair<String, String>> params = new ArrayList<Pair<String, String>>();
+		params.add(new Pair<String, String>("query1", "notRightOne"));
+		params.add(new Pair<String, String>("query2", "wrongTwo"));
+
+		givenFullRequestWithQueryParams(params);
+		givenFullScenario();
+
+		whenGetDiffIsCalled();
+
+		assertThat(diff, CoreMatchers.containsString("notRightOne"));
+		assertThat(diff, CoreMatchers.containsString("wrongTwo"));
+	}
 }
