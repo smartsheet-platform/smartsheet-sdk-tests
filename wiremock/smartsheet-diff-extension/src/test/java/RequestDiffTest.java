@@ -12,133 +12,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class RequestDiffTest {
-	private MockRequest request;
-	private String diff;
-	private ObjectNode scenario;
-
-	private void givenFullRequest() {
-		request = new MockRequest()
-				.url("/sheets/1?query1=param1&query2=param2")
-				.method(RequestMethod.POST)
-				.header("header1", "headerValue1")
-				.header("header2", "headerValue2")
-				.body("{\"someField\": \"someValue\", \"someOtherField\": \"someOtherValue\"}");
-	}
-
-	private void givenMinimalRequest() {
-		request = new MockRequest()
-				.url("/sheets/1")
-				.method(RequestMethod.GET)
-				.body("");
-	}
-
-	private void givenFullRequestWithPath(String path) {
-		givenFullRequest();
-		request.url(path + "?query1=param1&query2=param2");
-	}
-
-	private void givenFullRequestWithBody(String body) {
-		givenFullRequest();
-		request.body(body);
-	}
-
-	private void givenMinimalRequestWithBody(String body) {
-		givenMinimalRequest();
-		request.body(body);
-	}
-
-	private void givenFullRequestWithMethod(RequestMethod method) {
-		givenFullRequest();
-		request.method(method);
-	}
-
-	private void givenFullRequestWithHeaders(List<Pair<String, String>> headers) {
-		givenFullRequest();
-		request.clearHeaders();
-
-		for (Pair<String,String> headerPair: headers) {
-			request.header(headerPair.getKey(), headerPair.getValue());
-		}
-	}
-
-	private void givenFullRequestWithQueryParams(List<Pair<String, String>> paramPairs) {
-		givenFullRequest();
-		String url = request.getUrl();
-		String baseUrl = url.split("\\?", 2)[0];
-
-		if (paramPairs.isEmpty()) {
-			request.url(baseUrl);
-			return;
-		}
-
-		List<String> params = new ArrayList<String>();
-		for (Pair<String,String> paramPair: paramPairs) {
-			params.add(paramPair.getKey() + "=" + paramPair.getValue());
-		}
-
-		String newUrl = baseUrl + "?";
-		newUrl += String.join("&", params);
-
-		request.url(newUrl);
-	}
-
-	private void givenFullScenario() {
-		givenScenario(buildFullScenarioRequest());
-	}
-
-	private void givenMinimalScenario() {
-		givenScenario(buildMinimalScenarioRequest());
-	}
-
-	private ObjectNode buildFullScenarioRequest() {
-		ObjectMapper mapper = new ObjectMapper();
-
-		ObjectNode headers = mapper.createObjectNode();
-		headers.put("header1", "headerValue1");
-		headers.put("header2", "headerValue2");
-
-		ObjectNode params = mapper.createObjectNode();
-		params.put("query1", "param1");
-		params.put("query2", "param2");
-
-		ObjectNode body = mapper.createObjectNode();
-		body.put("someField", "someValue");
-		body.put("someOtherField", "someOtherValue");
-
-		ObjectNode scenarioRequest = mapper.createObjectNode();
-		scenarioRequest.put("method", "POST");
-		scenarioRequest.put("urlPath", "/sheets/1");
-		scenarioRequest.put("headers", headers);
-		scenarioRequest.put("queryParameters", params);
-		scenarioRequest.put("body", body);
-
-		return scenarioRequest;
-	}
-
-	private ObjectNode buildMinimalScenarioRequest() {
-		ObjectMapper mapper = new ObjectMapper();
-
-		ObjectNode scenarioRequest = mapper.createObjectNode();
-		scenarioRequest.put("method", "GET");
-		scenarioRequest.put("urlPath", "/sheets/1");
-
-		return scenarioRequest;
-	}
-
-	private void givenScenario(ObjectNode scenarioRequest) {
-		ObjectMapper mapper = new ObjectMapper();
-
-		scenario = mapper.createObjectNode();
-		scenario.put("scenario", "testScenario");
-		scenario.put("description", "testDescription");
-		scenario.put("request", scenarioRequest);
-		scenario.put("response", mapper.createObjectNode());
-	}
-
-	private void whenGetDiffIsCalled() {
-		diff = RequestDiff.getDiff(request, scenario);
-	}
-
 	@Test
 	public void returnsNoDiffForFullMatch() {
 		givenFullRequest();
@@ -356,5 +229,132 @@ public class RequestDiffTest {
 		whenGetDiffIsCalled();
 
 		assertThat(diff, CoreMatchers.containsString("someCrazyValue"));
+	}
+
+	private MockRequest request;
+	private String diff;
+	private ObjectNode scenario;
+
+	private void givenFullRequest() {
+		request = new MockRequest()
+				.url("/sheets/1?query1=param1&query2=param2")
+				.method(RequestMethod.POST)
+				.header("header1", "headerValue1")
+				.header("header2", "headerValue2")
+				.body("{\"someField\": \"someValue\", \"someOtherField\": \"someOtherValue\"}");
+	}
+
+	private void givenMinimalRequest() {
+		request = new MockRequest()
+				.url("/sheets/1")
+				.method(RequestMethod.GET)
+				.body("");
+	}
+
+	private void givenFullRequestWithPath(String path) {
+		givenFullRequest();
+		request.url(path + "?query1=param1&query2=param2");
+	}
+
+	private void givenFullRequestWithBody(String body) {
+		givenFullRequest();
+		request.body(body);
+	}
+
+	private void givenMinimalRequestWithBody(String body) {
+		givenMinimalRequest();
+		request.body(body);
+	}
+
+	private void givenFullRequestWithMethod(RequestMethod method) {
+		givenFullRequest();
+		request.method(method);
+	}
+
+	private void givenFullRequestWithHeaders(List<Pair<String, String>> headers) {
+		givenFullRequest();
+		request.clearHeaders();
+
+		for (Pair<String,String> headerPair: headers) {
+			request.header(headerPair.getKey(), headerPair.getValue());
+		}
+	}
+
+	private void givenFullRequestWithQueryParams(List<Pair<String, String>> paramPairs) {
+		givenFullRequest();
+		String url = request.getUrl();
+		String baseUrl = url.split("\\?", 2)[0];
+
+		if (paramPairs.isEmpty()) {
+			request.url(baseUrl);
+			return;
+		}
+
+		List<String> params = new ArrayList<String>();
+		for (Pair<String,String> paramPair: paramPairs) {
+			params.add(paramPair.getKey() + "=" + paramPair.getValue());
+		}
+
+		String newUrl = baseUrl + "?";
+		newUrl += String.join("&", params);
+
+		request.url(newUrl);
+	}
+
+	private void givenFullScenario() {
+		givenScenario(buildFullScenarioRequest());
+	}
+
+	private void givenMinimalScenario() {
+		givenScenario(buildMinimalScenarioRequest());
+	}
+
+	private ObjectNode buildFullScenarioRequest() {
+		ObjectMapper mapper = new ObjectMapper();
+
+		ObjectNode headers = mapper.createObjectNode();
+		headers.put("header1", "headerValue1");
+		headers.put("header2", "headerValue2");
+
+		ObjectNode params = mapper.createObjectNode();
+		params.put("query1", "param1");
+		params.put("query2", "param2");
+
+		ObjectNode body = mapper.createObjectNode();
+		body.put("someField", "someValue");
+		body.put("someOtherField", "someOtherValue");
+
+		ObjectNode scenarioRequest = mapper.createObjectNode();
+		scenarioRequest.put("method", "POST");
+		scenarioRequest.put("urlPath", "/sheets/1");
+		scenarioRequest.put("headers", headers);
+		scenarioRequest.put("queryParameters", params);
+		scenarioRequest.put("body", body);
+
+		return scenarioRequest;
+	}
+
+	private ObjectNode buildMinimalScenarioRequest() {
+		ObjectMapper mapper = new ObjectMapper();
+
+		ObjectNode scenarioRequest = mapper.createObjectNode();
+		scenarioRequest.put("method", "GET");
+		scenarioRequest.put("urlPath", "/sheets/1");
+
+		return scenarioRequest;
+	}
+
+	private void givenScenario(ObjectNode scenarioRequest) {
+		ObjectMapper mapper = new ObjectMapper();
+
+		scenario = mapper.createObjectNode();
+		scenario.put("scenario", "testScenario");
+		scenario.put("description", "testDescription");
+		scenario.put("request", scenarioRequest);
+		scenario.put("response", mapper.createObjectNode());
+	}
+
+	private void whenGetDiffIsCalled() {
+		diff = RequestDiff.getDiff(request, scenario);
 	}
 }
