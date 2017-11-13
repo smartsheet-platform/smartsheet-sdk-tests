@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 
-WIREMOCK_JAR='wiremock.jar'
+MAIN_CLASS='com.github.tomakehurst.wiremock.standalone.WireMockServerRunner'
+
+EXTENSION='ApiScenarioTransformer'
+
 PORT=8082
 
 # launch wiremock
-java -jar $WIREMOCK_JAR --extensions=com.smartsheet.wiremock.extensions.ApiScenarioTransformer --port=$PORT
+java  -cp "lib/*" $MAIN_CLASS --extensions=$EXTENSION  --port=$PORT
