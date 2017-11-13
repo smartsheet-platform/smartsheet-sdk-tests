@@ -13,22 +13,17 @@ PACKAGE_README='data/README.md'
 STUB_DEFAULTS='data/stub_defaults.json'
 
 INVALID_INPUT=0
-if [ -z $PACKAGE_NAME ]; then
+if [ -z "$PACKAGE_NAME" ]; then
     echo 'Package name must be specified'
     INVALID_INPUT=1
 fi
 
-if [ ! -f $SCENARIO ]; then
-    echo 'Could not find scenario file'
-    INVALID_INPUT=1
-fi
-
-if [ -z $WIREMOCK_JAR ] || [ ! -f $WIREMOCK_JAR ]; then
+if [ -z "$WIREMOCK_JAR" ] || [ ! -f "$WIREMOCK_JAR" ]; then
     echo 'Could not find wiremock JAR'
     INVALID_INPUT=1
 fi
 
-if [ -z $EXTENSION_JAR ] || [ ! -f $EXTENSION_JAR ]; then
+if [ -z "$EXTENSION_JAR" ] || [ ! -f "$EXTENSION_JAR" ]; then
     echo 'Could not find extension JAR'
     INVALID_INPUT=1
 fi
@@ -45,29 +40,31 @@ PACKAGE_SCENARIOS="$PACKAGE_SCENARIO_DIR/scenarios.json"
 TMP_SCENARIOS=".tmp_scenarios.json"
 
 # make wiremock root directory
-mkdir -p $PACKAGE_SCENARIO_DIR
-mkdir -p $PACKAGE_MAPPINGS_DIR
+mkdir -p "$PACKAGE_SCENARIO_DIR"
+mkdir -p "$PACKAGE_MAPPINGS_DIR"
 
 # add scenario and apply defaults
 node concat_scenarios.js --scenarios="$DATA_SCENARIO_DIR" --output="$TMP_SCENARIOS"
-node apply_defaults.js --output=$PACKAGE_SCENARIOS --defaults=$STUB_DEFAULTS --scenarios=$TMP_SCENARIOS
-rm $TMP_SCENARIOS
+node apply_defaults.js --output="$PACKAGE_SCENARIOS" --defaults="$STUB_DEFAULTS" --scenarios="$TMP_SCENARIOS"
+rm "$TMP_SCENARIOS"
 
 # add mappings
-node gen_mappings.js --scenarios=$PACKAGE_SCENARIOS --output_dir=$PACKAGE_MAPPINGS_DIR
+node gen_mappings.js --scenarios="$PACKAGE_SCENARIOS" --output_dir="$PACKAGE_MAPPINGS_DIR"
 
 # add readme
-cp $PACKAGE_README "$PACKAGE_NAME/README.md"
-node gen_docs.js --scenarios=$PACKAGE_SCENARIOS >> "$PACKAGE_NAME/README.md"
+cp "$PACKAGE_README" "$PACKAGE_NAME/README.md"
+node gen_docs.js --scenarios="$PACKAGE_SCENARIOS" >> "$PACKAGE_NAME/README.md"
 
 # add wiremock JARs
 mkdir -p "$PACKAGE_NAME/lib"
-cp $WIREMOCK_JAR "$PACKAGE_NAME/lib/"
-cp $EXTENSION_JAR "$PACKAGE_NAME/lib/"
+cp "$WIREMOCK_JAR" "$PACKAGE_NAME/lib/"
+cp "$EXTENSION_JAR" "$PACKAGE_NAME/lib/"
 
 # add launch script
-cp $LAUNCH_SCRIPT "$PACKAGE_NAME/launch.sh"
+cp "$LAUNCH_SCRIPT" "$PACKAGE_NAME/launch.sh"
 
-# create zip
-(cd $PACKAGE_NAME; zip -q -r "$PACKAGE_NAME.zip" *)
-mv "$PACKAGE_NAME/$PACKAGE_NAME.zip" .
+# create zip, if zip is defined
+if command -v zip >/dev/null 2>&1; then
+    (cd "$PACKAGE_NAME"; zip -q -r "$PACKAGE_NAME.zip" *)
+    mv "$PACKAGE_NAME/$PACKAGE_NAME.zip" .
+fi
