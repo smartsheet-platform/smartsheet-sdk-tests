@@ -7,4 +7,4 @@ EXTENSION='ApiScenarioTransformer'
 PORT=8082
 
 # launch wiremock
-java  -cp "lib/*" $MAIN_CLASS --extensions=$EXTENSION  --port=$PORT
+java  -cp "libs/*" $MAIN_CLASS --extensions=$EXTENSION  --port=$PORT
