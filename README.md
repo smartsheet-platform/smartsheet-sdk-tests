@@ -2,7 +2,10 @@
 Mock test suite for all language SDKs
 
 ## Requirements
+### For Packaging Scenarios
 * Node 6.11+
+
+### For Running/Modifying the Mock API Server
 * Java 7+
 
 ## Usage
