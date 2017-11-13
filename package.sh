@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# exit on error
+set -e
+
 PACKAGE_NAME=$1
 WIREMOCK_JAR=$2
 EXTENSION_JAR=$3
