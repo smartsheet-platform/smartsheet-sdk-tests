@@ -56,9 +56,9 @@ cp "$PACKAGE_README" "$PACKAGE_NAME/README.md"
 node gen_docs.js --scenarios="$PACKAGE_SCENARIOS" >> "$PACKAGE_NAME/README.md"
 
 # add wiremock JARs
-mkdir -p "$PACKAGE_NAME/lib"
-cp "$WIREMOCK_JAR" "$PACKAGE_NAME/lib/"
-cp "$EXTENSION_JAR" "$PACKAGE_NAME/lib/"
+mkdir -p "$PACKAGE_NAME/libs"
+cp "$WIREMOCK_JAR" "$PACKAGE_NAME/libs/"
+cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/"
 
 # add launch script
 cp "$LAUNCH_SCRIPT" "$PACKAGE_NAME/launch.sh"
