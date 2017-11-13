@@ -58,7 +58,7 @@ public class ApiScenarioTransformerTest {
 	public void returnsUnknownScenarioRespIfUnknownScenario() {
 		givenFileSource();
 		givenUnknownScenarioRequest();
-		givenMatchedResponseDefinition();
+		givenUnmatchedResponseDefinition();
 
 		whenTransformIsCalled();
 
@@ -70,7 +70,7 @@ public class ApiScenarioTransformerTest {
 	public void returnsInvalidScenarioRespIfBadScenarioHeader() {
 		givenFileSource();
 		givenInvalidScenarioRequest();
-		givenMatchedResponseDefinition();
+		givenUnmatchedResponseDefinition();
 
 		whenTransformIsCalled();
 
@@ -128,7 +128,7 @@ public class ApiScenarioTransformerTest {
 		request.clearHeaders();
 		request.header("Api-Scenario", "Unknown Scenario");
 	}
-	
+
 	private void givenFileSource() {
 		URL filesUrl = ClassLoader.getSystemResource("__files");
 
