@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.common.Json;
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.common.TextFile;
 import com.github.tomakehurst.wiremock.extension.Parameters;
 import com.github.tomakehurst.wiremock.extension.ResponseDefinitionTransformer;
@@ -22,6 +23,8 @@ public class ApiScenarioTransformer extends ResponseDefinitionTransformer {
 	private static final String SCENARIOS_FILE = "scenarios.json";
 	private static final Integer SMARTSHEET_ERROR_CODE = 9999;
 	private static final String SMARTSHEET_REF_ID = "123abc";
+
+	private static final ConsoleNotifier scenarioNotifier = new ConsoleNotifier(true);
 
 	private static final ResponseDefinition INVALID_SCENARIO_RESPONSE =
 			new ResponseDefinitionBuilder()
@@ -43,15 +46,23 @@ public class ApiScenarioTransformer extends ResponseDefinitionTransformer {
 			FileSource files,
 			Parameters parameters) {
 
-		if (!scenarioHeaderIsValid(request)) return INVALID_SCENARIO_RESPONSE;
+		if (!scenarioHeaderIsValid(request)) {
+			scenarioNotifier.info("Recieved request without a API-Scenario header");
+			return INVALID_SCENARIO_RESPONSE;
+		}
 
 		JsonNode scenario = getScenario(request, files);
 		if (scenario == null) return buildUnknownScenarioResponse(request);
 
 		String diff = RequestDiff.getDiff(request, scenario);
 
-		if (isMatched(responseDefinition) && hasNoDiff(diff)) return responseDefinition;
+		if (isMatched(responseDefinition) && hasNoDiff(diff)) {
 
+			scenarioNotifier.info(String.format("Matched on scenario: %s", getScenarioName(request)));
+			return responseDefinition;
+		}
+
+		scenarioNotifier.info(String.format("Failed match on request for scenario: %s", getScenarioName(request)));
 		return buildDiffResponse(diff);
 	}
 
