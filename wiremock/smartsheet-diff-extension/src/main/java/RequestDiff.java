@@ -36,8 +36,12 @@ class RequestDiff {
 		}
 
 		String requestBodyString = request.getBodyAsString();
+		String diffResult = getJsonDiff(scenarioBodyString, requestBodyString);
 
-		return getJsonDiff(scenarioBodyString, requestBodyString);
+		if(diffResult == null || diffResult.isEmpty())	return "";
+
+		String diffMessage = String.format("Compare result: %s, Expected body: %s, Actual body: %s", diffResult, scenarioBodyString, requestBodyString);
+		return diffMessage;
 	}
 
 	private static String getJsonDiff(String scenarioBodyString, String requestBodyString) {
