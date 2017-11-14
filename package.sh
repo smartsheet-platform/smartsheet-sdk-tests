@@ -4,22 +4,17 @@
 set -e
 
 PACKAGE_NAME=$1
-WIREMOCK_JAR=$2
-EXTENSION_JAR=$3
+EXTENSION_JAR=$2
 
 DATA_SCENARIO_DIR='data/scenarios'
 LAUNCH_SCRIPT='data/launch.sh'
+INSTALL_WIREMOCK_SCRIPT='data/install_wiremock.sh'
 PACKAGE_README='data/README.md'
 STUB_DEFAULTS='data/stub_defaults.json'
 
 INVALID_INPUT=0
 if [ -z "$PACKAGE_NAME" ]; then
     echo 'Package name must be specified'
-    INVALID_INPUT=1
-fi
-
-if [ -z "$WIREMOCK_JAR" ] || [ ! -f "$WIREMOCK_JAR" ]; then
-    echo 'Could not find wiremock JAR'
     INVALID_INPUT=1
 fi
 
@@ -55,13 +50,15 @@ node gen_mappings.js --scenarios="$PACKAGE_SCENARIOS" --output_dir="$PACKAGE_MAP
 cp "$PACKAGE_README" "$PACKAGE_NAME/README.md"
 node gen_docs.js --scenarios="$PACKAGE_SCENARIOS" >> "$PACKAGE_NAME/README.md"
 
-# add wiremock JARs
+# add wiremock extension JAR
 mkdir -p "$PACKAGE_NAME/libs"
-cp "$WIREMOCK_JAR" "$PACKAGE_NAME/libs/"
 cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/"
 
 # add launch script
 cp "$LAUNCH_SCRIPT" "$PACKAGE_NAME/launch.sh"
+
+# add install wiremock script
+cp "$INSTALL_WIREMOCK_SCRIPT" "$PACKAGE_NAME/install_wiremock.sh"
 
 # create zip, if zip is defined
 if command -v zip >/dev/null 2>&1; then
