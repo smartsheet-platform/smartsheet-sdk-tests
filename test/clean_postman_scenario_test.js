@@ -112,7 +112,7 @@ describe("Clean Postman Scenario Test", function () {
 
                 cleanPostmanScenario.cleanPostmanScenario(scenario);
 
-                scenario.response.headers.should.deepEqual({});
+                should.not.exist(scenario.response.headers);
             });
 
             it("does not remove 'Content-Type' response header", function() {
@@ -145,6 +145,14 @@ describe("Clean Postman Scenario Test", function () {
                 cleanPostmanScenario.cleanPostmanScenario(scenario);
 
                 scenario.request.headers.should.deepEqual({"some-header": 123, "something-else": 234, "Content-Type": "application/json"});
+            });
+
+            it("removes request headers obj if none exist after filter", function() {
+                var scenario = givenScenarioWithRequestHeaders({"Api-Scenario": "123abc"});
+
+                cleanPostmanScenario.cleanPostmanScenario(scenario);
+
+                should.not.exist(scenario.request.headers);
             });
         });
     });
