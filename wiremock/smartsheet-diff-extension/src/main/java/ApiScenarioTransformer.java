@@ -47,12 +47,15 @@ public class ApiScenarioTransformer extends ResponseDefinitionTransformer {
 			Parameters parameters) {
 
 		if (!scenarioHeaderIsValid(request)) {
-			scenarioNotifier.info("Recieved request without a API-Scenario header");
+			scenarioNotifier.info("Received request without a Api-Scenario header");
 			return INVALID_SCENARIO_RESPONSE;
 		}
 
 		JsonNode scenario = getScenario(request, files);
-		if (scenario == null) return buildUnknownScenarioResponse(request);
+		if (scenario == null){
+			scenarioNotifier.info(String.format("Received request with scenario name %s, but could not find scenario on WireMock server", getScenarioName(request)));
+			return buildUnknownScenarioResponse(request);
+		}
 
 		String diff = RequestDiff.getDiff(request, scenario);
 
