@@ -47,7 +47,7 @@ public class ApiScenarioTransformer extends ResponseDefinitionTransformer {
 			Parameters parameters) {
 
 		if (!scenarioHeaderIsValid(request)) {
-			scenarioNotifier.info("Received request without a Api-Scenario header");
+			scenarioNotifier.info("Received request without an Api-Scenario header");
 			return INVALID_SCENARIO_RESPONSE;
 		}
 
