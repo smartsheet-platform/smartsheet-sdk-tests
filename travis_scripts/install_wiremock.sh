@@ -3,7 +3,8 @@
 # exit on error
 set -e
 
-WIREMOCK_DOWNLOAD='sdk_tests_package.zip'
+INSTALL_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+WIREMOCK_DOWNLOAD="$INSTALL_SCRIPT_DIR/../sdk_tests_package.zip"
 WIREMOCK_INSTALL_DIR='Smartsheet-WireMock-Bundle'
 
 
