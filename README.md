@@ -22,8 +22,8 @@ This repository provides a number of scripts that can be used to bundle a WireMo
 To run the test server, unzip `sdk_tests_package.zip` and run the provided launch script:
 
 ```bash
-$ unzip -qq sdk_tests_package.zip -d sdk_tests_package
-$ cd sdk_tests_package
+$ unzip -qq sdk_tests_package.zip -d sdk_tests
+$ cd sdk_testscl
 $ ./launch.sh
 ```
 
@@ -103,6 +103,8 @@ $ node convert_from_postman.js --collection=path/to/collection.json --output=my_
 Once the scenario file has been converted, you should verify that the scenarios look as expected. Make sure every request has a response, no Postman variables appear in the request, and all the data has been sanitized.
 
 ## Bundling Packages
+Building a package will require the `diff-extension.jar`. You can either extract the existing JAR from the `sdk_test_package.zip` or rebuild it by following these [build instructions](wiremock\smartsheet-diff-extension\README.md).
+
 To bundle a package, run the following in a bash terminal:
 
 ```bash
@@ -110,6 +112,9 @@ $ sh package.sh path/to/diff-extension.jar
 ```
 
 When called successfully, the new package (both a directory and zip) will be created in the current directory. See [running the test server](#running-the-test-server) for information on how to start the new server.
+
+You can rebuild the diff-extension.jar by following the [build instructions](wiremock\smartsheet-diff-extension\README.md).
+
 
 ## Releasing a Package
 To release a package, commit your newly created ZIP file and merge it into `master`. Once your new ZIP has been merged, all Travis builds will use it for mock API tests. Note that adding a new ZIP will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
