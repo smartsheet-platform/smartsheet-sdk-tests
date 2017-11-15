@@ -3,34 +3,18 @@
 # exit on error
 set -e
 
-PACKAGE_NAME=$1
-WIREMOCK_JAR=$2
-EXTENSION_JAR=$3
+EXTENSION_JAR=$1
 
+PACKAGE_NAME='sdk_tests_package'
 DATA_SCENARIO_DIR='data/scenarios'
 LAUNCH_SCRIPT='data/launch.sh'
 PACKAGE_README='data/README.md'
 STUB_DEFAULTS='data/stub_defaults.json'
 
-INVALID_INPUT=0
-if [ -z "$PACKAGE_NAME" ]; then
-    echo 'Package name must be specified'
-    INVALID_INPUT=1
-fi
-
-if [ -z "$WIREMOCK_JAR" ] || [ ! -f "$WIREMOCK_JAR" ]; then
-    echo 'Could not find wiremock JAR'
-    INVALID_INPUT=1
-fi
-
 if [ -z "$EXTENSION_JAR" ] || [ ! -f "$EXTENSION_JAR" ]; then
+    echo 'Usage: $0 diff-extension.jar'
     echo 'Could not find extension JAR'
-    INVALID_INPUT=1
-fi
 
-USAGE_TEXT="Usage: ./$0 package-name wiremock-standalone.jar diff-extension.jar"
-if [ $INVALID_INPUT == 1 ]; then
-    echo $USAGE_TEXT
     exit 1
 fi
 
@@ -55,9 +39,8 @@ node gen_mappings.js --scenarios="$PACKAGE_SCENARIOS" --output_dir="$PACKAGE_MAP
 cp "$PACKAGE_README" "$PACKAGE_NAME/README.md"
 node gen_docs.js --scenarios="$PACKAGE_SCENARIOS" >> "$PACKAGE_NAME/README.md"
 
-# add wiremock JARs
+# add wiremock extension JAR
 mkdir -p "$PACKAGE_NAME/libs"
-cp "$WIREMOCK_JAR" "$PACKAGE_NAME/libs/"
 cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/"
 
 # add launch script

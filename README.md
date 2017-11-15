@@ -111,7 +111,7 @@ Add the following to your SDK's `.travis.yml` configuration file to run the Wire
 
 ```yaml
 before_install:
-  - git clone https://github.com/stollgr/wiremock-scenario-templating.git
+  - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
   - wiremock-scenario-templating/travis_scripts/install_wiremock.sh
 
 script:
@@ -123,7 +123,7 @@ For example, the Node SDK's `.travis.yml` configuration is:
 
 ```yaml
 before_install:
-  - git clone https://github.com/stollgr/wiremock-scenario-templating.git
+  - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
   - wiremock-scenario-templating/travis_scripts/install_wiremock.sh
 
 script:
