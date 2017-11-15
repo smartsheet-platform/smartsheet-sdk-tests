@@ -14,6 +14,8 @@ var argv = require('yargs')
 
 var collection = JSON.parse(fs.readFileSync(argv.collection));
 
+console.log('');
+
 var scenarios = postmanToScenario.postmanCollectionToScenarios(collection);
 scenarioCleaner.cleanPostmanScenarios(scenarios);
 
@@ -21,5 +23,4 @@ var scenariosJson = JSON.stringify(scenarios, null, '  ');
 
 fs.writeFileSync(argv.output, scenariosJson);
 
-console.log('Success.\n');
-console.log('Before generating a new package, please clean up the generated scenarios to ensure they do not have Postman variables, extra headers, and/or unsanitized data.');
+console.log('\nConversion completed successfully. Before using your scenario file, please address any warnings and/or remove any unsanitized data.');
