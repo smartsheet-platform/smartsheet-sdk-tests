@@ -22,7 +22,7 @@ This repository provides a number of scripts that can be used to bundle a WireMo
 To run the test server, unzip `sdk_tests_package.zip` and run the provided launch script:
 
 ```bash
-$ unzip -qq sdk_tests_package.zip
+$ unzip -qq sdk_tests_package.zip -d sdk_tests_package
 $ cd sdk_tests_package
 $ ./launch.sh
 ```
