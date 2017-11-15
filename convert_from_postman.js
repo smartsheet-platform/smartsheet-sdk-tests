@@ -2,6 +2,7 @@ var fs = require('fs');
 var _ = require('underscore');
 
 var postmanToScenario = require('./lib/postman_to_scenario');
+var scenarioCleaner = require('./lib/clean_postman_scenario');
 
 var argv = require('yargs')
     .alias('c', 'collection')
@@ -14,6 +15,7 @@ var argv = require('yargs')
 var collection = JSON.parse(fs.readFileSync(argv.collection));
 
 var scenarios = postmanToScenario.postmanCollectionToScenarios(collection);
+scenarioCleaner.cleanPostmanScenarios(scenarios);
 
 var scenariosJson = JSON.stringify(scenarios, null, '  ');
 
