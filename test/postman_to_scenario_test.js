@@ -4,6 +4,281 @@ var postmanToScenario = require('../lib/postman_to_scenario');
 
 
 describe("Postman to Scenario Test", function () {
+    describe("#postmanCollectionToScenarios", function () {
+        it("returns the correct number of scenarios", function() {
+            var collection = givenFullCollection(10);
+
+            var scenarios = postmanToScenario.postmanCollectionToScenarios(collection);
+
+            scenarios.length.should.equal(10);
+        });
+
+        it("parses items in folders", function() {
+            var collection = givenCollectionWithFolders();
+
+            var scenarios = postmanToScenario.postmanCollectionToScenarios(collection);
+
+            scenarios.length.should.equal(7);
+        });
+
+        function givenNestedFolder() {
+            // has four items
+            return {
+                "name": "testNestedFolder",
+                "description": "it is a nested folder!",
+                "variable": [],
+                "item": [
+                    givenFullItem(),
+                    givenMinimalItem(),
+                    givenShallowFolder()
+                ]
+            };
+        }
+
+        function givenShallowFolder() {
+            // has two items
+            return {
+                "name": "testShallowFolder",
+                "description": "it is a shallow folder!",
+                "variable": [],
+                "item": [
+                    givenFullItem(),
+                    givenFullItem()
+                ]
+            };
+        }
+
+        function givenFullCollection(numItems) {
+            var items = [];
+            for (var i = 0; i < numItems; i++) {
+                items.push(givenFullItem());
+            }
+
+            return _givenCollection(items);
+        }
+
+        function givenCollectionWithFolders() {
+            // has 7 items
+            return _givenCollection([givenNestedFolder(), givenShallowFolder(), givenMinimalItem()]);
+        }
+
+        function _givenCollection(items) {
+            return {
+                "info": {},
+                "item": items,
+                "event": [],
+                "variable": [],
+                "auth": {}
+            };
+        }
+    });
+
+    describe("#postmanItemToScenario", function() {
+        it("sets the scenario name correctly", function() {
+            var item = givenMinimalItem();
+
+            var scenario = postmanToScenario.postmanItemToScenario(item);
+
+            scenario.scenario.should.equal("testMinimalItem");
+        });
+
+        it("sets the scenario description correctly", function() {
+            var item = givenFullItem();
+
+            var scenario = postmanToScenario.postmanItemToScenario(item);
+
+            scenario.description.should.equal("This is a test!");
+        });
+
+        describe("scenario request", function () {
+            it("sets the url path correctly", function() {
+                var item = givenMinimalItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.request.urlPath.should.equal("{{smartsheet-url}}/sheets/1/rows");
+            });
+
+            it("removes query parameters from url path", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.request.urlPath.should.equal("{{smartsheet-url}}/sheets/1/rows");
+            });
+
+            it("sets the url path correctly with string url", function() {
+                var item = givenItemWithStringUrl();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.request.urlPath.should.equal("http://api.smartsheet.com/2.0/sheets");
+            });
+
+            it("sets the url path correctly with string request", function() {
+                var item = givenItemWithStringRequest();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.request.urlPath.should.equal("http://api.smartsheet.com/2.0/sheets");
+            });
+
+            it("sets the method correctly", function() {
+                var item = givenMinimalItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.request.method.should.equal("GET");
+            });
+
+            it("sets the method correctly with string request", function() {
+                var item = givenItemWithStringRequest();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.request.method.should.equal("GET");
+            });
+
+            it("sets the headers correctly", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.exist(scenario.request.headers['Content-Type']);
+                scenario.request.headers['Content-Type'].should.equal("application/json");
+                should.exist(scenario.request.headers['Some-Type']);
+                scenario.request.headers['Some-Type'].should.equal("blah/json");
+            });
+
+            it("doesn't set headers with string request", function() {
+                var item = givenItemWithStringRequest();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.not.exist(scenario.request.headers);
+            });
+
+            it("doesn't set the headers when not specified", function() {
+                var item = givenMinimalItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.not.exist(scenario.request.headers);
+            });
+
+            it("sets the query parameters correctly", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.exist(scenario.request.queryParameters['query']);
+                scenario.request.queryParameters['query'].should.equal("param");
+            });
+
+            it("doesn't set query parameters with string request", function() {
+                var item = givenItemWithStringRequest();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.not.exist(scenario.request.queryParameters);
+            });
+
+            it("doesn't set query parameters when not specified", function() {
+                var item = givenMinimalItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.not.exist(scenario.request.queryParameters);
+            });
+
+            it("sets the body correctly", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.exist(scenario.request.body);
+                scenario.request.body[0].id.should.equal(10);
+            });
+
+            it("doesn't set body when not specified", function() {
+                var item = givenMinimalItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.not.exist(scenario.request.body);
+            });
+
+            it("doesn't set body when body mode isn't raw", function() {
+                var item = givenItemWithUrlEncodedBody();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.not.exist(scenario.request.body);
+            });
+        });
+
+        describe("scenario response", function () {
+            it("uses first response if multiple specified", function() {
+                var item = givenItemWithMultipleResponses();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.response.statusMessage.should.equal("test1");
+            });
+
+            it("sets empty response if not specified", function() {
+                var item = givenItemWithNoResponses();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.response.should.eql({});
+            });
+
+            it("sets the status message correctly", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.response.statusMessage.should.equal("Forbidden");
+            });
+
+            it("sets the status code correctly", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.response.status.should.equal(403);
+            });
+
+            it("sets the headers correctly", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.exist(scenario.response.headers['Connection']);
+                scenario.response.headers['Connection'].should.equal('close');
+                should.exist(scenario.response.headers['Content-Encoding']);
+                scenario.response.headers['Content-Encoding'].should.equal('gzip');
+            });
+
+            it("doesn't set headers when not specified", function() {
+                var item = givenMinimalItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                should.not.exist(scenario.response.headers);
+            });
+
+            it("sets the body correctly", function() {
+                var item = givenFullItem();
+
+                var scenario = postmanToScenario.postmanItemToScenario(item);
+
+                scenario.response.jsonBody.errorCode.should.equal(1004);
+            });
+        });
+    });
+
     function givenFullItem() {
         return _givenItem("testFullItem", _givenFullRequest(), _givenFullResponse());
     }
@@ -191,271 +466,4 @@ describe("Postman to Scenario Test", function () {
 			"response": response
         };
     }
-    
-    describe("#postmanCollectionToScenarios", function () {
-        function givenNestedFolder() {
-            // has four items
-            return {
-                "name": "testNestedFolder",
-                "description": "it is a nested folder!",
-                "variable": [],
-                "item": [
-                    givenFullItem(),
-                    givenMinimalItem(),
-                    givenShallowFolder()
-                ]
-            };
-        }
-    
-        function givenShallowFolder() {
-            // has two items
-            return {
-                "name": "testShallowFolder",
-                "description": "it is a shallow folder!",
-                "variable": [],
-                "item": [
-                    givenFullItem(),
-                    givenFullItem()
-                ]
-            };
-        }
-    
-        function givenFullCollection(numItems) {
-            var items = [];
-            for (var i = 0; i < numItems; i++) {
-                items.push(givenFullItem());
-            }
-            
-            return _givenCollection(items);
-        }
-    
-        function givenCollectionWithFolders() {
-            // has 7 items
-            return _givenCollection([givenNestedFolder(), givenShallowFolder(), givenMinimalItem()]);
-        }
-    
-        function _givenCollection(items) {
-            return {
-                "info": {},
-                "item": items,
-                "event": [],
-                "variable": [],
-                "auth": {}
-            };
-        }
-
-        it("returns the correct number of scenarios", function() {
-            var collection = givenFullCollection(10);
-            
-            var scenarios = postmanToScenario.postmanCollectionToScenarios(collection);
-            
-            scenarios.length.should.equal(10);
-        });
-
-        it("parses items in folders", function() {
-            var collection = givenCollectionWithFolders();
-
-            var scenarios = postmanToScenario.postmanCollectionToScenarios(collection);
-
-            scenarios.length.should.equal(7);
-        });
-    });
-    
-    describe("#postmanItemToScenario", function() {
-        it("sets the scenario name correctly", function() {
-            var item = givenMinimalItem();
-            
-            var scenario = postmanToScenario.postmanItemToScenario(item);
-            
-            scenario.scenario.should.equal("testMinimalItem");
-        });
-
-        it("sets the scenario description correctly", function() {
-            var item = givenFullItem();
-            
-            var scenario = postmanToScenario.postmanItemToScenario(item);
-            
-            scenario.description.should.equal("This is a test!");
-        });
-
-        describe("scenario request", function () {
-            it("sets the url path correctly", function() {
-                var item = givenMinimalItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.request.urlPath.should.equal("/sheets/1/rows");
-            });
-
-            it("sets the url path correctly with string url", function() {
-                var item = givenItemWithStringUrl();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.request.urlPath.should.equal("http://api.smartsheet.com/2.0/sheets");
-            });
-
-            it("sets the url path correctly with string request", function() {
-                var item = givenItemWithStringRequest();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.request.urlPath.should.equal("http://api.smartsheet.com/2.0/sheets");
-            });
-
-            it("sets the method correctly", function() {
-                var item = givenMinimalItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.request.method.should.equal("GET");
-            });
-
-            it("sets the method correctly with string request", function() {
-                var item = givenItemWithStringRequest();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.request.method.should.equal("GET");
-            });
-
-            it("sets the headers correctly", function() {
-                var item = givenFullItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.exist(scenario.request.headers['Content-Type']);
-                scenario.request.headers['Content-Type'].should.equal("application/json");
-                should.exist(scenario.request.headers['Some-Type']);
-                scenario.request.headers['Some-Type'].should.equal("blah/json");
-            });
-
-            it("doesn't set headers with string request", function() {
-                var item = givenItemWithStringRequest();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.not.exist(scenario.request.headers);
-            });
-
-            it("doesn't set the headers when not specified", function() {
-                var item = givenMinimalItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.not.exist(scenario.request.headers);
-            });
-
-            it("sets the query parameters correctly", function() {
-                var item = givenFullItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.exist(scenario.request.queryParameters['query']);
-                scenario.request.queryParameters['query'].should.equal("param");
-            });
-
-            it("doesn't set query parameters with string request", function() {
-                var item = givenItemWithStringRequest();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.not.exist(scenario.request.queryParameters);
-            });
-
-            it("doesn't set query parameters when not specified", function() {
-                var item = givenMinimalItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.not.exist(scenario.request.queryParameters);
-            });
-
-            it("sets the body correctly", function() {
-                var item = givenFullItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.exist(scenario.request.body);
-                scenario.request.body[0].id.should.equal(10);
-            });
-
-            it("doesn't set body when not specified", function() {
-                var item = givenMinimalItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.not.exist(scenario.request.body);
-            });
-
-            it("doesn't set body when body mode isn't raw", function() {
-                var item = givenItemWithUrlEncodedBody();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.not.exist(scenario.request.body);
-            });
-        });
-
-        describe("scenario response", function () {
-            it("uses first response if multiple specified", function() {
-                var item = givenItemWithMultipleResponses();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.response.statusMessage.should.equal("test1");
-            });
-
-            it("sets empty response if not specified", function() {
-                var item = givenItemWithNoResponses();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.response.should.eql({});
-            });
-
-            it("sets the status message correctly", function() {
-                var item = givenFullItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.response.statusMessage.should.equal("Forbidden");
-            });
-
-            it("sets the status code correctly", function() {
-                var item = givenFullItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.response.status.should.equal(403);
-            });
-
-            it("sets the headers correctly", function() {
-                var item = givenFullItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.exist(scenario.response.headers['Connection']);
-                scenario.response.headers['Connection'].should.equal('close');
-                should.exist(scenario.response.headers['Content-Encoding']);
-                scenario.response.headers['Content-Encoding'].should.equal('gzip');
-            });
-
-            it("doesn't set headers when not specified", function() {
-                var item = givenMinimalItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                should.not.exist(scenario.response.headers);
-            });
-
-            it("sets the body correctly", function() {
-                var item = givenFullItem();
-                
-                var scenario = postmanToScenario.postmanItemToScenario(item);
-                
-                scenario.response.jsonBody.errorCode.should.equal(1004);
-            });
-        });
-    });
 });
