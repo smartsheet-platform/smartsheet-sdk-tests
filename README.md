@@ -8,17 +8,32 @@ Mock test suite for all language SDKs
 ### For Running/Modifying the Mock API Server
 * Java 7+
 
-## Usage
+## Overview
 This repository provides a number of scripts that can be used to bundle a WireMock server with Smartsheet scenario configuration files. It also contains scripts that can be used by Travis builds to install and run a WireMock server bundle.
 
 ## Contents
+* [Running the Test Server](#running-the-test-server)
 * [Creating Scenarios](#creating-scenarios)
 * [Bundling Packages](#bundling-packages)
 * [Releasing a Package](#releasing-a-package)
 * [Using with Travis CI](#using-with-travis-ci)
 
+## Running the Test Server
+To run the test server, unzip `sdk_tests_package.zip` and run the provided launch script:
+
+```bash
+$ unzip -qq sdk_tests_package.zip
+$ cd sdk_tests_package
+$ ./launch.sh
+```
+
+Once the server is running, you can run the mock API tests for your SDK. See the SDK's documentation for more information.
+
 ## Creating Scenarios
-Scenarios can either be written by hand following the [scenario spec](#scenario-specification) or by [converting a Postman collections export file](#converting-postman-export-files).
+Scenarios can either be written by hand following the [scenario spec](#scenario-specification) or by [converting a Postman collections export file](#converting-postman-export-files). In order to use the new scenarios, the scenario file(s) must be added to the `data/scenarios` directory and the package must be rebundled - see [bundling packages](#bundling-packages).
+
+### Scenario Defaults
+Some scenario fields are added through the use of defaults. Look at the file `data/stub_defaults.json` to see which fields will be added. Defaults will only be added when the field does not exist in the scenario - they do not override existing values.
 
 ### Scenario Specification
 Scenario files should have the following structure:
@@ -76,7 +91,7 @@ Not all fields shown above are required. The minimal required fields are as foll
 ]
 ```
 
-Note that some fields are added through the use of defaults. See the file `data/stub_defaults.json` to see which fields will be added. Note, defaults will only be added when the field does not exist in the scenario - they do not override values.
+
 
 ### Converting Postman Export Files
 Scenario files can be created from Postman export files, version 2. See [here](https://www.getpostman.com/docs/postman/collections/data_formats) for information on how to export a Postman collection. Scenario files are converted using the `convert_from_postman.js` script:
@@ -85,37 +100,33 @@ Scenario files can be created from Postman export files, version 2. See [here](h
 $ node convert_from_postman.js --collection=path/to/collection.json --output=my_scenarios.json
 ```
 
-Once the scenario file has been converted, it must be cleaned up a bit. Postman variables will have to be converted into literals, the url path may need to be changed from absolute to relative, extra headers (such as `Authorization`) should be removed, and data should be sanitized.
+Once the scenario file has been converted, you should verify that the scenarios look as expected. Make sure every request has a response, no Postman variables appear in the request, and all the data has been sanitized.
 
 ## Bundling Packages
 To bundle a package, run the following in a bash terminal:
 
 ```bash
-$ sh package.sh my-package path/to/custom/wiremock.jar
+$ sh package.sh path/to/diff-extension.jar
 ```
 
-When called successfully, the new package (both a directory and zip) will be created in the current directory. The server can be run using the provided launch script:
-
-```bash
-$ sh my-package/launch.sh
-```
+When called successfully, the new package (both a directory and zip) will be created in the current directory. See [running the test server](#running-the-test-server) for information on how to start the new server.
 
 ## Releasing a Package
-To release a package, create a new release in GitHub and upload the ZIP file created in [Bundling Packages](#bundling-packages). When you are ready for Travis to start using your new package, follow the instructions in [Updating Release in Travis](#updating-release-in-travis)
+To release a package, commit your newly created ZIP file and merge it into `master`. Once your new ZIP has been merged, all Travis builds will use it for mock API tests. Note that adding a new ZIP will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
 
 ## Using with Travis CI
-Travis can use this package to run the Smartsheet WireMock mock API server. This package contains two scripts to use with Travis: an install script and a start script. The install script downloads a WireMock bundle unzips it. The start script runs WireMock in the background and waits for WireMock to warm-up.
+Travis can use this package to run the Smartsheet WireMock mock API server. This package contains two scripts to use with Travis: an install script and a start script. The install script unzips the server. The start script starts WireMock in the background and waits for WireMock to warm-up.
 
 ### Configuring SDKs to Run the Mock API
 Add the following to your SDK's `.travis.yml` configuration file to run the WireMock server:
 
 ```yaml
 before_install:
-  - git clone https://github.com/stollgr/wiremock-scenario-templating.git
-  - wiremock-scenario-templating/travis_scripts/install_wiremock.sh
+  - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
+  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
 
 script:
-  - wiremock-scenario-templating/travis_scripts/start_wiremock.sh
+  - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
   # run SDK specific functional and mock API tests
 ```
 
@@ -123,15 +134,10 @@ For example, the Node SDK's `.travis.yml` configuration is:
 
 ```yaml
 before_install:
-  - git clone https://github.com/stollgr/wiremock-scenario-templating.git
-  - wiremock-scenario-templating/travis_scripts/install_wiremock.sh
+  - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
+  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
 
 script:
-  - wiremock-scenario-templating/travis_scripts/start_wiremock.sh
+  - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
   - npm test
 ```
-
-Follow the instructions in [Updating Release in Travis](#updating-release-in-travis) to configure the current release.
-
-### Updating Release in Travis
-The install script currently downloads the WireMock bundle based on the `MOCK_API_RELEASE_URL` environment variable. To update this, you will need to update the `MOCK_API_RELEASE_URL` variable in each of the SDK-specific Travis jobs. See [here](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings) for more information about configuring environment variables in Travis.
