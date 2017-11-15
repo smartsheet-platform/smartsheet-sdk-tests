@@ -114,6 +114,8 @@ When called successfully, the new package (both a directory and zip) will be cre
 ## Releasing a Package
 To release a package, commit your newly created ZIP file and merge it into `master`. Once your new ZIP has been merged, all Travis builds will use it for mock API tests. Note that adding a new ZIP will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
 
+Note: Currently only packages created on Unix systems are cross platform compatible. Please do not submit a pull request with a package built on Windows.
+
 ## Using with Travis CI
 Travis can use this package to run the Smartsheet WireMock mock API server. This package contains two scripts to use with Travis: an install script and a start script. The install script unzips the server. The start script starts WireMock in the background and waits for WireMock to warm-up.
 
