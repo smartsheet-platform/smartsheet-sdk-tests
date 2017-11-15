@@ -23,7 +23,7 @@ To run the test server, unzip `sdk_tests_package.zip` and run the provided launc
 
 ```bash
 $ unzip -qq sdk_tests_package.zip -d sdk_tests
-$ cd sdk_testscl
+$ cd sdk_tests
 $ ./launch.sh
 ```
 
@@ -112,9 +112,6 @@ $ sh package.sh path/to/diff-extension.jar
 ```
 
 When called successfully, the new package (both a directory and zip) will be created in the current directory. See [running the test server](#running-the-test-server) for information on how to start the new server.
-
-You can rebuild the diff-extension.jar by following the [build instructions](wiremock\smartsheet-diff-extension\README.md).
-
 
 ## Releasing a Package
 To release a package, commit your newly created ZIP file and merge it into `master`. Once your new ZIP has been merged, all Travis builds will use it for mock API tests. Note that adding a new ZIP will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
