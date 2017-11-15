@@ -1,6 +1,6 @@
 [
   {
-    "scenario": "Update Column - Change - Dropdown Values",
+    "scenario": "Update Column - Dropdown Values",
     "description": "Tests the serialization of a column object.",
     "request": {
       "method": "PUT",
