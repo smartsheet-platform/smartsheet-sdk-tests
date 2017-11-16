@@ -157,6 +157,137 @@ describe("Clean Postman Scenario Test", function () {
         });
     });
 
+    describe("#warnAboutUncleanedIssues", function() {
+        it("doesn't warn about clean scenarios", function() {
+            var scenario = givenCleanScenario();
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            warnings.should.be.equal("");
+        });
+
+        it("warns about {{vars}} in url", function() {
+            var scenario = givenScenarioWithUrlPath("/sheets/{{sheetId}}/rows/234");
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{sheetId}}");
+        });
+
+        it("warns about {{vars}} at end of url", function() {
+            var scenario = givenScenarioWithUrlPath("/sheets/{{sheetId}}");
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{sheetId}}");
+        });
+
+        it("warns about multiple {{vars}} in url", function() {
+            var scenario = givenScenarioWithUrlPath("/sheets/{{sheetId}}/rows/{{rowId}}/");
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{sheetId}}");
+            assertContainsSubstring(warnings, "{{rowId}}");
+            assertNotContainsSubstring(warnings, "{{sheetId}}/");
+        });
+
+        it("warns about :vars in url", function() {
+            var scenario = givenScenarioWithUrlPath("/sheets/:sheetId/rows/234");
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, ":sheetId");
+        });
+
+        it("warns about :vars at end of url", function() {
+            var scenario = givenScenarioWithUrlPath("/sheets/:sheetId");
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, ":sheetId");
+        });
+
+        it("warns about multiple :vars in url", function() {
+            var scenario = givenScenarioWithUrlPath("/sheets/:sheetId/rows/:rowId/");
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, ":sheetId");
+            assertContainsSubstring(warnings, ":rowId");
+            assertNotContainsSubstring(warnings, ":sheetId/");
+        });
+
+        it("warns about vars in request headers", function() {
+            var scenario = givenScenarioWithRequestHeaders({
+                "key": "value with {{var}}"
+            });
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{var}}");
+        });
+
+        it("warns about vars in request query params", function() {
+            var scenario = givenScenarioWithRequestQueryParameters({
+                "key": "value with {{var}}"
+            });
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{var}}");
+        });
+
+        it("warns about vars in request body", function() {
+            var scenario = givenScenarioWithRequestBody({
+                "field": {
+                    "nestedField": "value with {{var}}"
+                }
+            });
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{var}}");
+        });
+
+        it("warns about missing request body, when expected", function() {
+            var scenario = givenScenarioWithRequestBody(undefined);
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            warnings.should.not.equal("");
+        });
+
+        it("doesn't warn about missing request body, when not expected", function() {
+            var scenario = givenGetScenario();
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            warnings.should.equal("");
+        });
+
+        it("warns about missing response", function() {
+            var scenario = givenScenarioWithResponse({});
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            warnings.should.not.equal("");
+        });
+
+        function captureStderr(func) {
+            var stderrOutput = ""
+
+            var stderrWrite = process.stderr.write;
+            process.stderr.write = (string, encoding, fd) => {stderrOutput += string;}
+
+            func();
+
+            process.stderr.write = stderrWrite;
+
+            return stderrOutput;
+        }
+    });
+
     function givenCleanScenario() {
         return {
             "scenario": "Clean Scenario",
@@ -178,6 +309,14 @@ describe("Clean Postman Scenario Test", function () {
         };
     }
 
+    function givenGetScenario() {
+        var scenario = givenCleanScenario();
+        scenario.request.method = "GET";
+        delete scenario.request.body;
+
+        return scenario;
+    }
+
     function givenScenarioWithUrlPath(urlPath) {
         var scenario = givenCleanScenario();
         scenario.request.urlPath = urlPath;
@@ -192,10 +331,39 @@ describe("Clean Postman Scenario Test", function () {
         return scenario;
     }
 
+    function givenScenarioWithRequestQueryParameters(params) {
+        var scenario = givenCleanScenario();
+        scenario.request.queryParameters = params;
+
+        return scenario;
+    }
+
+    function givenScenarioWithRequestBody(body) {
+        var scenario = givenCleanScenario();
+        scenario.request.body = body;
+
+        return scenario;
+    }
+
     function givenScenarioWithResponseHeaders(headers) {
         var scenario = givenCleanScenario();
         scenario.response.headers = headers;
 
         return scenario;
+    }
+
+    function givenScenarioWithResponse(response) {
+        var scenario = givenCleanScenario();
+        scenario.response = response;
+
+        return scenario;
+    }
+
+    function assertContainsSubstring(str, substr) {
+        str.indexOf(substr).should.not.equal(-1, "expected '" + str + "' to contain '" + substr + "'");
+    }
+
+    function assertNotContainsSubstring(str, substr) {
+        str.indexOf(substr).should.equal(-1, "expected '" + str + "' to not contain '" + substr + "'");
     }
 });
