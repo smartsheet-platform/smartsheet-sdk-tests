@@ -111,7 +111,7 @@ To bundle a package, run the following in a bash terminal:
 $ sh package.sh path/to/diff-extension.jar
 ```
 
-When called successfully, the new package (both a directory and zip) will be created in the current directory. See [running the test server](#running-the-test-server) for information on how to start the new server.
+When called successfully, the new package (both a directory and zip) will be created in the current directory. The package will also include an auto generated `README.md` explaining scenarios available to write SDK tests against. See [running the test server](#running-the-test-server) for information on how to start the new server.
 
 ## Releasing a Package
 To release a package, commit your newly created ZIP file and merge it into `master`. Once your new ZIP has been merged, all Travis builds will use it for mock API tests. Note that adding a new ZIP will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
