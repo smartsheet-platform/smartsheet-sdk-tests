@@ -218,12 +218,52 @@ describe("Clean Postman Scenario Test", function () {
             assertNotContainsSubstring(warnings, ":sheetId/");
         });
 
+        it("warns about vars in request headers", function() {
+            var scenario = givenScenarioWithRequestHeaders({
+                "key": "value with {{var}}"
+            });
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{var}}");
+        });
+
+        it("warns about vars in request query params", function() {
+            var scenario = givenScenarioWithRequestQueryParameters({
+                "key": "value with {{var}}"
+            });
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{var}}");
+        });
+
+        it("warns about vars in request body", function() {
+            var scenario = givenScenarioWithRequestBody({
+                "field": {
+                    "nestedField": "value with {{var}}"
+                }
+            });
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            assertContainsSubstring(warnings, "{{var}}");
+        });
+
+        it("warns about missing response", function() {
+            var scenario = givenScenarioWithResponse({});
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            warnings.should.not.equal("");
+        });
+
         function captureStderr(func) {
             var stderrOutput = ""
 
             var stderrWrite = process.stderr.write;
             process.stderr.write = (string, encoding, fd) => {stderrOutput += string;}
-            
+
             func();
 
             process.stderr.write = stderrWrite;
@@ -267,9 +307,30 @@ describe("Clean Postman Scenario Test", function () {
         return scenario;
     }
 
+    function givenScenarioWithRequestQueryParameters(params) {
+        var scenario = givenCleanScenario();
+        scenario.request.queryParameters = params;
+
+        return scenario;
+    }
+
+    function givenScenarioWithRequestBody(body) {
+        var scenario = givenCleanScenario();
+        scenario.request.body = body;
+
+        return scenario;
+    }
+
     function givenScenarioWithResponseHeaders(headers) {
         var scenario = givenCleanScenario();
         scenario.response.headers = headers;
+
+        return scenario;
+    }
+
+    function givenScenarioWithResponse(response) {
+        var scenario = givenCleanScenario();
+        scenario.response = response;
 
         return scenario;
     }
