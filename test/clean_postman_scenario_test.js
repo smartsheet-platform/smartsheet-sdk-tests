@@ -250,6 +250,22 @@ describe("Clean Postman Scenario Test", function () {
             assertContainsSubstring(warnings, "{{var}}");
         });
 
+        it("warns about missing request body, when expected", function() {
+            var scenario = givenScenarioWithRequestBody(undefined);
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            warnings.should.not.equal("");
+        });
+
+        it("doesn't warn about missing request body, when not expected", function() {
+            var scenario = givenGetScenario();
+
+            var warnings = captureStderr(() => cleanPostmanScenario.warnAboutUncleanedIssues(scenario));
+
+            warnings.should.equal("");
+        });
+
         it("warns about missing response", function() {
             var scenario = givenScenarioWithResponse({});
 
@@ -291,6 +307,14 @@ describe("Clean Postman Scenario Test", function () {
                 "jsonBody": {}
             }
         };
+    }
+
+    function givenGetScenario() {
+        var scenario = givenCleanScenario();
+        scenario.request.method = "GET";
+        delete scenario.request.body;
+
+        return scenario;
     }
 
     function givenScenarioWithUrlPath(urlPath) {
