@@ -1,0 +1,104 @@
+[
+  {
+    "scenario": "Update Column - Change Type - Picklist",
+    "description": "Tests the serialization of a column object and PICKLIST options.",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/123/columns/234",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "index": 2,
+        "title": "Updated Column",
+        "type": "PICKLIST",
+        "options": [
+          "An",
+          "updated",
+          "column"
+        ],
+        "width": 200
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 234,
+          "index": 2,
+          "title": "Updated Column",
+          "type": "PICKLIST",
+          "options": [
+            "An",
+            "updated",
+            "column"
+          ],
+          "validation": false,
+          "width": 200
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Update Column - Change Type - Contact List",
+    "description": "Tests the serialization of a column object and contact options.",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/123/columns/234",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "index": 2,
+        "title": "Updated Column",
+        "type": "CONTACT_LIST",
+        "contactOptions": [
+          {
+            "name": "Some Contact",
+            "email": "some.contact@smartsheet.com"
+          },
+          {
+            "name": "Some Other Contact",
+            "email": "some.other.contact@smartsheet.com"
+          }
+        ],
+        "width": 200
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 234,
+          "index": 2,
+          "title": "Updated Column",
+          "type": "CONTACT_LIST",
+          "contactOptions": [
+            {
+              "name": "Some Contact",
+              "email": "some.contact@smartsheet.com"
+            },
+            {
+              "name": "Some Other Contact",
+              "email": "some.other.contact@smartsheet.com"
+            }
+          ],
+          "validation": false,
+          "width": 200
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  }
+]
