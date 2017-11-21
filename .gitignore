@@ -25,3 +25,6 @@ hs_err_pid*
 
 sdk_tests_package/
 !sdk_tests_package.zip
+wiremock/smartsheet-diff-extension/.classpath
+wiremock/smartsheet-diff-extension/.settings/
+wiremock/smartsheet-diff-extension/.project
