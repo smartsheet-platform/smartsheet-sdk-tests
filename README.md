@@ -110,7 +110,7 @@ Building a package will require the `diff-extension.jar`. You can either extract
 To bundle a package, run the following in a bash terminal:
 
 ```bash
-$ sh package.sh path/to/diff-extension.jar
+$ sh package.sh wiremock/smartsheet-diff-extension/build/libs/diff-extension-0.1.0.jar
 ```
 
 When called successfully, the new package (both a directory and zip) will be created in the current directory. The package will include an auto generated `README.md` explaining scenarios available to write SDK tests against. See [running the test server](#running-the-test-server) for information on how to start the new server.
