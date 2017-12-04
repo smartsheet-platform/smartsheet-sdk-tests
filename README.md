@@ -105,7 +105,7 @@ $ node convert_from_postman.js --collection=path/to/collection.json --output=my_
 Once the scenario file has been converted, you should verify that the scenarios look as expected. Make sure every request has a response, no Postman variables appear in the request, and all the data has been sanitized.
 
 ## Bundling Packages
-Building a package will require the `diff-extension.jar`. You can either extract the existing JAR from the `sdk_test_package.zip` or rebuild it by following these [build instructions](wiremock\smartsheet-diff-extension\README.md).
+Building a package will require the `diff-extension.jar`. You can either extract the existing JAR from the `sdk_test_package.zip` or rebuild it by following these [build instructions](https://github.com/smartsheet-platform/smartsheet-sdk-tests/blob/master/wiremock/smartsheet-diff-extension/README.md).
 
 To bundle a package, run the following in a bash terminal:
 
