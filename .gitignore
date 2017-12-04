@@ -28,3 +28,4 @@ sdk_tests_package/
 wiremock/smartsheet-diff-extension/.classpath
 wiremock/smartsheet-diff-extension/.settings/
 wiremock/smartsheet-diff-extension/.project
+wiremock/smartsheet-diff-extension/bin/

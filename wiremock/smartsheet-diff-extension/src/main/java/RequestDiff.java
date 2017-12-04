@@ -40,7 +40,7 @@ class RequestDiff {
 
 		if(diffResult == null || diffResult.isEmpty())	return "";
 
-		String diffMessage = String.format("Compare result: %s, Expected body: %s, Actual body: %s", diffResult, scenarioBodyString, requestBodyString);
+		String diffMessage = String.format("Compare result: %s    Expected body: %s\n    Actual body:   %s\n", diffResult, scenarioBodyString, requestBodyString);
 		return diffMessage;
 	}
 
