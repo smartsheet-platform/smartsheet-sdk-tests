@@ -123,7 +123,7 @@ When called successfully, the new package will be created in `sdk_tests_package/
 To release a package, commit your newly generated package and merge it into `master`. Once your commit has been merged, all Travis builds will use it for mock API tests. Note that adding a new package will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
 
 ## Using with Travis CI
-Travis can use this package to run the Smartsheet WireMock mock API server. This package contains two scripts to use with Travis: an install script and a start script. The install script is no longer needed, but is provided to support SDKs that rely on it. The start script starts WireMock in the background and waits for WireMock to warm-up.
+Travis can use this package to run the Smartsheet WireMock mock API server. This package contains two scripts to use with Travis: an install script and a start script. The install script copies the package into the current directory. The start script starts WireMock in the background and waits for WireMock to warm-up.
 
 ### Configuring SDKs to Run the Mock API
 Add the following to your SDK's `.travis.yml` configuration file to run the WireMock server:
@@ -131,6 +131,7 @@ Add the following to your SDK's `.travis.yml` configuration file to run the Wire
 ```yaml
 before_install:
   - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
+  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
 
 script:
   - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
@@ -142,6 +143,7 @@ For example, the Node SDK's `.travis.yml` configuration is:
 ```yaml
 before_install:
   - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
+  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
 
 script:
   - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
