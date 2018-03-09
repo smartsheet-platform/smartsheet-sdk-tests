@@ -51,6 +51,7 @@ The scenarios listed in the scenario section below can be called as specified. F
 * [Update Rows - Invalid - Assign Value and Formulae](#update-rows---invalid---assign-value-and-formulae)
 * [Update Rows - Invalid - Assign Hyperlink URL and SheetId](#update-rows---invalid---assign-hyperlink-url-and-sheetid)
 * [Add Rows - Assign Object Value - Predecessor List](#add-rows---assign-object-value---predecessor-list)
+* [Add Rows - Assign Object Value - Predecessor List (using floats)](#add-rows---assign-object-value---predecessor-list-(using-floats))
 * [Update Rows - Clear Value - Text Number](#update-rows---clear-value---text-number)
 * [Update Rows - Clear Value - Checkbox](#update-rows---clear-value---checkbox)
 * [Update Rows - Clear Value - Hyperlink](#update-rows---clear-value---hyperlink)
@@ -2174,6 +2175,80 @@ Tests the predecessor list object type. Verifies extra fields (value, formula) a
           "columnId": 101,
           "value": "2FS +2d 4h",
           "displayValue": "2FS +2d 4h"
+        }
+      ]
+    }
+  ],
+  "version": 5
+}
+```
+
+## Add Rows - Assign Object Value - Predecessor List (using floats)
+
+Tests the predecessor list object type. Verifies extra fields (value, formula) are not set.
+
+### Expected Request
+
+#### POST - /sheets/1/rows
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+[
+  {
+    "cells": [
+      {
+        "columnId": 101,
+        "objectValue": {
+          "objectType": "PREDECESSOR_LIST",
+          "predecessors": [
+            {
+              "rowId": 10,
+              "type": "FS",
+              "lag": {
+                "objectType": "DURATION",
+                "days": 2.5
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": [
+    {
+      "id": 11,
+      "sheetId": 1,
+      "rowNumber": 2,
+      "siblingId": 10,
+      "expanded": true,
+      "createdAt": "2017-11-02T20:58:34Z",
+      "modifiedAt": "2017-11-02T20:58:34Z",
+      "cells": [
+        {
+          "columnId": 102,
+          "value": "2017-11-07T13:00:00",
+          "formula": "=CALCSTART(Duration3, Start2, Finish2, 0, 72000000)"
+        },
+        {
+          "columnId": 101,
+          "value": "2FS +2.5d",
+          "displayValue": "2FS +2.5d"
         }
       ]
     }
