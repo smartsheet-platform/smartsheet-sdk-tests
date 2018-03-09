@@ -1,5 +1,6 @@
 var fs = require('fs');
 var _ = require('underscore');
+var arrayOperations = require('./lib/array_operations');
 
 var argv = require('yargs')
     .alias('s', 'scenarios')
@@ -24,7 +25,7 @@ function loadScenarios(scenarioDirectory) {
 }
 
 function assertNoDuplicates(scenarios) {
-    var duplicates = getDuplicateElements(scenarios, (s1, s2) => s1.scenario === s2.scenario);
+    var duplicates = arrayOperations.getDuplicateElements(scenarios, (s1, s2) => s1.scenario === s2.scenario);
 
     _.each(duplicates, (d) => console.log(`ERROR: Duplicate scenario: ${d.scenario}`));
 
@@ -32,19 +33,4 @@ function assertNoDuplicates(scenarios) {
         console.log("Scenarios were not concatenated. Please fix scenarios and try again.");
         process.exit(1);
     }
-}
-
-function getDuplicateElements(arr, key) {
-    var duplicateElements = [];
-    _.each(arr, (element, index) => {
-        if (arrContains(arr.slice(index + 1), element, key) && !arrContains(duplicateElements, element, key)) {
-            duplicateElements.push(element);
-        }
-    });
-
-    return duplicateElements;
-}
-
-function arrContains(arr, element, key) {
-    return arr.findIndex((e) => key(element, e)) !== -1;
 }
