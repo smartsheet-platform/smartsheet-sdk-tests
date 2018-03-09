@@ -17,7 +17,7 @@ var scenarios = JSON.parse(fs.readFileSync(argv.scenarios));
 var wiremockStubs = scenarioMappings.buildStubsFromScenarios(scenarios);
 
 _.each(wiremockStubs, function(stub) {
-    fs.writeFile(argv.output_dir + stub.name + '.json', JSON.stringify(stub.mapping), printResult(stub.name));
+    fs.writeFile(argv.output_dir + stub.name + '.json', JSON.stringify(stub.mapping, null, 2), printResult(stub.name));
 });
 
 function printResult(name) {
@@ -32,4 +32,3 @@ function printResult(name) {
         }
     };
 }
-

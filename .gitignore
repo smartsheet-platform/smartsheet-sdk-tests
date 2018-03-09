@@ -23,8 +23,7 @@ node_modules/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-sdk_tests_package/
-!sdk_tests_package.zip
+!sdk_tests_package/libs/*
 wiremock/smartsheet-diff-extension/.classpath
 wiremock/smartsheet-diff-extension/.settings/
 wiremock/smartsheet-diff-extension/.project

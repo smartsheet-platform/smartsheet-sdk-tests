@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-WIREMOCK_INSTALL_DIR='Smartsheet-WireMock-Bundle'
+WIREMOCK_PACKAGE_DIR='sdk_tests_package'
 
 # run wiremock
-(cd $WIREMOCK_INSTALL_DIR; ./launch.sh &)
+(cd $WIREMOCK_PACKAGE_DIR; ./launch.sh &)
 
 # wait for wiremock to start
 sleep 10
