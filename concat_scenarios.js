@@ -13,7 +13,7 @@ var argv = require('yargs')
 var scenarios = loadScenarios(argv.scenarios);
 var flat_scenarios = _.flatten(scenarios, true);
 assertNoDuplicates(flat_scenarios);
-fs.writeFileSync(argv.output, JSON.stringify(flat_scenarios));
+fs.writeFileSync(argv.output, JSON.stringify(flat_scenarios, null, 2));
 
 
 function loadScenarios(scenarioDirectory) {
