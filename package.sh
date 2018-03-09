@@ -3,17 +3,23 @@
 # exit on error
 set -e
 
-EXTENSION_JAR=$1
-
 PACKAGE_NAME='sdk_tests_package'
+EXTENSION_JAR_FILENAME='diff-extension.jar'
+EXTENSION_JAR="$PACKAGE_NAME/libs/$EXTENSION_JAR_FILENAME"
 DATA_SCENARIO_DIR='data/scenarios'
 LAUNCH_SCRIPT='data/launch.sh'
 PACKAGE_README='data/README.md'
 STUB_DEFAULTS='data/stub_defaults.json'
 
+if [ $# -eq 1 ]; then
+    EXTENSION_JAR=$1
+fi
+
 if [ -z "$EXTENSION_JAR" ] || [ ! -f "$EXTENSION_JAR" ]; then
-    echo 'Usage: $0 diff-extension.jar'
-    echo 'Could not find extension JAR'
+    echo 'Usage: $0 [diff-extension.jar]'
+    echo "    diff-extension.jar - Optional, uses jar in package by default: $PACKAGE_NAME/libs/$EXTENSION_JAR_FILENAME"
+    echo ''
+    echo 'ERROR: Could not find extension JAR'
 
     exit 1
 fi
@@ -41,13 +47,7 @@ node gen_docs.js --scenarios="$PACKAGE_SCENARIOS" >> "$PACKAGE_NAME/README.md"
 
 # add wiremock extension JAR
 mkdir -p "$PACKAGE_NAME/libs"
-cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/"
+cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/$EXTENSION_JAR_FILENAME"
 
 # add launch script
 cp "$LAUNCH_SCRIPT" "$PACKAGE_NAME/launch.sh"
-
-# create zip, if zip is defined
-if command -v zip >/dev/null 2>&1; then
-    (cd "$PACKAGE_NAME"; zip -q -r "$PACKAGE_NAME.zip" *)
-    mv "$PACKAGE_NAME/$PACKAGE_NAME.zip" .
-fi

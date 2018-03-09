@@ -1,11 +1,5 @@
 #!/usr/bin/env sh
 
-# exit on error
-set -e
-
-WIREMOCK_DOWNLOAD="smartsheet-sdk-tests/sdk_tests_package.zip"
-WIREMOCK_INSTALL_DIR='Smartsheet-WireMock-Bundle'
-
-
-# unzip wiremock
-unzip -qq -d $WIREMOCK_INSTALL_DIR $WIREMOCK_DOWNLOAD
+# NOTE: This is now a no-op since installation is no longer necessary.
+# It cannot be removed until the SDKs no longer run this script in their
+# Travis config files.
