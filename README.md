@@ -19,17 +19,16 @@ This repository provides a number of scripts that can be used to bundle a WireMo
 * [Using with Travis CI](#using-with-travis-ci)
 
 ## Running the Test Server
-To run the test server, unzip `sdk_tests_package.zip` and run the provided launch script:
+To run the test server, navigate to the `sdk_tests_package` and run the provided launch script:
 
 ```bash
-$ unzip -qq sdk_tests_package.zip -d sdk_tests
-$ cd sdk_tests
+$ cd sdk_tests_package
 $ ./launch.sh
 ```
 
 Once the server is running, you can run the mock API tests for your SDK. See the SDK's documentation for more information.
 
-You can check which scenarios are included in the package by referencing the README in the package. This README includes information on how to run the server as well as descriptions of each scenario.
+You can check which scenarios are included in the package by referencing the package's [README](https://github.com/smartsheet-platform/smartsheet-sdk-tests/blob/master/sdk_tests_package/README.md). This README includes information on how to run the server as well as descriptions of each scenario.
 
 ## Creating Scenarios
 Scenarios can either be written by hand following the [scenario spec](#scenario-specification) or by [converting a Postman collections export file](#converting-postman-export-files). In order to use the new scenarios, the scenario file(s) must be added to the `data/scenarios` directory and the package must be rebundled - see [bundling packages](#bundling-packages).
@@ -105,23 +104,26 @@ $ node convert_from_postman.js --collection=path/to/collection.json --output=my_
 Once the scenario file has been converted, you should verify that the scenarios look as expected. Make sure every request has a response, no Postman variables appear in the request, and all the data has been sanitized.
 
 ## Bundling Packages
-Building a package will require the `diff-extension.jar`. You can either extract the existing JAR from the `sdk_test_package.zip` or rebuild it by following these [build instructions](https://github.com/smartsheet-platform/smartsheet-sdk-tests/blob/master/wiremock/smartsheet-diff-extension/README.md).
+Building a package requires the `diff-extension.jar`. By default, the packaging script will use the `jar` included in the bundle. (`sdk_tests_package/libs/diff-extension.jar`) Alternately, you can build the `jar` by following these [build instructions](https://github.com/smartsheet-platform/smartsheet-sdk-tests/blob/master/wiremock/smartsheet-diff-extension/README.md).
 
 To bundle a package, run the following in a bash terminal:
 
 ```bash
-$ sh package.sh wiremock/smartsheet-diff-extension/build/libs/diff-extension-0.1.0.jar
+$ sh package.sh
 ```
 
-When called successfully, the new package (both a directory and zip) will be created in the current directory. The package will include an auto generated `README.md` explaining scenarios available to write SDK tests against. See [running the test server](#running-the-test-server) for information on how to start the new server.
+If you built the `jar` yourself, run this command:
+```bash
+$ sh package.sh wiremock/smartsheet-diff-extension/build/libs/diff-extension-<VERSION>.jar
+```
+
+When called successfully, the new package will be created in `sdk_tests_package/` in the current directory. The package will include an auto generated `README.md` describing scenarios available to write SDK tests against. See [running the test server](#running-the-test-server) for information on how to start the new server.
 
 ## Releasing a Package
-To release a package, commit your newly created ZIP file and merge it into `master`. Once your new ZIP has been merged, all Travis builds will use it for mock API tests. Note that adding a new ZIP will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
-
-Note: Currently only packages created on Unix systems are cross platform compatible. Please do not submit a pull request with a package built on Windows.
+To release a package, commit your newly generated package and merge it into `master`. Once your commit has been merged, all Travis builds will use it for mock API tests. Note that adding a new package will not trigger a Travis build of the SDKs so it is a good idea to rerun the most recent Travis build for each SDK to verify that the tests pass.
 
 ## Using with Travis CI
-Travis can use this package to run the Smartsheet WireMock mock API server. This package contains two scripts to use with Travis: an install script and a start script. The install script unzips the server. The start script starts WireMock in the background and waits for WireMock to warm-up.
+Travis can use this package to run the Smartsheet WireMock mock API server. This package contains two scripts to use with Travis: an install script and a start script. The install script is no longer needed, but is provided to support SDKs that rely on it. The start script starts WireMock in the background and waits for WireMock to warm-up.
 
 ### Configuring SDKs to Run the Mock API
 Add the following to your SDK's `.travis.yml` configuration file to run the WireMock server:
@@ -129,7 +131,6 @@ Add the following to your SDK's `.travis.yml` configuration file to run the Wire
 ```yaml
 before_install:
   - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
-  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
 
 script:
   - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
@@ -141,7 +142,6 @@ For example, the Node SDK's `.travis.yml` configuration is:
 ```yaml
 before_install:
   - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
-  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
 
 script:
   - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
