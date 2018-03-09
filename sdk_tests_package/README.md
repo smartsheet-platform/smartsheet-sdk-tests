@@ -27,6 +27,7 @@ The scenarios listed in the scenario section below can be called as specified. F
 * [Update Column - Change Type - Picklist](#update-column---change-type---picklist)
 * [Update Column - Change Type - Contact List](#update-column---change-type---contact-list)
 * [Change Agent Header - Can Be Passed](#change-agent-header---can-be-passed)
+* [Assume User - Can Be Set](#assume-user---can-be-set)
 * [Move row to another sheet](#move-row-to-another-sheet)
 * [Copy row to another sheet](#copy-row-to-another-sheet)
 * [Add Rows - Assign Values - String](#add-rows---assign-values---string)
@@ -437,6 +438,82 @@ Tests the serialization of a column object and contact options.
       }
     ]
   }
+}
+```
+
+## Assume User - Can Be Set
+
+
+
+### Expected Request
+
+#### GET - /sheets/123
+
+#### Headers
+
+* Assume-User: john.doe%40smartsheet.com
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "id": 123,
+  "name": "New Sheet",
+  "version": 73,
+  "totalRowCount": 6,
+  "accessLevel": "OWNER",
+  "effectiveAttachmentOptions": [
+    "FILE",
+    "DROPBOX",
+    "ONEDRIVE",
+    "GOOGLE_DRIVE",
+    "EGNYTE",
+    "BOX_COM",
+    "EVERNOTE"
+  ],
+  "ganttEnabled": false,
+  "dependenciesEnabled": false,
+  "resourceManagementEnabled": false,
+  "cellImageUploadEnabled": true,
+  "favorite": true,
+  "showParentRowsForFilters": false,
+  "userSettings": {
+    "criticalPathEnabled": false,
+    "displaySummaryTasks": true,
+    "appliedSheetFilterId": 3290686083622788
+  },
+  "permalink": "https://app.smartsheet.com/b/home?lx=d2k4ve3v9X3S1fjXxNDLw",
+  "createdAt": "2017-11-03T15:27:29Z",
+  "modifiedAt": "2018-03-02T23:50:35Z",
+  "columns": [
+    {
+      "id": 234,
+      "index": 0,
+      "title": "Primary Column",
+      "type": "TEXT_NUMBER",
+      "primary": true,
+      "validation": false,
+      "width": 150
+    }
+  ],
+  "rows": [
+    {
+      "id": 345,
+      "rowNumber": 1,
+      "expanded": true,
+      "createdAt": "2018-02-02T23:32:35Z",
+      "modifiedAt": "2018-02-09T17:08:41Z",
+      "cells": [
+        {
+          "columnId": 234,
+          "value": "Some Value",
+          "displayValue": "Some Value"
+        }
+      ]
+    }
+  ]
 }
 ```
 
