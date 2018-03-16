@@ -2407,6 +2407,850 @@
     }
   },
   {
+    "scenario": "Serialization - Attachment",
+    "description": "Validate attachments can be serialized and deserialized",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/attachments",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "Search Engine",
+        "description": "A popular search engine",
+        "attachmentType": "LINK",
+        "url": "http://www.google.com"
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 2,
+          "name": "Search Engine",
+          "description": "A popular search engine",
+          "url": "http://www.google.com",
+          "attachmentType": "LINK",
+          "parentType": "SHEET",
+          "parentId": 1,
+          "createdBy": {
+            "name": "John Doe",
+            "email": "john.doe@smartsheet.com"
+          },
+          "createdAt": "2018-03-09T23:04:12Z"
+        },
+        "version": 74
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Rows",
+    "description": "Validates the row object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "expanded": true,
+        "format": ",,,,,,,,4,,,,,,,",
+        "cells": [
+          {
+            "columnId": 2,
+            "value": "url link",
+            "strict": false,
+            "hyperlink": {
+              "url": "https://google.com"
+            }
+          },
+          {
+            "columnId": 3,
+            "value": "sheet id link",
+            "strict": false,
+            "hyperlink": {
+              "sheetId": 6
+            }
+          },
+          {
+            "columnId": 4,
+            "value": "report id link",
+            "strict": false,
+            "hyperlink": {
+              "reportId": 7
+            }
+          },
+          {
+            "columnId": 5,
+            "value": "link in from cell",
+            "strict": false,
+            "linkInFromCell": {
+              "sheetId": 6,
+              "rowId": 8,
+              "columnId": 9
+            },
+            "overrideValidation": true
+          }
+        ],
+        "locked": false
+      }
+    },
+    "response": {
+      "status": 200,
+      "statusMessage": "OK",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Home",
+    "description": "Validates the home object can be deserialized",
+    "request": {
+      "method": "GET",
+      "urlPath": "/home"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "sheets": [
+          {
+            "id": 1,
+            "name": "editor share sheet",
+            "accessLevel": "EDITOR_SHARE",
+            "permalink": "https://app.smartsheet.com/b/home?lx=a",
+            "createdAt": "2017-09-21T18:36:23Z",
+            "modifiedAt": "2018-03-09T20:40:48Z"
+          },
+          {
+            "id": 2,
+            "name": "owner sheet",
+            "accessLevel": "OWNER",
+            "permalink": "https://app.smartsheet.com/b/home?lx=b",
+            "createdAt": "2018-02-02T18:44:43Z",
+            "modifiedAt": "2018-02-02T18:44:43Z"
+          },
+          {
+            "id": 3,
+            "name": "admin sheet",
+            "accessLevel": "ADMIN",
+            "permalink": "https://app.smartsheet.com/b/home?lx=c",
+            "createdAt": "2017-04-21T18:42:21Z",
+            "modifiedAt": "2017-10-11T17:57:21Z"
+          }
+        ],
+        "folders": [
+          {
+            "id": 4,
+            "name": "empty folder",
+            "permalink": "https://app.smartsheet.com/b/home?lx=d"
+          },
+          {
+            "id": 5,
+            "name": "full folder",
+            "permalink": "https://app.smartsheet.com/b/home?lx=e",
+            "sheets": [
+              {
+                "id": 6,
+                "name": "folder sheet",
+                "accessLevel": "OWNER",
+                "permalink": "https://app.smartsheet.com/b/home?lx=f",
+                "createdAt": "2017-10-31T18:17:36Z",
+                "modifiedAt": "2017-10-31T18:17:36Z"
+              }
+            ]
+          }
+        ],
+        "reports": [
+          {
+            "id": 7,
+            "name": "admin report",
+            "accessLevel": "ADMIN",
+            "permalink": "https://app.smartsheet.com/b/home?lx=g"
+          },
+          {
+            "id": 8,
+            "name": "editor share report",
+            "accessLevel": "EDITOR_SHARE",
+            "permalink": "https://app.smartsheet.com/b/home?lx=h"
+          },
+          {
+            "id": 9,
+            "name": "owner report",
+            "accessLevel": "OWNER",
+            "permalink": "https://app.smartsheet.com/b/home?lx=i"
+          }
+        ],
+        "workspaces": [
+          {
+            "id": 10,
+            "name": "workspace",
+            "accessLevel": "ADMIN",
+            "permalink": "https://app.smartsheet.com/b/home?lx=j",
+            "sheets": [
+              {
+                "id": 11,
+                "name": "workspace sheet",
+                "accessLevel": "ADMIN",
+                "permalink": "https://app.smartsheet.com/b/home?lx=k",
+                "createdAt": "2017-08-28T16:45:57Z",
+                "modifiedAt": "2017-10-02T19:32:39Z"
+              }
+            ],
+            "folders": [
+              {
+                "id": 12,
+                "name": "workspace folder",
+                "permalink": "https://app.smartsheet.com/b/home?lx=l",
+                "sheets": [
+                  {
+                    "id": 13,
+                    "name": "workspace folder sheet",
+                    "accessLevel": "OWNER",
+                    "favorite": true,
+                    "permalink": "https://app.smartsheet.com/b/home?lx=m",
+                    "createdAt": "2017-10-06T21:14:30Z",
+                    "modifiedAt": "2017-10-06T21:14:30Z"
+                  }
+                ],
+                "folders": [
+                  {
+                    "id": 14,
+                    "name": "workspace folder folder",
+                    "permalink": "https://app.smartsheet.com/b/home?lx=n",
+                    "sheets": [
+                      {
+                        "id": 15,
+                        "name": "workspace folder folder sheet",
+                        "accessLevel": "OWNER",
+                        "permalink": "https://app.smartsheet.com/b/home?lx=o",
+                        "createdAt": "2017-10-06T21:14:30Z",
+                        "modifiedAt": "2017-10-06T21:14:30Z"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": 16,
+                "name": "empty folder",
+                "permalink": "https://app.smartsheet.com/b/home?lx=p"
+              }
+            ]
+          }
+        ],
+        "sights": [
+          {
+            "id": 17,
+            "name": "sight",
+            "accessLevel": "OWNER",
+            "permalink": "https://app.smartsheet.com/b/home?lx=q",
+            "createdAt": "2017-08-29T23:28:35Z",
+            "modifiedAt": "2017-08-29T23:28:35Z"
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Groups",
+    "description": "Validates serialization of groups and group member objects",
+    "request": {
+      "method": "POST",
+      "urlPath": "/groups",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "mock api test group",
+        "description": "it's a group",
+        "members": [
+          {
+            "email": "john.doe@smartsheet.com"
+          },
+          {
+            "email": "jane.doe@smartsheet.com"
+          }
+        ]
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 1,
+          "name": "mock api test group",
+          "description": "it's a group",
+          "owner": "john.doe@smartsheet.com",
+          "ownerId": 2,
+          "members": [
+            {
+              "id": 2,
+              "email": "john.doe@smartsheet.com",
+              "firstName": "John",
+              "lastName": "Doe",
+              "name": "John Doe"
+            },
+            {
+              "id": 3,
+              "email": "jane.doe@smartsheet.com",
+              "firstName": "Jane",
+              "lastName": "Doe",
+              "name": "Jane Doe"
+            }
+          ],
+          "createdAt": "2018-03-09T23:51:26Z",
+          "modifiedAt": "2018-03-09T23:51:26Z"
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Discussion",
+    "description": "Validates serializing discussions and comments",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows/2/discussions",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "comment": {
+          "text": "This is a comment!"
+        }
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 1,
+          "title": "This is a comment!",
+          "comments": [
+            {
+              "id": 2,
+              "text": "This is a comment!",
+              "createdBy": {
+                "name": "John Doe",
+                "email": "john.doe@smartsheet.com"
+              },
+              "createdAt": "2018-03-16T16:06:52Z",
+              "modifiedAt": "2018-03-16T16:06:52Z"
+            }
+          ],
+          "commentCount": 1,
+          "lastCommentedAt": "2018-03-16T16:06:52Z",
+          "lastCommentedUser": {
+            "name": "John Doe",
+            "email": "john.doe@smartsheet.com"
+          },
+          "createdBy": {
+            "name": "John Doe",
+            "email": "john.doe@smartsheet.com"
+          }
+        },
+        "version": 76
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Contact",
+    "description": "Validates deserializing contact object",
+    "request": {
+      "method": "GET",
+      "urlPath": "/contacts/1"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "id": "ABC",
+        "name": "John Doe",
+        "email": "john.doe@smartsheet.com"
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Folder",
+    "description": "Validates serialization of folder object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/home/folders",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "folder"
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 1,
+          "name": "folder",
+          "permalink": "https://app.smartsheet.com/b/home?lx=a"
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Column",
+    "description": "Validates serialization of column object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/columns",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "title": "A Brave New Column",
+        "type": "PICKLIST",
+        "options": [
+          "option1",
+          "option2",
+          "option3"
+        ],
+        "index": 2,
+        "validation": false,
+        "width": 42,
+        "locked": false
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 2,
+          "index": 2,
+          "title": "A Brave New Column",
+          "type": "PICKLIST",
+          "options": [
+            "option1",
+            "option2",
+            "option3"
+          ],
+          "validation": false,
+          "width": 42
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - UserProfile",
+    "description": "Validates deserialization of user profile object",
+    "request": {
+      "method": "GET",
+      "urlPath": "/users/me"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "id": 1,
+        "email": "john.doe@smartsheet.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "locale": "en_US",
+        "timeZone": "US/Pacific",
+        "account": {
+          "name": "john.doe@smartsheet.com",
+          "id": 2
+        },
+        "admin": true,
+        "licensedSheetCreator": true,
+        "groupAdmin": true,
+        "resourceViewer": true,
+        "alternateEmails": [],
+        "sheetCount": 66,
+        "lastLogin": "2018-03-16T16:06:52Z",
+        "title": "",
+        "department": "",
+        "company": "",
+        "workPhone": "",
+        "mobilePhone": "",
+        "role": ""
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Workspace",
+    "description": "Validates serialization of workspace object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/workspaces",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "A Whole New Workspace"
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 1,
+          "name": "A Whole New Workspace",
+          "accessLevel": "OWNER",
+          "permalink": "https://app.smartsheet.com/b/home?lx=a"
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - User",
+    "description": "",
+    "request": {
+      "method": "POST",
+      "urlPath": "/users",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "email": "john.doe@smartsheet.com",
+        "admin": false,
+        "licensedSheetCreator": true,
+        "firstName": "John",
+        "lastName": "Doe",
+        "groupAdmin": false,
+        "resourceViewer": true
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 1,
+          "email": "john.doe@smartsheet.com",
+          "name": "John Doe",
+          "firstName": "John",
+          "lastName": "Doe",
+          "profileImage": {
+            "imageId": "abc",
+            "height": 1050,
+            "width": 1050
+          },
+          "status": "ACTIVE",
+          "admin": false,
+          "licensedSheetCreator": true,
+          "groupAdmin": false,
+          "resourceViewer": true
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Sheet",
+    "description": "Validate serialization for sheet and auto number format objects",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "The First Sheet",
+        "columns": [
+          {
+            "title": "The First Column",
+            "primary": true,
+            "type": "TEXT_NUMBER"
+          },
+          {
+            "title": "The Second Column",
+            "primary": false,
+            "type": "TEXT_NUMBER",
+            "systemColumnType": "AUTO_NUMBER",
+            "autoNumberFormat": {
+              "prefix": "{YYYY}-{MM}-{DD}-",
+              "suffix": "-SUFFIX",
+              "fill": "000000",
+              "startingNumber": 42
+            }
+          }
+        ]
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 1,
+          "name": "The First Sheet",
+          "accessLevel": "OWNER",
+          "permalink": "https://app.smartsheet.com/b/home?lx=a",
+          "columns": [
+            {
+              "id": 2,
+              "index": 0,
+              "title": "The First Column",
+              "type": "TEXT_NUMBER",
+              "primary": true,
+              "validation": false,
+              "width": 150
+            },
+            {
+              "id": 3,
+              "index": 1,
+              "title": "The Second Column",
+              "type": "TEXT_NUMBER",
+              "systemColumnType": "AUTO_NUMBER",
+              "validation": false,
+              "autoNumberFormat": {
+                "prefix": "{YYYY}-{MM}-{DD}-",
+                "fill": "000000",
+                "suffix": "-SUFFIX"
+              },
+              "width": 150
+            }
+          ]
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - AlternateEmail",
+    "description": "Validates serialization of alternate email object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/users/1/alternateemails",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "email": "not.not.john.doe@smartsheet.com"
+        }
+      ]
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 1,
+            "email": "not.not.john.doe@smartsheet.com",
+            "confirmed": false
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Predecessor",
+    "description": "Validates serialization of predecessor list and predecessor objects",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "queryParameters": {
+        "include": "objectValue"
+      },
+      "body": {
+        "cells": [
+          {
+            "columnId": 2,
+            "objectValue": {
+              "objectType": "PREDECESSOR_LIST",
+              "predecessors": [
+                {
+                  "rowId": 3,
+                  "type": "FS",
+                  "lag": {
+                    "objectType": "DURATION",
+                    "negative": false,
+                    "elapsed": false,
+                    "weeks": 1.5,
+                    "days": 2.5,
+                    "hours": 3.5,
+                    "minutes": 4.5,
+                    "seconds": 5.5,
+                    "milliseconds": 6
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 5,
+          "sheetId": 1,
+          "rowNumber": 17,
+          "siblingId": 6,
+          "expanded": true,
+          "createdAt": "2018-03-16T20:37:04Z",
+          "modifiedAt": "2018-03-16T20:37:04Z",
+          "cells": [
+            {
+              "columnId": 7
+            },
+            {
+              "columnId": 8
+            },
+            {
+              "columnId": 9,
+              "formula": "=CALCSTART(Duration17, Start8, Finish8, 0, 300875506)"
+            },
+            {
+              "columnId": 10
+            },
+            {
+              "columnId": 2,
+              "value": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms",
+              "objectValue": {
+                "objectType": "PREDECESSOR_LIST",
+                "predecessors": [
+                  {
+                    "rowId": 3,
+                    "rowNumber": 8,
+                    "type": "FS",
+                    "lag": {
+                      "objectType": "DURATION",
+                      "weeks": 1.5,
+                      "days": 2.5,
+                      "hours": 3.5,
+                      "minutes": 4.5,
+                      "seconds": 5.5,
+                      "milliseconds": 6
+                    }
+                  }
+                ]
+              },
+              "displayValue": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms"
+            },
+            {
+              "columnId": 11
+            },
+            {
+              "columnId": 12
+            },
+            {
+              "columnId": 13
+            },
+            {
+              "columnId": 14
+            }
+          ]
+        },
+        "version": 37
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - IndexResult",
+    "description": "Validates the serialization of the index result object",
+    "request": {
+      "method": "GET",
+      "urlPath": "/users"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "pageNumber": 1,
+        "pageSize": 100,
+        "totalPages": 1,
+        "totalCount": 1,
+        "data": [
+          {
+            "email": "john.doe@smartsheet.com",
+            "name": "John Doe",
+            "firstName": "John",
+            "lastName": "Doe",
+            "admin": true,
+            "licensedSheetCreator": true,
+            "groupAdmin": true,
+            "resourceViewer": true,
+            "id": 1,
+            "status": "ACTIVE",
+            "sheetCount": 69
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
     "scenario": "List Sheets - No Params",
     "description": "Gets a list of sheets without query parameters. Returns a valid response with a list of sheets.",
     "request": {
