@@ -9,7 +9,7 @@ var argv = require('yargs')
     .alias('c', 'collection')
     .describe('c', 'Path of an exported Postman collection, v2')
     .alias('o', 'output')
-    .describe('o', 'Path to output a new scenarios file')
+    .describe('o', 'Path of the output scenarios file')
     .alias('m', 'mode')
     .describe('m', 'Write mode: overwrite the scenarios file, append to it (failing if any scenarios already exist),' +
                    ' or create + update existing scenarios in the file')
