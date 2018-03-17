@@ -2450,66 +2450,6 @@
     }
   },
   {
-    "scenario": "Serialization - Rows",
-    "description": "Validates the row object",
-    "request": {
-      "method": "POST",
-      "urlPath": "/sheets/1/rows",
-      "headers": {
-        "Content-Type": "application/json"
-      },
-      "body": {
-        "expanded": true,
-        "format": ",,,,,,,,4,,,,,,,",
-        "cells": [
-          {
-            "columnId": 2,
-            "value": "url link",
-            "strict": false,
-            "hyperlink": {
-              "url": "https://google.com"
-            }
-          },
-          {
-            "columnId": 3,
-            "value": "sheet id link",
-            "strict": false,
-            "hyperlink": {
-              "sheetId": 6
-            }
-          },
-          {
-            "columnId": 4,
-            "value": "report id link",
-            "strict": false,
-            "hyperlink": {
-              "reportId": 7
-            }
-          },
-          {
-            "columnId": 5,
-            "value": "link in from cell",
-            "strict": false,
-            "linkInFromCell": {
-              "sheetId": 6,
-              "rowId": 8,
-              "columnId": 9
-            },
-            "overrideValidation": true
-          }
-        ],
-        "locked": false
-      }
-    },
-    "response": {
-      "status": 200,
-      "statusMessage": "OK",
-      "headers": {
-        "Content-Type": "application/json;charset=UTF-8"
-      }
-    }
-  },
-  {
     "scenario": "Serialization - Home",
     "description": "Validates the home object can be deserialized",
     "request": {
