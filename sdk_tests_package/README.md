@@ -61,7 +61,6 @@ The scenarios listed in the scenario section below can be called as specified. F
 * [Update Rows - Location - Top](#update-rows---location---top)
 * [Update Rows - Location - Bottom](#update-rows---location---bottom)
 * [Serialization - Attachment](#serialization---attachment)
-* [Serialization - Rows](#serialization---rows)
 * [Serialization - Home](#serialization---home)
 * [Serialization - Groups](#serialization---groups)
 * [Serialization - Discussion](#serialization---discussion)
@@ -75,6 +74,9 @@ The scenarios listed in the scenario section below can be called as specified. F
 * [Serialization - AlternateEmail](#serialization---alternateemail)
 * [Serialization - Predecessor](#serialization---predecessor)
 * [Serialization - IndexResult](#serialization---indexresult)
+* [Serialization - Image](#serialization---image)
+* [Serialization - Image Urls](#serialization---image-urls)
+* [Serialization - BulkFailure](#serialization---bulkfailure)
 * [List Sheets - No Params](#list-sheets---no-params)
 * [List Sheets - Include Owner Info](#list-sheets---include-owner-info)
 * [Create Sheet - Invalid - No Columns](#create-sheet---invalid---no-columns)
@@ -3550,6 +3552,167 @@ Validates the serialization of the index result object
       "id": 1,
       "status": "ACTIVE",
       "sheetCount": 69
+    }
+  ]
+}
+```
+
+## Serialization - Image
+
+Validates deserialization of image object
+
+### Expected Request
+
+#### GET - /sheets/1/rows/2
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "id": 3,
+  "sheetId": 1,
+  "rowNumber": 5,
+  "siblingId": 4,
+  "version": 79,
+  "expanded": true,
+  "accessLevel": "OWNER",
+  "createdAt": "2017-11-03T15:31:33Z",
+  "modifiedAt": "2018-02-16T22:14:11Z",
+  "cells": [
+    {
+      "columnId": 6,
+      "value": "puppy.jpg",
+      "displayValue": "puppy.jpg",
+      "formula": "=SYS_CELLIMAGE(\"puppy.jpg\",\"abc\",300,332,\"puppy.jpg\")",
+      "image": {
+        "id": "abc",
+        "height": 300,
+        "width": 332,
+        "altText": "puppy.jpg"
+      }
+    }
+  ]
+}
+```
+
+## Serialization - Image Urls
+
+Validates serialization of ImageUrl and ImageUrlMap objects
+
+### Expected Request
+
+#### POST - /imageurls
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+[
+  {
+    "imageId": "abc",
+    "height": 100,
+    "width": 200
+  }
+]
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "urlExpiresInMillis": 1800000,
+  "imageUrls": [
+    {
+      "imageId": "abc",
+      "url": "https://my-image-url.jpg"
+    }
+  ]
+}
+```
+
+## Serialization - BulkFailure
+
+Validates the deserialization of the BulkFailure object
+
+### Expected Request
+
+#### POST - /sheets/1/rows
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Query Parameters
+
+* allowPartialSuccess: true
+
+#### Body
+
+```json
+[
+  {
+    "toBottom": true,
+    "cells": [
+      {
+        "columnId": 2,
+        "value": "Some Value"
+      }
+    ]
+  },
+  {
+    "toBottom": true,
+    "cells": [
+      {
+        "columnId": 3,
+        "value": "Some Value"
+      }
+    ]
+  }
+]
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "PARTIAL_SUCCESS",
+  "resultCode": 3,
+  "result": [
+    {
+      "id": 4,
+      "sheetId": 1,
+      "rowNumber": 13,
+      "siblingId": 5,
+      "expanded": true,
+      "createdAt": "2018-03-23T16:23:24Z",
+      "modifiedAt": "2018-03-23T16:23:24Z",
+      "cells": [
+        {
+          "columnId": 2,
+          "value": "Some Value",
+          "displayValue": "Some Value"
+        }
+      ]
+    }
+  ],
+  "version": 84,
+  "failedItems": [
+    {
+      "index": 1,
+      "error": {
+        "errorCode": 1036,
+        "message": "The columnId 3 is invalid.",
+        "refId": "abc"
+      }
     }
   ]
 }

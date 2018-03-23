@@ -3191,6 +3191,154 @@
     }
   },
   {
+    "scenario": "Serialization - Image",
+    "description": "Validates deserialization of image object",
+    "request": {
+      "method": "GET",
+      "urlPath": "/sheets/1/rows/2"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "id": 3,
+        "sheetId": 1,
+        "rowNumber": 5,
+        "siblingId": 4,
+        "version": 79,
+        "expanded": true,
+        "accessLevel": "OWNER",
+        "createdAt": "2017-11-03T15:31:33Z",
+        "modifiedAt": "2018-02-16T22:14:11Z",
+        "cells": [
+          {
+            "columnId": 6,
+            "value": "puppy.jpg",
+            "displayValue": "puppy.jpg",
+            "formula": "=SYS_CELLIMAGE(\"puppy.jpg\",\"abc\",300,332,\"puppy.jpg\")",
+            "image": {
+              "id": "abc",
+              "height": 300,
+              "width": 332,
+              "altText": "puppy.jpg"
+            }
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Image Urls",
+    "description": "Validates serialization of ImageUrl and ImageUrlMap objects",
+    "request": {
+      "method": "POST",
+      "urlPath": "/imageurls",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": [
+        {
+          "imageId": "abc",
+          "height": 100,
+          "width": 200
+        }
+      ]
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "urlExpiresInMillis": 1800000,
+        "imageUrls": [
+          {
+            "imageId": "abc",
+            "url": "https://my-image-url.jpg"
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - BulkFailure",
+    "description": "Validates the deserialization of the BulkFailure object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "queryParameters": {
+        "allowPartialSuccess": "true"
+      },
+      "body": [
+        {
+          "toBottom": true,
+          "cells": [
+            {
+              "columnId": 2,
+              "value": "Some Value"
+            }
+          ]
+        },
+        {
+          "toBottom": true,
+          "cells": [
+            {
+              "columnId": 3,
+              "value": "Some Value"
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "PARTIAL_SUCCESS",
+        "resultCode": 3,
+        "result": [
+          {
+            "id": 4,
+            "sheetId": 1,
+            "rowNumber": 13,
+            "siblingId": 5,
+            "expanded": true,
+            "createdAt": "2018-03-23T16:23:24Z",
+            "modifiedAt": "2018-03-23T16:23:24Z",
+            "cells": [
+              {
+                "columnId": 2,
+                "value": "Some Value",
+                "displayValue": "Some Value"
+              }
+            ]
+          }
+        ],
+        "version": 84,
+        "failedItems": [
+          {
+            "index": 1,
+            "error": {
+              "errorCode": 1036,
+              "message": "The columnId 3 is invalid.",
+              "refId": "abc"
+            }
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
     "scenario": "List Sheets - No Params",
     "description": "Gets a list of sheets without query parameters. Returns a valid response with a list of sheets.",
     "request": {
