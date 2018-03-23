@@ -1,6 +1,6 @@
 {
   "request": {
-    "urlPathPattern": "/contacts/1\\/?",
+    "urlPathPattern": "/contacts/ABC\\/?",
     "method": "GET",
     "headers": {
       "Api-Scenario": {
