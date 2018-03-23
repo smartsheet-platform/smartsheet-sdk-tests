@@ -3047,7 +3047,7 @@ Validates deserializing contact object
 
 ### Expected Request
 
-#### GET - /contacts/1
+#### GET - /contacts/ABC
 
 ### Response
 

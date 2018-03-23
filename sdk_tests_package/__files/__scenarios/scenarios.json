@@ -2720,7 +2720,7 @@
     "description": "Validates deserializing contact object",
     "request": {
       "method": "GET",
-      "urlPath": "/contacts/1"
+      "urlPath": "/contacts/ABC"
     },
     "response": {
       "statusMessage": "OK",
