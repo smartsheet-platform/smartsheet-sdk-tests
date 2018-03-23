@@ -77,6 +77,8 @@ The scenarios listed in the scenario section below can be called as specified. F
 * [Serialization - Image](#serialization---image)
 * [Serialization - Image Urls](#serialization---image-urls)
 * [Serialization - BulkFailure](#serialization---bulkfailure)
+* [Serialization - Rows](#serialization---rows)
+* [Serialization - Cell Link](#serialization---cell-link)
 * [List Sheets - No Params](#list-sheets---no-params)
 * [List Sheets - Include Owner Info](#list-sheets---include-owner-info)
 * [Create Sheet - Invalid - No Columns](#create-sheet---invalid---no-columns)
@@ -3715,6 +3717,168 @@ Validates the deserialization of the BulkFailure object
       }
     }
   ]
+}
+```
+
+## Serialization - Rows
+
+Validates the row object
+
+### Expected Request
+
+#### POST - /sheets/1/rows
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "expanded": true,
+  "format": ",,,,,,,,4,,,,,,,",
+  "cells": [
+    {
+      "columnId": 2,
+      "value": "url link",
+      "strict": false,
+      "hyperlink": {
+        "url": "https://google.com"
+      }
+    },
+    {
+      "columnId": 3,
+      "value": "sheet id link",
+      "strict": false,
+      "hyperlink": {
+        "sheetId": 4
+      }
+    },
+    {
+      "columnId": 5,
+      "value": "report id link",
+      "strict": false,
+      "hyperlink": {
+        "reportId": 6
+      }
+    }
+  ],
+  "locked": false
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "id": 7,
+    "sheetId": 1,
+    "rowNumber": 15,
+    "siblingId": 8,
+    "expanded": true,
+    "createdAt": "2018-03-23T18:28:54Z",
+    "modifiedAt": "2018-03-23T18:28:54Z",
+    "cells": [
+      {
+        "columnId": 2,
+        "value": "url link",
+        "displayValue": "url link",
+        "hyperlink": {
+          "url": "https://google.com"
+        }
+      },
+      {
+        "columnId": 3,
+        "value": "sheet id link",
+        "hyperlink": {
+          "url": "https://app.smartsheet.com/b/home?lx=a",
+          "sheetId": 4
+        }
+      },
+      {
+        "columnId": 5,
+        "value": "report id link",
+        "displayValue": "report id link",
+        "hyperlink": {
+          "url": "https://app.smartsheet.com/b/home?lx=b",
+          "reportId": 6
+        }
+      }
+    ]
+  },
+  "version": 88
+}
+```
+
+## Serialization - Cell Link
+
+Validates the CellLink object can be serialized and deserialized
+
+### Expected Request
+
+#### PUT - /sheets/1/rows
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "id": 2,
+  "cells": [
+    {
+      "columnId": 3,
+      "value": null,
+      "linkInFromCell": {
+        "sheetId": 4,
+        "rowId": 5,
+        "columnId": 6
+      }
+    }
+  ]
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": [
+    {
+      "id": 2,
+      "rowNumber": 5,
+      "siblingId": 7,
+      "expanded": true,
+      "createdAt": "2017-11-03T15:31:33Z",
+      "modifiedAt": "2018-03-23T18:24:38Z",
+      "cells": [
+        {
+          "columnId": 3,
+          "value": "new value",
+          "linkInFromCell": {
+            "status": "OK",
+            "sheetId": 4,
+            "rowId": 5,
+            "columnId": 6,
+            "sheetName": "Linked Sheet Name"
+          }
+        }
+      ]
+    }
+  ],
+  "version": 87
 }
 ```
 

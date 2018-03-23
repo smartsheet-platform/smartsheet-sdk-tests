@@ -3339,6 +3339,156 @@
     }
   },
   {
+    "scenario": "Serialization - Rows",
+    "description": "Validates the row object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "expanded": true,
+        "format": ",,,,,,,,4,,,,,,,",
+        "cells": [
+          {
+            "columnId": 2,
+            "value": "url link",
+            "strict": false,
+            "hyperlink": {
+              "url": "https://google.com"
+            }
+          },
+          {
+            "columnId": 3,
+            "value": "sheet id link",
+            "strict": false,
+            "hyperlink": {
+              "sheetId": 4
+            }
+          },
+          {
+            "columnId": 5,
+            "value": "report id link",
+            "strict": false,
+            "hyperlink": {
+              "reportId": 6
+            }
+          }
+        ],
+        "locked": false
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 7,
+          "sheetId": 1,
+          "rowNumber": 15,
+          "siblingId": 8,
+          "expanded": true,
+          "createdAt": "2018-03-23T18:28:54Z",
+          "modifiedAt": "2018-03-23T18:28:54Z",
+          "cells": [
+            {
+              "columnId": 2,
+              "value": "url link",
+              "displayValue": "url link",
+              "hyperlink": {
+                "url": "https://google.com"
+              }
+            },
+            {
+              "columnId": 3,
+              "value": "sheet id link",
+              "hyperlink": {
+                "url": "https://app.smartsheet.com/b/home?lx=a",
+                "sheetId": 4
+              }
+            },
+            {
+              "columnId": 5,
+              "value": "report id link",
+              "displayValue": "report id link",
+              "hyperlink": {
+                "url": "https://app.smartsheet.com/b/home?lx=b",
+                "reportId": 6
+              }
+            }
+          ]
+        },
+        "version": 88
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Cell Link",
+    "description": "Validates the CellLink object can be serialized and deserialized",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1/rows",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "id": 2,
+        "cells": [
+          {
+            "columnId": 3,
+            "value": null,
+            "linkInFromCell": {
+              "sheetId": 4,
+              "rowId": 5,
+              "columnId": 6
+            }
+          }
+        ]
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": [
+          {
+            "id": 2,
+            "rowNumber": 5,
+            "siblingId": 7,
+            "expanded": true,
+            "createdAt": "2017-11-03T15:31:33Z",
+            "modifiedAt": "2018-03-23T18:24:38Z",
+            "cells": [
+              {
+                "columnId": 3,
+                "value": "new value",
+                "linkInFromCell": {
+                  "status": "OK",
+                  "sheetId": 4,
+                  "rowId": 5,
+                  "columnId": 6,
+                  "sheetName": "Linked Sheet Name"
+                }
+              }
+            ]
+          }
+        ],
+        "version": 87
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
     "scenario": "List Sheets - No Params",
     "description": "Gets a list of sheets without query parameters. Returns a valid response with a list of sheets.",
     "request": {
