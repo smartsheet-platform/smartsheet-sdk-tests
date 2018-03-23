@@ -1079,5 +1079,507 @@
         "Content-Type": "application/json;charset=UTF-8"
       }
     }
+  },
+  {
+    "scenario": "Serialization - Favorite",
+    "description": "Validates serialization of favorite object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/favorites",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "type": "sheet",
+        "objectId": 1
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "type": "sheet",
+          "objectId": 1
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Report",
+    "description": "Validates serialization of report objects",
+    "request": {
+      "method": "GET",
+      "urlPath": "/reports/1"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "id": 1,
+        "name": "Test Report",
+        "totalRowCount": 11,
+        "accessLevel": "OWNER",
+        "effectiveAttachmentOptions": [
+          "GOOGLE_DRIVE",
+          "DROPBOX",
+          "ONEDRIVE",
+          "EVERNOTE",
+          "BOX_COM",
+          "EGNYTE",
+          "FILE"
+        ],
+        "ganttEnabled": false,
+        "cellImageUploadEnabled": true,
+        "permalink": "https://app.smartsheet.com/b/home?lx=a",
+        "createdAt": "2017-10-06T19:57:40Z",
+        "modifiedAt": "2018-03-23T18:55:50Z",
+        "columns": [
+          {
+            "virtualId": 2,
+            "index": 0,
+            "title": "Sheet Name",
+            "type": "TEXT_NUMBER",
+            "sheetNameColumn": true,
+            "validation": false,
+            "width": 150
+          }
+        ],
+        "rows": [
+          {
+            "id": 3,
+            "sheetId": 4,
+            "rowNumber": 1,
+            "expanded": true,
+            "accessLevel": "OWNER",
+            "createdAt": "2017-08-29T15:54:47Z",
+            "modifiedAt": "2017-08-29T15:54:47Z",
+            "cells": [
+              {
+                "virtualColumnId": 2,
+                "value": "Sheet Copy 2",
+                "displayValue": "Sheet Copy 2"
+              }
+            ]
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Share",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/shares",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "queryParameters": {
+        "sendEmail": "true"
+      },
+      "body": {
+        "email": "john.doe@smartsheet.com",
+        "accessLevel": "VIEWER",
+        "subject": "Check out this sheet",
+        "message": "Let me know what you think. Thanks!",
+        "ccMe": true
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": "abc",
+          "type": "USER",
+          "userId": 2,
+          "email": "john.doe@smartsheet.com",
+          "name": "John Doe",
+          "accessLevel": "VIEWER",
+          "scope": "ITEM"
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Send via Email",
+    "description": "Validates serialization of email objects",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/emails",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "sendTo": [
+          {
+            "email": "john.doe@smartsheet.com"
+          },
+          {
+            "groupId": 2
+          }
+        ],
+        "subject": "Some subject",
+        "message": "Some message",
+        "ccMe": true,
+        "format": "PDF",
+        "formatDetails": {
+          "paperSize": "LETTER"
+        }
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Row Email",
+    "description": "Validates serialization of the row email object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/rows/emails",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "sendTo": [
+          {
+            "groupId": 2
+          }
+        ],
+        "subject": "Some subject",
+        "message": "Some message",
+        "columnIds": [
+          3
+        ],
+        "includeAttachments": false,
+        "includeDiscussions": true,
+        "layout": "VERTICAL",
+        "rowIds": [
+          4
+        ]
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Template",
+    "description": "Validates serialization of the template object",
+    "request": {
+      "method": "GET",
+      "urlPath": "/templates/public"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "pageNumber": 1,
+        "pageSize": 100,
+        "totalPages": 1,
+        "totalCount": 1,
+        "data": [
+          {
+            "id": 1,
+            "name": "Blank Sheet",
+            "blank": true,
+            "description": "Create and customize a new sheet",
+            "locale": "en_US",
+            "type": "sheet",
+            "categories": [
+              "Featured Templates"
+            ],
+            "globalTemplate": "BLANK_SHEET"
+          }
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Update Request",
+    "description": "Validates the serialization of the UserRequest and Schedule objects",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/updaterequests",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "sendTo": [
+          {
+            "email": "john.doe@smartsheet.com"
+          }
+        ],
+        "rowIds": [
+          2
+        ],
+        "columnIds": [
+          3
+        ],
+        "includeAttachments": true,
+        "includeDiscussions": false,
+        "subject": "Some subject",
+        "message": "Some message",
+        "ccMe": true,
+        "schedule": {
+          "type": "MONTHLY",
+          "startAt": "2018-03-01T19:00:00Z",
+          "endAt": "2018-06-01T00:00:00Z",
+          "dayOrdinal": "FIRST",
+          "dayDescriptors": [
+            "FRIDAY"
+          ],
+          "repeatEvery": 1
+        }
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "sendTo": [
+            {
+              "email": "john.doe@smartsheet.com"
+            }
+          ],
+          "subject": "Some subject",
+          "message": "Some message",
+          "ccMe": true,
+          "includeAttachments": true,
+          "includeDiscussions": false,
+          "columnIds": [
+            3
+          ],
+          "rowIds": [
+            2
+          ],
+          "id": 4,
+          "sentBy": {
+            "name": "Jane Doe",
+            "email": "jane.doe@smartsheet.com"
+          },
+          "schedule": {
+            "type": "MONTHLY",
+            "startAt": "2018-03-01T19:00:00Z",
+            "endAt": "2018-06-01T00:00:00Z",
+            "dayOrdinal": "FIRST",
+            "dayDescriptors": [
+              "FRIDAY"
+            ],
+            "repeatEvery": 1,
+            "nextSendAt": "2018-04-06T18:00:00Z"
+          }
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Sent Update Requests",
+    "description": "Validates deserializing sent update request objects",
+    "request": {
+      "method": "GET",
+      "urlPath": "/sheets/1/sentupdaterequests/2"
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "id": 2,
+        "updateRequestId": 3,
+        "sentAt": "2018-02-02T23:32:42Z",
+        "sentBy": {
+          "name": "Jane Doe",
+          "email": "jane.doe@smartsheet.com"
+        },
+        "sentTo": {
+          "email": "john.doe@smartsheet.com"
+        },
+        "status": "COMPLETE",
+        "subject": "Update Request: New Sheet",
+        "message": "Please update my online sheet.",
+        "rowIds": [
+          4
+        ],
+        "includeAttachments": true,
+        "includeDiscussions": true,
+        "columnIds": [
+          5
+        ]
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Sheet Settings",
+    "description": "Validates serialization of sheet user settings and project settings objects",
+    "request": {
+      "method": "PUT",
+      "urlPath": "/sheets/1",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "userSettings": {
+          "criticalPathEnabled": true,
+          "displaySummaryTasks": true
+        },
+        "projectSettings": {
+          "workingDays": [
+            "MONDAY",
+            "TUESDAY"
+          ],
+          "nonWorkingDays": [
+            "2018-04-04",
+            "2018-05-05",
+            "2018-06-06"
+          ],
+          "lengthOfDay": 23.5
+        }
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 1,
+          "name": "Test Project Sheet",
+          "accessLevel": "OWNER",
+          "userSettings": {
+            "criticalPathEnabled": true,
+            "displaySummaryTasks": true
+          },
+          "projectSettings": {
+            "workingDays": [
+              "MONDAY",
+              "TUESDAY"
+            ],
+            "nonWorkingDays": [
+              "2018-04-04",
+              "2018-05-05",
+              "2018-06-06"
+            ],
+            "lengthOfDay": 23.5
+          },
+          "permalink": "https://app.smartsheet.com/b/home?lx=a"
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Container Destination",
+    "description": "Validates serialization of container destination object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/folders/1/copy",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "destinationType": "home",
+        "destinationId": null,
+        "newName": "Copy of Some Folder"
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 2,
+          "name": "Copy of Some Folder",
+          "permalink": "https://app.smartsheet.com/b/home?lx=a"
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
+  },
+  {
+    "scenario": "Serialization - Cross Sheet Reference",
+    "description": "Validates the serialization of the cross sheet reference object",
+    "request": {
+      "method": "POST",
+      "urlPath": "/sheets/1/crosssheetreferences",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "Some Cross Sheet Reference",
+        "sourceSheetId": 2,
+        "startRowId": 3,
+        "endRowId": 4,
+        "startColumnId": 5,
+        "endColumnId": 6
+      }
+    },
+    "response": {
+      "statusMessage": "OK",
+      "status": 200,
+      "jsonBody": {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "name": "Some Cross Sheet Reference",
+          "sourceSheetId": 2,
+          "startRowId": 3,
+          "endRowId": 4,
+          "startColumnId": 5,
+          "endColumnId": 6
+        }
+      },
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    }
   }
 ]

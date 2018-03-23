@@ -79,6 +79,17 @@ The scenarios listed in the scenario section below can be called as specified. F
 * [Serialization - BulkFailure](#serialization---bulkfailure)
 * [Serialization - Rows](#serialization---rows)
 * [Serialization - Cell Link](#serialization---cell-link)
+* [Serialization - Favorite](#serialization---favorite)
+* [Serialization - Report](#serialization---report)
+* [Serialization - Share](#serialization---share)
+* [Serialization - Send via Email](#serialization---send-via-email)
+* [Serialization - Row Email](#serialization---row-email)
+* [Serialization - Template](#serialization---template)
+* [Serialization - Update Request](#serialization---update-request)
+* [Serialization - Sent Update Requests](#serialization---sent-update-requests)
+* [Serialization - Sheet Settings](#serialization---sheet-settings)
+* [Serialization - Container Destination](#serialization---container-destination)
+* [Serialization - Cross Sheet Reference](#serialization---cross-sheet-reference)
 * [List Sheets - No Params](#list-sheets---no-params)
 * [List Sheets - Include Owner Info](#list-sheets---include-owner-info)
 * [Create Sheet - Invalid - No Columns](#create-sheet---invalid---no-columns)
@@ -3878,6 +3889,558 @@ Validates the CellLink object can be serialized and deserialized
     }
   ],
   "version": 87
+}
+```
+
+## Serialization - Favorite
+
+Validates serialization of favorite object
+
+### Expected Request
+
+#### POST - /favorites
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "type": "sheet",
+  "objectId": 1
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "type": "sheet",
+    "objectId": 1
+  }
+}
+```
+
+## Serialization - Report
+
+Validates serialization of report objects
+
+### Expected Request
+
+#### GET - /reports/1
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "id": 1,
+  "name": "Test Report",
+  "totalRowCount": 11,
+  "accessLevel": "OWNER",
+  "effectiveAttachmentOptions": [
+    "GOOGLE_DRIVE",
+    "DROPBOX",
+    "ONEDRIVE",
+    "EVERNOTE",
+    "BOX_COM",
+    "EGNYTE",
+    "FILE"
+  ],
+  "ganttEnabled": false,
+  "cellImageUploadEnabled": true,
+  "permalink": "https://app.smartsheet.com/b/home?lx=a",
+  "createdAt": "2017-10-06T19:57:40Z",
+  "modifiedAt": "2018-03-23T18:55:50Z",
+  "columns": [
+    {
+      "virtualId": 2,
+      "index": 0,
+      "title": "Sheet Name",
+      "type": "TEXT_NUMBER",
+      "sheetNameColumn": true,
+      "validation": false,
+      "width": 150
+    }
+  ],
+  "rows": [
+    {
+      "id": 3,
+      "sheetId": 4,
+      "rowNumber": 1,
+      "expanded": true,
+      "accessLevel": "OWNER",
+      "createdAt": "2017-08-29T15:54:47Z",
+      "modifiedAt": "2017-08-29T15:54:47Z",
+      "cells": [
+        {
+          "virtualColumnId": 2,
+          "value": "Sheet Copy 2",
+          "displayValue": "Sheet Copy 2"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Serialization - Share
+
+
+
+### Expected Request
+
+#### POST - /sheets/1/shares
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Query Parameters
+
+* sendEmail: true
+
+#### Body
+
+```json
+{
+  "email": "john.doe@smartsheet.com",
+  "accessLevel": "VIEWER",
+  "subject": "Check out this sheet",
+  "message": "Let me know what you think. Thanks!",
+  "ccMe": true
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "id": "abc",
+    "type": "USER",
+    "userId": 2,
+    "email": "john.doe@smartsheet.com",
+    "name": "John Doe",
+    "accessLevel": "VIEWER",
+    "scope": "ITEM"
+  }
+}
+```
+
+## Serialization - Send via Email
+
+Validates serialization of email objects
+
+### Expected Request
+
+#### POST - /sheets/1/emails
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "sendTo": [
+    {
+      "email": "john.doe@smartsheet.com"
+    },
+    {
+      "groupId": 2
+    }
+  ],
+  "subject": "Some subject",
+  "message": "Some message",
+  "ccMe": true,
+  "format": "PDF",
+  "formatDetails": {
+    "paperSize": "LETTER"
+  }
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0
+}
+```
+
+## Serialization - Row Email
+
+Validates serialization of the row email object
+
+### Expected Request
+
+#### POST - /sheets/1/rows/emails
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "sendTo": [
+    {
+      "groupId": 2
+    }
+  ],
+  "subject": "Some subject",
+  "message": "Some message",
+  "columnIds": [
+    3
+  ],
+  "includeAttachments": false,
+  "includeDiscussions": true,
+  "layout": "VERTICAL",
+  "rowIds": [
+    4
+  ]
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0
+}
+```
+
+## Serialization - Template
+
+Validates serialization of the template object
+
+### Expected Request
+
+#### GET - /templates/public
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "pageNumber": 1,
+  "pageSize": 100,
+  "totalPages": 1,
+  "totalCount": 1,
+  "data": [
+    {
+      "id": 1,
+      "name": "Blank Sheet",
+      "blank": true,
+      "description": "Create and customize a new sheet",
+      "locale": "en_US",
+      "type": "sheet",
+      "categories": [
+        "Featured Templates"
+      ],
+      "globalTemplate": "BLANK_SHEET"
+    }
+  ]
+}
+```
+
+## Serialization - Update Request
+
+Validates the serialization of the UserRequest and Schedule objects
+
+### Expected Request
+
+#### POST - /sheets/1/updaterequests
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "sendTo": [
+    {
+      "email": "john.doe@smartsheet.com"
+    }
+  ],
+  "rowIds": [
+    2
+  ],
+  "columnIds": [
+    3
+  ],
+  "includeAttachments": true,
+  "includeDiscussions": false,
+  "subject": "Some subject",
+  "message": "Some message",
+  "ccMe": true,
+  "schedule": {
+    "type": "MONTHLY",
+    "startAt": "2018-03-01T19:00:00Z",
+    "endAt": "2018-06-01T00:00:00Z",
+    "dayOrdinal": "FIRST",
+    "dayDescriptors": [
+      "FRIDAY"
+    ],
+    "repeatEvery": 1
+  }
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "sendTo": [
+      {
+        "email": "john.doe@smartsheet.com"
+      }
+    ],
+    "subject": "Some subject",
+    "message": "Some message",
+    "ccMe": true,
+    "includeAttachments": true,
+    "includeDiscussions": false,
+    "columnIds": [
+      3
+    ],
+    "rowIds": [
+      2
+    ],
+    "id": 4,
+    "sentBy": {
+      "name": "Jane Doe",
+      "email": "jane.doe@smartsheet.com"
+    },
+    "schedule": {
+      "type": "MONTHLY",
+      "startAt": "2018-03-01T19:00:00Z",
+      "endAt": "2018-06-01T00:00:00Z",
+      "dayOrdinal": "FIRST",
+      "dayDescriptors": [
+        "FRIDAY"
+      ],
+      "repeatEvery": 1,
+      "nextSendAt": "2018-04-06T18:00:00Z"
+    }
+  }
+}
+```
+
+## Serialization - Sent Update Requests
+
+Validates deserializing sent update request objects
+
+### Expected Request
+
+#### GET - /sheets/1/sentupdaterequests/2
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "id": 2,
+  "updateRequestId": 3,
+  "sentAt": "2018-02-02T23:32:42Z",
+  "sentBy": {
+    "name": "Jane Doe",
+    "email": "jane.doe@smartsheet.com"
+  },
+  "sentTo": {
+    "email": "john.doe@smartsheet.com"
+  },
+  "status": "COMPLETE",
+  "subject": "Update Request: New Sheet",
+  "message": "Please update my online sheet.",
+  "rowIds": [
+    4
+  ],
+  "includeAttachments": true,
+  "includeDiscussions": true,
+  "columnIds": [
+    5
+  ]
+}
+```
+
+## Serialization - Sheet Settings
+
+Validates serialization of sheet user settings and project settings objects
+
+### Expected Request
+
+#### PUT - /sheets/1
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "userSettings": {
+    "criticalPathEnabled": true,
+    "displaySummaryTasks": true
+  },
+  "projectSettings": {
+    "workingDays": [
+      "MONDAY",
+      "TUESDAY"
+    ],
+    "nonWorkingDays": [
+      "2018-04-04",
+      "2018-05-05",
+      "2018-06-06"
+    ],
+    "lengthOfDay": 23.5
+  }
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "id": 1,
+    "name": "Test Project Sheet",
+    "accessLevel": "OWNER",
+    "userSettings": {
+      "criticalPathEnabled": true,
+      "displaySummaryTasks": true
+    },
+    "projectSettings": {
+      "workingDays": [
+        "MONDAY",
+        "TUESDAY"
+      ],
+      "nonWorkingDays": [
+        "2018-04-04",
+        "2018-05-05",
+        "2018-06-06"
+      ],
+      "lengthOfDay": 23.5
+    },
+    "permalink": "https://app.smartsheet.com/b/home?lx=a"
+  }
+}
+```
+
+## Serialization - Container Destination
+
+Validates serialization of container destination object
+
+### Expected Request
+
+#### POST - /folders/1/copy
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "destinationType": "home",
+  "destinationId": null,
+  "newName": "Copy of Some Folder"
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "id": 2,
+    "name": "Copy of Some Folder",
+    "permalink": "https://app.smartsheet.com/b/home?lx=a"
+  }
+}
+```
+
+## Serialization - Cross Sheet Reference
+
+Validates the serialization of the cross sheet reference object
+
+### Expected Request
+
+#### POST - /sheets/1/crosssheetreferences
+
+#### Headers
+
+* Content-Type: application/json
+
+#### Body
+
+```json
+{
+  "name": "Some Cross Sheet Reference",
+  "sourceSheetId": 2,
+  "startRowId": 3,
+  "endRowId": 4,
+  "startColumnId": 5,
+  "endColumnId": 6
+}
+```
+
+### Response
+
+#### Status - 200 OK
+
+```json
+{
+  "message": "SUCCESS",
+  "resultCode": 0,
+  "result": {
+    "name": "Some Cross Sheet Reference",
+    "sourceSheetId": 2,
+    "startRowId": 3,
+    "endRowId": 4,
+    "startColumnId": 5,
+    "endColumnId": 6
+  }
 }
 ```
 
