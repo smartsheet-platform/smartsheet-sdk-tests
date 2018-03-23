@@ -32,22 +32,32 @@ TMP_SCENARIOS=".tmp_scenarios.json"
 # make wiremock root directory
 mkdir -p "$PACKAGE_SCENARIO_DIR"
 mkdir -p "$PACKAGE_MAPPINGS_DIR"
+echo 'Package directories created'
 
 # add scenario and apply defaults
 node concat_scenarios.js --scenarios="$DATA_SCENARIO_DIR" --output="$TMP_SCENARIOS"
+echo 'Scenarios concatenated'
+
 node apply_defaults.js --output="$PACKAGE_SCENARIOS" --defaults="$STUB_DEFAULTS" --scenarios="$TMP_SCENARIOS"
 rm "$TMP_SCENARIOS"
+echo 'Defaults applied'
 
 # add mappings
 node gen_mappings.js --scenarios="$PACKAGE_SCENARIOS" --output_dir="$PACKAGE_MAPPINGS_DIR"
+echo 'Mappings generated'
 
 # add readme
 cp "$PACKAGE_README" "$PACKAGE_NAME/README.md"
 node gen_docs.js --scenarios="$PACKAGE_SCENARIOS" >> "$PACKAGE_NAME/README.md"
+echo 'Docs generated'
 
 # add wiremock extension JAR
 mkdir -p "$PACKAGE_NAME/libs"
 cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/$EXTENSION_JAR_FILENAME"
+echo 'Wiremock diff extension included'
 
 # add launch script
 cp "$LAUNCH_SCRIPT" "$PACKAGE_NAME/launch.sh"
+echo 'Launch script added'
+
+echo 'Package complete'
