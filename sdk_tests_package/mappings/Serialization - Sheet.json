@@ -12,7 +12,7 @@
     },
     "bodyPatterns": [
       {
-        "equalToJson": "{\"name\":\"The First Sheet\",\"columns\":[{\"title\":\"The First Column\",\"primary\":true,\"type\":\"TEXT_NUMBER\"},{\"title\":\"The Second Column\",\"primary\":false,\"type\":\"TEXT_NUMBER\",\"systemColumnType\":\"AUTO_NUMBER\",\"autoNumberFormat\":{\"prefix\":\"{YYYY}-{MM}-{DD}-\",\"suffix\":\"-SUFFIX\",\"fill\":\"000000\",\"startingNumber\":42}}]}",
+        "equalToJson": "{\"name\":\"The First Sheet\",\"columns\":[{\"title\":\"The First Column\",\"primary\":true,\"type\":\"TEXT_NUMBER\"},{\"title\":\"The Second Column\",\"primary\":false,\"type\":\"TEXT_NUMBER\",\"systemColumnType\":\"AUTO_NUMBER\",\"autoNumberFormat\":{\"prefix\":\"{YYYY}-{MM}-{DD}-\",\"suffix\":\"-SUFFIX\",\"fill\":\"000000\"}}]}",
         "ignoreExtraElements": false,
         "ignoreArrayOrder": true
       }

@@ -3313,8 +3313,7 @@ Validate serialization for sheet and auto number format objects
       "autoNumberFormat": {
         "prefix": "{YYYY}-{MM}-{DD}-",
         "suffix": "-SUFFIX",
-        "fill": "000000",
-        "startingNumber": 42
+        "fill": "000000"
       }
     }
   ]
