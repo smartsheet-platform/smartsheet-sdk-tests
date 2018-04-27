@@ -1,5 +1,4 @@
-[
-  {
+[{
     "scenario": "Serialization - Attachment",
     "description": "Validate attachments can be serialized and deserialized",
     "request": {
@@ -53,8 +52,7 @@
       "statusMessage": "OK",
       "status": 200,
       "jsonBody": {
-        "sheets": [
-          {
+        "sheets": [{
             "id": 1,
             "name": "editor share sheet",
             "accessLevel": "EDITOR_SHARE",
@@ -79,8 +77,7 @@
             "modifiedAt": "2017-10-11T17:57:21Z"
           }
         ],
-        "folders": [
-          {
+        "folders": [{
             "id": 4,
             "name": "empty folder",
             "permalink": "https://app.smartsheet.com/b/home?lx=d"
@@ -89,20 +86,17 @@
             "id": 5,
             "name": "full folder",
             "permalink": "https://app.smartsheet.com/b/home?lx=e",
-            "sheets": [
-              {
-                "id": 6,
-                "name": "folder sheet",
-                "accessLevel": "OWNER",
-                "permalink": "https://app.smartsheet.com/b/home?lx=f",
-                "createdAt": "2017-10-31T18:17:36Z",
-                "modifiedAt": "2017-10-31T18:17:36Z"
-              }
-            ]
+            "sheets": [{
+              "id": 6,
+              "name": "folder sheet",
+              "accessLevel": "OWNER",
+              "permalink": "https://app.smartsheet.com/b/home?lx=f",
+              "createdAt": "2017-10-31T18:17:36Z",
+              "modifiedAt": "2017-10-31T18:17:36Z"
+            }]
           }
         ],
-        "reports": [
-          {
+        "reports": [{
             "id": 7,
             "name": "admin report",
             "accessLevel": "ADMIN",
@@ -121,74 +115,61 @@
             "permalink": "https://app.smartsheet.com/b/home?lx=i"
           }
         ],
-        "workspaces": [
-          {
-            "id": 10,
-            "name": "workspace",
+        "workspaces": [{
+          "id": 10,
+          "name": "workspace",
+          "accessLevel": "ADMIN",
+          "permalink": "https://app.smartsheet.com/b/home?lx=j",
+          "sheets": [{
+            "id": 11,
+            "name": "workspace sheet",
             "accessLevel": "ADMIN",
-            "permalink": "https://app.smartsheet.com/b/home?lx=j",
-            "sheets": [
-              {
-                "id": 11,
-                "name": "workspace sheet",
-                "accessLevel": "ADMIN",
-                "permalink": "https://app.smartsheet.com/b/home?lx=k",
-                "createdAt": "2017-08-28T16:45:57Z",
-                "modifiedAt": "2017-10-02T19:32:39Z"
-              }
-            ],
-            "folders": [
-              {
-                "id": 12,
-                "name": "workspace folder",
-                "permalink": "https://app.smartsheet.com/b/home?lx=l",
-                "sheets": [
-                  {
-                    "id": 13,
-                    "name": "workspace folder sheet",
-                    "accessLevel": "OWNER",
-                    "favorite": true,
-                    "permalink": "https://app.smartsheet.com/b/home?lx=m",
-                    "createdAt": "2017-10-06T21:14:30Z",
-                    "modifiedAt": "2017-10-06T21:14:30Z"
-                  }
-                ],
-                "folders": [
-                  {
-                    "id": 14,
-                    "name": "workspace folder folder",
-                    "permalink": "https://app.smartsheet.com/b/home?lx=n",
-                    "sheets": [
-                      {
-                        "id": 15,
-                        "name": "workspace folder folder sheet",
-                        "accessLevel": "OWNER",
-                        "permalink": "https://app.smartsheet.com/b/home?lx=o",
-                        "createdAt": "2017-10-06T21:14:30Z",
-                        "modifiedAt": "2017-10-06T21:14:30Z"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "id": 16,
-                "name": "empty folder",
-                "permalink": "https://app.smartsheet.com/b/home?lx=p"
-              }
-            ]
-          }
-        ],
-        "sights": [
-          {
-            "id": 17,
-            "name": "sight",
-            "accessLevel": "OWNER",
-            "permalink": "https://app.smartsheet.com/b/home?lx=q",
-            "createdAt": "2017-08-29T23:28:35Z",
-            "modifiedAt": "2017-08-29T23:28:35Z"
-          }
-        ]
+            "permalink": "https://app.smartsheet.com/b/home?lx=k",
+            "createdAt": "2017-08-28T16:45:57Z",
+            "modifiedAt": "2017-10-02T19:32:39Z"
+          }],
+          "folders": [{
+              "id": 12,
+              "name": "workspace folder",
+              "permalink": "https://app.smartsheet.com/b/home?lx=l",
+              "sheets": [{
+                "id": 13,
+                "name": "workspace folder sheet",
+                "accessLevel": "OWNER",
+                "favorite": true,
+                "permalink": "https://app.smartsheet.com/b/home?lx=m",
+                "createdAt": "2017-10-06T21:14:30Z",
+                "modifiedAt": "2017-10-06T21:14:30Z"
+              }],
+              "folders": [{
+                "id": 14,
+                "name": "workspace folder folder",
+                "permalink": "https://app.smartsheet.com/b/home?lx=n",
+                "sheets": [{
+                  "id": 15,
+                  "name": "workspace folder folder sheet",
+                  "accessLevel": "OWNER",
+                  "permalink": "https://app.smartsheet.com/b/home?lx=o",
+                  "createdAt": "2017-10-06T21:14:30Z",
+                  "modifiedAt": "2017-10-06T21:14:30Z"
+                }]
+              }]
+            },
+            {
+              "id": 16,
+              "name": "empty folder",
+              "permalink": "https://app.smartsheet.com/b/home?lx=p"
+            }
+          ]
+        }],
+        "sights": [{
+          "id": 17,
+          "name": "sight",
+          "accessLevel": "OWNER",
+          "permalink": "https://app.smartsheet.com/b/home?lx=q",
+          "createdAt": "2017-08-29T23:28:35Z",
+          "modifiedAt": "2017-08-29T23:28:35Z"
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -207,8 +188,7 @@
       "body": {
         "name": "mock api test group",
         "description": "it's a group",
-        "members": [
-          {
+        "members": [{
             "email": "john.doe@smartsheet.com"
           },
           {
@@ -229,8 +209,7 @@
           "description": "it's a group",
           "owner": "john.doe@smartsheet.com",
           "ownerId": 2,
-          "members": [
-            {
+          "members": [{
               "id": 2,
               "email": "john.doe@smartsheet.com",
               "firstName": "John",
@@ -278,18 +257,16 @@
         "result": {
           "id": 1,
           "title": "This is a comment!",
-          "comments": [
-            {
-              "id": 2,
-              "text": "This is a comment!",
-              "createdBy": {
-                "name": "John Doe",
-                "email": "john.doe@smartsheet.com"
-              },
-              "createdAt": "2018-03-16T16:06:52Z",
-              "modifiedAt": "2018-03-16T16:06:52Z"
-            }
-          ],
+          "comments": [{
+            "id": 2,
+            "text": "This is a comment!",
+            "createdBy": {
+              "name": "John Doe",
+              "email": "john.doe@smartsheet.com"
+            },
+            "createdAt": "2018-03-16T16:06:52Z",
+            "modifiedAt": "2018-03-16T16:06:52Z"
+          }],
           "commentCount": 1,
           "lastCommentedAt": "2018-03-16T16:06:52Z",
           "lastCommentedUser": {
@@ -536,8 +513,7 @@
       },
       "body": {
         "name": "The First Sheet",
-        "columns": [
-          {
+        "columns": [{
             "title": "The First Column",
             "primary": true,
             "type": "TEXT_NUMBER"
@@ -567,8 +543,7 @@
           "name": "The First Sheet",
           "accessLevel": "OWNER",
           "permalink": "https://app.smartsheet.com/b/home?lx=a",
-          "columns": [
-            {
+          "columns": [{
               "id": 2,
               "index": 0,
               "title": "The First Column",
@@ -608,11 +583,9 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": [
-        {
-          "email": "not.not.john.doe@smartsheet.com"
-        }
-      ]
+      "body": [{
+        "email": "not.not.john.doe@smartsheet.com"
+      }]
     },
     "response": {
       "statusMessage": "OK",
@@ -620,13 +593,11 @@
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
-        "result": [
-          {
-            "id": 1,
-            "email": "not.not.john.doe@smartsheet.com",
-            "confirmed": false
-          }
-        ]
+        "result": [{
+          "id": 1,
+          "email": "not.not.john.doe@smartsheet.com",
+          "confirmed": false
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -646,31 +617,27 @@
         "include": "objectValue"
       },
       "body": [{
-        "cells": [
-          {
-            "columnId": 2,
-            "objectValue": {
-              "objectType": "PREDECESSOR_LIST",
-              "predecessors": [
-                {
-                  "rowId": 3,
-                  "type": "FS",
-                  "lag": {
-                    "objectType": "DURATION",
-                    "negative": false,
-                    "elapsed": false,
-                    "weeks": 1.5,
-                    "days": 2.5,
-                    "hours": 3.5,
-                    "minutes": 4.5,
-                    "seconds": 5.5,
-                    "milliseconds": 6
-                  }
-                }
-              ]
-            }
+        "cells": [{
+          "columnId": 2,
+          "objectValue": {
+            "objectType": "PREDECESSOR_LIST",
+            "predecessors": [{
+              "rowId": 3,
+              "type": "FS",
+              "lag": {
+                "objectType": "DURATION",
+                "negative": false,
+                "elapsed": false,
+                "weeks": 1.5,
+                "days": 2.5,
+                "hours": 3.5,
+                "minutes": 4.5,
+                "seconds": 5.5,
+                "milliseconds": 6
+              }
+            }]
           }
-        ]
+        }]
       }]
     },
     "response": {
@@ -687,8 +654,7 @@
           "expanded": true,
           "createdAt": "2018-03-16T20:37:04Z",
           "modifiedAt": "2018-03-16T20:37:04Z",
-          "cells": [
-            {
+          "cells": [{
               "columnId": 7
             },
             {
@@ -706,22 +672,20 @@
               "value": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms",
               "objectValue": {
                 "objectType": "PREDECESSOR_LIST",
-                "predecessors": [
-                  {
-                    "rowId": 3,
-                    "rowNumber": 8,
-                    "type": "FS",
-                    "lag": {
-                      "objectType": "DURATION",
-                      "weeks": 1.5,
-                      "days": 2.5,
-                      "hours": 3.5,
-                      "minutes": 4.5,
-                      "seconds": 5.5,
-                      "milliseconds": 6
-                    }
+                "predecessors": [{
+                  "rowId": 3,
+                  "rowNumber": 8,
+                  "type": "FS",
+                  "lag": {
+                    "objectType": "DURATION",
+                    "weeks": 1.5,
+                    "days": 2.5,
+                    "hours": 3.5,
+                    "minutes": 4.5,
+                    "seconds": 5.5,
+                    "milliseconds": 6
                   }
-                ]
+                }]
               },
               "displayValue": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms"
             },
@@ -761,21 +725,19 @@
         "pageSize": 100,
         "totalPages": 1,
         "totalCount": 1,
-        "data": [
-          {
-            "email": "john.doe@smartsheet.com",
-            "name": "John Doe",
-            "firstName": "John",
-            "lastName": "Doe",
-            "admin": true,
-            "licensedSheetCreator": true,
-            "groupAdmin": true,
-            "resourceViewer": true,
-            "id": 1,
-            "status": "ACTIVE",
-            "sheetCount": 69
-          }
-        ]
+        "data": [{
+          "email": "john.doe@smartsheet.com",
+          "name": "John Doe",
+          "firstName": "John",
+          "lastName": "Doe",
+          "admin": true,
+          "licensedSheetCreator": true,
+          "groupAdmin": true,
+          "resourceViewer": true,
+          "id": 1,
+          "status": "ACTIVE",
+          "sheetCount": 69
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -802,20 +764,18 @@
         "accessLevel": "OWNER",
         "createdAt": "2017-11-03T15:31:33Z",
         "modifiedAt": "2018-02-16T22:14:11Z",
-        "cells": [
-          {
-            "columnId": 6,
-            "value": "puppy.jpg",
-            "displayValue": "puppy.jpg",
-            "formula": "=SYS_CELLIMAGE(\"puppy.jpg\",\"abc\",300,332,\"puppy.jpg\")",
-            "image": {
-              "id": "abc",
-              "height": 300,
-              "width": 332,
-              "altText": "puppy.jpg"
-            }
+        "cells": [{
+          "columnId": 6,
+          "value": "puppy.jpg",
+          "displayValue": "puppy.jpg",
+          "formula": "=SYS_CELLIMAGE(\"puppy.jpg\",\"abc\",300,332,\"puppy.jpg\")",
+          "image": {
+            "id": "abc",
+            "height": 300,
+            "width": 332,
+            "altText": "puppy.jpg"
           }
-        ]
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -831,25 +791,21 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": [
-        {
-          "imageId": "abc",
-          "height": 100,
-          "width": 200
-        }
-      ]
+      "body": [{
+        "imageId": "abc",
+        "height": 100,
+        "width": 200
+      }]
     },
     "response": {
       "statusMessage": "OK",
       "status": 200,
       "jsonBody": {
         "urlExpiresInMillis": 1800000,
-        "imageUrls": [
-          {
-            "imageId": "abc",
-            "url": "https://my-image-url.jpg"
-          }
-        ]
+        "imageUrls": [{
+          "imageId": "abc",
+          "url": "https://my-image-url.jpg"
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -868,24 +824,19 @@
       "queryParameters": {
         "allowPartialSuccess": "true"
       },
-      "body": [
-        {
+      "body": [{
           "toBottom": true,
-          "cells": [
-            {
-              "columnId": 2,
-              "value": "Some Value"
-            }
-          ]
+          "cells": [{
+            "columnId": 2,
+            "value": "Some Value"
+          }]
         },
         {
           "toBottom": true,
-          "cells": [
-            {
-              "columnId": 3,
-              "value": "Some Value"
-            }
-          ]
+          "cells": [{
+            "columnId": 3,
+            "value": "Some Value"
+          }]
         }
       ]
     },
@@ -895,35 +846,29 @@
       "jsonBody": {
         "message": "PARTIAL_SUCCESS",
         "resultCode": 3,
-        "result": [
-          {
-            "id": 4,
-            "sheetId": 1,
-            "rowNumber": 13,
-            "siblingId": 5,
-            "expanded": true,
-            "createdAt": "2018-03-23T16:23:24Z",
-            "modifiedAt": "2018-03-23T16:23:24Z",
-            "cells": [
-              {
-                "columnId": 2,
-                "value": "Some Value",
-                "displayValue": "Some Value"
-              }
-            ]
-          }
-        ],
+        "result": [{
+          "id": 4,
+          "sheetId": 1,
+          "rowNumber": 13,
+          "siblingId": 5,
+          "expanded": true,
+          "createdAt": "2018-03-23T16:23:24Z",
+          "modifiedAt": "2018-03-23T16:23:24Z",
+          "cells": [{
+            "columnId": 2,
+            "value": "Some Value",
+            "displayValue": "Some Value"
+          }]
+        }],
         "version": 84,
-        "failedItems": [
-          {
-            "index": 1,
-            "error": {
-              "errorCode": 1036,
-              "message": "The columnId 3 is invalid.",
-              "refId": "abc"
-            }
+        "failedItems": [{
+          "index": 1,
+          "error": {
+            "errorCode": 1036,
+            "message": "The columnId 3 is invalid.",
+            "refId": "abc"
           }
-        ]
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -942,8 +887,7 @@
       "body": [{
         "expanded": true,
         "format": ",,,,,,,,4,,,,,,,",
-        "cells": [
-          {
+        "cells": [{
             "columnId": 2,
             "value": "url link",
             "strict": false,
@@ -985,8 +929,7 @@
           "expanded": true,
           "createdAt": "2018-03-23T18:28:54Z",
           "modifiedAt": "2018-03-23T18:28:54Z",
-          "cells": [
-            {
+          "cells": [{
               "columnId": 2,
               "value": "url link",
               "displayValue": "url link",
@@ -1031,17 +974,15 @@
       },
       "body": [{
         "id": 2,
-        "cells": [
-          {
-            "columnId": 3,
-            "value": null,
-            "linkInFromCell": {
-              "sheetId": 4,
-              "rowId": 5,
-              "columnId": 6
-            }
+        "cells": [{
+          "columnId": 3,
+          "value": null,
+          "linkInFromCell": {
+            "sheetId": 4,
+            "rowId": 5,
+            "columnId": 6
           }
-        ]
+        }]
       }]
     },
     "response": {
@@ -1050,29 +991,25 @@
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
-        "result": [
-          {
-            "id": 2,
-            "rowNumber": 5,
-            "siblingId": 7,
-            "expanded": true,
-            "createdAt": "2017-11-03T15:31:33Z",
-            "modifiedAt": "2018-03-23T18:24:38Z",
-            "cells": [
-              {
-                "columnId": 3,
-                "value": "new value",
-                "linkInFromCell": {
-                  "status": "OK",
-                  "sheetId": 4,
-                  "rowId": 5,
-                  "columnId": 6,
-                  "sheetName": "Linked Sheet Name"
-                }
-              }
-            ]
-          }
-        ],
+        "result": [{
+          "id": 2,
+          "rowNumber": 5,
+          "siblingId": 7,
+          "expanded": true,
+          "createdAt": "2017-11-03T15:31:33Z",
+          "modifiedAt": "2018-03-23T18:24:38Z",
+          "cells": [{
+            "columnId": 3,
+            "value": "new value",
+            "linkInFromCell": {
+              "status": "OK",
+              "sheetId": 4,
+              "rowId": 5,
+              "columnId": 6,
+              "sheetName": "Linked Sheet Name"
+            }
+          }]
+        }],
         "version": 87
       },
       "headers": {
@@ -1089,12 +1026,10 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": [
-        {
+      "body": [{
         "type": "sheet",
         "objectId": 1
-      }
-    ]
+      }]
     },
     "response": {
       "statusMessage": "OK",
@@ -1141,35 +1076,29 @@
         "permalink": "https://app.smartsheet.com/b/home?lx=a",
         "createdAt": "2017-10-06T19:57:40Z",
         "modifiedAt": "2018-03-23T18:55:50Z",
-        "columns": [
-          {
-            "virtualId": 2,
-            "index": 0,
-            "title": "Sheet Name",
-            "type": "TEXT_NUMBER",
-            "sheetNameColumn": true,
-            "validation": false,
-            "width": 150
-          }
-        ],
-        "rows": [
-          {
-            "id": 3,
-            "sheetId": 4,
-            "rowNumber": 1,
-            "expanded": true,
-            "accessLevel": "OWNER",
-            "createdAt": "2017-08-29T15:54:47Z",
-            "modifiedAt": "2017-08-29T15:54:47Z",
-            "cells": [
-              {
-                "virtualColumnId": 2,
-                "value": "Sheet Copy 2",
-                "displayValue": "Sheet Copy 2"
-              }
-            ]
-          }
-        ]
+        "columns": [{
+          "virtualId": 2,
+          "index": 0,
+          "title": "Sheet Name",
+          "type": "TEXT_NUMBER",
+          "sheetNameColumn": true,
+          "validation": false,
+          "width": 150
+        }],
+        "rows": [{
+          "id": 3,
+          "sheetId": 4,
+          "rowNumber": 1,
+          "expanded": true,
+          "accessLevel": "OWNER",
+          "createdAt": "2017-08-29T15:54:47Z",
+          "modifiedAt": "2017-08-29T15:54:47Z",
+          "cells": [{
+            "virtualColumnId": 2,
+            "value": "Sheet Copy 2",
+            "displayValue": "Sheet Copy 2"
+          }]
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -1226,8 +1155,7 @@
         "Content-Type": "application/json"
       },
       "body": {
-        "sendTo": [
-          {
+        "sendTo": [{
             "email": "john.doe@smartsheet.com"
           },
           {
@@ -1265,11 +1193,9 @@
         "Content-Type": "application/json"
       },
       "body": {
-        "sendTo": [
-          {
-            "groupId": 2
-          }
-        ],
+        "sendTo": [{
+          "groupId": 2
+        }],
         "subject": "Some subject",
         "message": "Some message",
         "columnIds": [
@@ -1310,20 +1236,18 @@
         "pageSize": 100,
         "totalPages": 1,
         "totalCount": 1,
-        "data": [
-          {
-            "id": 1,
-            "name": "Blank Sheet",
-            "blank": true,
-            "description": "Create and customize a new sheet",
-            "locale": "en_US",
-            "type": "sheet",
-            "categories": [
-              "Featured Templates"
-            ],
-            "globalTemplate": "BLANK_SHEET"
-          }
-        ]
+        "data": [{
+          "id": 1,
+          "name": "Blank Sheet",
+          "blank": true,
+          "description": "Create and customize a new sheet",
+          "locale": "en_US",
+          "type": "sheet",
+          "categories": [
+            "Featured Templates"
+          ],
+          "globalTemplate": "BLANK_SHEET"
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -1340,11 +1264,9 @@
         "Content-Type": "application/json"
       },
       "body": {
-        "sendTo": [
-          {
-            "email": "john.doe@smartsheet.com"
-          }
-        ],
+        "sendTo": [{
+          "email": "john.doe@smartsheet.com"
+        }],
         "rowIds": [
           2
         ],
@@ -1375,11 +1297,9 @@
         "message": "SUCCESS",
         "resultCode": 0,
         "result": {
-          "sendTo": [
-            {
-              "email": "john.doe@smartsheet.com"
-            }
-          ],
+          "sendTo": [{
+            "email": "john.doe@smartsheet.com"
+          }],
           "subject": "Some subject",
           "message": "Some message",
           "ccMe": true,
