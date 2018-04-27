@@ -12,7 +12,7 @@
     },
     "bodyPatterns": [
       {
-        "equalToJson": "{\"id\":2,\"cells\":[{\"columnId\":3,\"value\":null,\"linkInFromCell\":{\"sheetId\":4,\"rowId\":5,\"columnId\":6}}]}",
+        "equalToJson": "[{\"id\":2,\"cells\":[{\"columnId\":3,\"value\":null,\"linkInFromCell\":{\"sheetId\":4,\"rowId\":5,\"columnId\":6}}]}]",
         "ignoreExtraElements": false,
         "ignoreArrayOrder": true
       }

@@ -367,7 +367,7 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": {
+      "body": [{
         "title": "A Brave New Column",
         "type": "PICKLIST",
         "options": [
@@ -379,7 +379,7 @@
         "validation": false,
         "width": 42,
         "locked": false
-      }
+      }]
     },
     "response": {
       "statusMessage": "OK",
@@ -387,7 +387,7 @@
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
-        "result": {
+        "result": [{
           "id": 2,
           "index": 2,
           "title": "A Brave New Column",
@@ -399,7 +399,7 @@
           ],
           "validation": false,
           "width": 42
-        }
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -645,7 +645,7 @@
       "queryParameters": {
         "include": "objectValue"
       },
-      "body": {
+      "body": [{
         "cells": [
           {
             "columnId": 2,
@@ -671,7 +671,7 @@
             }
           }
         ]
-      }
+      }]
     },
     "response": {
       "statusMessage": "OK",
@@ -679,7 +679,7 @@
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
-        "result": {
+        "result": [{
           "id": 5,
           "sheetId": 1,
           "rowNumber": 17,
@@ -738,7 +738,7 @@
               "columnId": 14
             }
           ]
-        },
+        }],
         "version": 37
       },
       "headers": {
@@ -939,7 +939,7 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": {
+      "body": [{
         "expanded": true,
         "format": ",,,,,,,,4,,,,,,,",
         "cells": [
@@ -969,7 +969,7 @@
           }
         ],
         "locked": false
-      }
+      }]
     },
     "response": {
       "statusMessage": "OK",
@@ -977,7 +977,7 @@
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
-        "result": {
+        "result": [{
           "id": 7,
           "sheetId": 1,
           "rowNumber": 15,
@@ -1012,7 +1012,7 @@
               }
             }
           ]
-        },
+        }],
         "version": 88
       },
       "headers": {
@@ -1029,7 +1029,7 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": {
+      "body": [{
         "id": 2,
         "cells": [
           {
@@ -1042,7 +1042,7 @@
             }
           }
         ]
-      }
+      }]
     },
     "response": {
       "statusMessage": "OK",
@@ -1089,10 +1089,12 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": {
+      "body": [
+        {
         "type": "sheet",
         "objectId": 1
       }
+    ]
     },
     "response": {
       "statusMessage": "OK",
@@ -1100,10 +1102,10 @@
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
-        "result": {
+        "result": [{
           "type": "sheet",
           "objectId": 1
-        }
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -1185,13 +1187,13 @@
       "queryParameters": {
         "sendEmail": "true"
       },
-      "body": {
+      "body": [{
         "email": "john.doe@smartsheet.com",
         "accessLevel": "VIEWER",
         "subject": "Check out this sheet",
         "message": "Let me know what you think. Thanks!",
         "ccMe": true
-      }
+      }]
     },
     "response": {
       "statusMessage": "OK",
@@ -1199,7 +1201,7 @@
       "jsonBody": {
         "message": "SUCCESS",
         "resultCode": 0,
-        "result": {
+        "result": [{
           "id": "abc",
           "type": "USER",
           "userId": 2,
@@ -1207,7 +1209,7 @@
           "name": "John Doe",
           "accessLevel": "VIEWER",
           "scope": "ITEM"
-        }
+        }]
       },
       "headers": {
         "Content-Type": "application/json;charset=UTF-8"
@@ -1522,8 +1524,7 @@
         "Content-Type": "application/json"
       },
       "body": {
-        "destinationType": "home",
-        "destinationId": null,
+        "destinationType": "HOME",
         "newName": "Copy of Some Folder"
       }
     },
