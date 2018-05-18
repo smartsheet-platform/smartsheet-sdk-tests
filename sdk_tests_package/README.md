@@ -3123,19 +3123,21 @@ Validates serialization of column object
 #### Body
 
 ```json
-{
-  "title": "A Brave New Column",
-  "type": "PICKLIST",
-  "options": [
-    "option1",
-    "option2",
-    "option3"
-  ],
-  "index": 2,
-  "validation": false,
-  "width": 42,
-  "locked": false
-}
+[
+  {
+    "title": "A Brave New Column",
+    "type": "PICKLIST",
+    "options": [
+      "option1",
+      "option2",
+      "option3"
+    ],
+    "index": 2,
+    "validation": false,
+    "width": 42,
+    "locked": false
+  }
+]
 ```
 
 ### Response
@@ -3146,19 +3148,21 @@ Validates serialization of column object
 {
   "message": "SUCCESS",
   "resultCode": 0,
-  "result": {
-    "id": 2,
-    "index": 2,
-    "title": "A Brave New Column",
-    "type": "PICKLIST",
-    "options": [
-      "option1",
-      "option2",
-      "option3"
-    ],
-    "validation": false,
-    "width": 42
-  }
+  "result": [
+    {
+      "id": 2,
+      "index": 2,
+      "title": "A Brave New Column",
+      "type": "PICKLIST",
+      "options": [
+        "option1",
+        "option2",
+        "option3"
+      ],
+      "validation": false,
+      "width": 42
+    }
+  ]
 }
 ```
 
@@ -3432,33 +3436,35 @@ Validates serialization of predecessor list and predecessor objects
 #### Body
 
 ```json
-{
-  "cells": [
-    {
-      "columnId": 2,
-      "objectValue": {
-        "objectType": "PREDECESSOR_LIST",
-        "predecessors": [
-          {
-            "rowId": 3,
-            "type": "FS",
-            "lag": {
-              "objectType": "DURATION",
-              "negative": false,
-              "elapsed": false,
-              "weeks": 1.5,
-              "days": 2.5,
-              "hours": 3.5,
-              "minutes": 4.5,
-              "seconds": 5.5,
-              "milliseconds": 6
+[
+  {
+    "cells": [
+      {
+        "columnId": 2,
+        "objectValue": {
+          "objectType": "PREDECESSOR_LIST",
+          "predecessors": [
+            {
+              "rowId": 3,
+              "type": "FS",
+              "lag": {
+                "objectType": "DURATION",
+                "negative": false,
+                "elapsed": false,
+                "weeks": 1.5,
+                "days": 2.5,
+                "hours": 3.5,
+                "minutes": 4.5,
+                "seconds": 5.5,
+                "milliseconds": 6
+              }
             }
-          }
-        ]
+          ]
+        }
       }
-    }
-  ]
-}
+    ]
+  }
+]
 ```
 
 ### Response
@@ -3469,66 +3475,68 @@ Validates serialization of predecessor list and predecessor objects
 {
   "message": "SUCCESS",
   "resultCode": 0,
-  "result": {
-    "id": 5,
-    "sheetId": 1,
-    "rowNumber": 17,
-    "siblingId": 6,
-    "expanded": true,
-    "createdAt": "2018-03-16T20:37:04Z",
-    "modifiedAt": "2018-03-16T20:37:04Z",
-    "cells": [
-      {
-        "columnId": 7
-      },
-      {
-        "columnId": 8
-      },
-      {
-        "columnId": 9,
-        "formula": "=CALCSTART(Duration17, Start8, Finish8, 0, 300875506)"
-      },
-      {
-        "columnId": 10
-      },
-      {
-        "columnId": 2,
-        "value": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms",
-        "objectValue": {
-          "objectType": "PREDECESSOR_LIST",
-          "predecessors": [
-            {
-              "rowId": 3,
-              "rowNumber": 8,
-              "type": "FS",
-              "lag": {
-                "objectType": "DURATION",
-                "weeks": 1.5,
-                "days": 2.5,
-                "hours": 3.5,
-                "minutes": 4.5,
-                "seconds": 5.5,
-                "milliseconds": 6
-              }
-            }
-          ]
+  "result": [
+    {
+      "id": 5,
+      "sheetId": 1,
+      "rowNumber": 17,
+      "siblingId": 6,
+      "expanded": true,
+      "createdAt": "2018-03-16T20:37:04Z",
+      "modifiedAt": "2018-03-16T20:37:04Z",
+      "cells": [
+        {
+          "columnId": 7
         },
-        "displayValue": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms"
-      },
-      {
-        "columnId": 11
-      },
-      {
-        "columnId": 12
-      },
-      {
-        "columnId": 13
-      },
-      {
-        "columnId": 14
-      }
-    ]
-  },
+        {
+          "columnId": 8
+        },
+        {
+          "columnId": 9,
+          "formula": "=CALCSTART(Duration17, Start8, Finish8, 0, 300875506)"
+        },
+        {
+          "columnId": 10
+        },
+        {
+          "columnId": 2,
+          "value": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms",
+          "objectValue": {
+            "objectType": "PREDECESSOR_LIST",
+            "predecessors": [
+              {
+                "rowId": 3,
+                "rowNumber": 8,
+                "type": "FS",
+                "lag": {
+                  "objectType": "DURATION",
+                  "weeks": 1.5,
+                  "days": 2.5,
+                  "hours": 3.5,
+                  "minutes": 4.5,
+                  "seconds": 5.5,
+                  "milliseconds": 6
+                }
+              }
+            ]
+          },
+          "displayValue": "8FS +1.5w 2.5d 3.5h 4.5m 5.5s 6ms"
+        },
+        {
+          "columnId": 11
+        },
+        {
+          "columnId": 12
+        },
+        {
+          "columnId": 13
+        },
+        {
+          "columnId": 14
+        }
+      ]
+    }
+  ],
   "version": 37
 }
 ```
@@ -3745,37 +3753,39 @@ Validates the row object
 #### Body
 
 ```json
-{
-  "expanded": true,
-  "format": ",,,,,,,,4,,,,,,,",
-  "cells": [
-    {
-      "columnId": 2,
-      "value": "url link",
-      "strict": false,
-      "hyperlink": {
-        "url": "https://google.com"
+[
+  {
+    "expanded": true,
+    "format": ",,,,,,,,4,,,,,,,",
+    "cells": [
+      {
+        "columnId": 2,
+        "value": "url link",
+        "strict": false,
+        "hyperlink": {
+          "url": "https://google.com"
+        }
+      },
+      {
+        "columnId": 3,
+        "value": "sheet id link",
+        "strict": false,
+        "hyperlink": {
+          "sheetId": 4
+        }
+      },
+      {
+        "columnId": 5,
+        "value": "report id link",
+        "strict": false,
+        "hyperlink": {
+          "reportId": 6
+        }
       }
-    },
-    {
-      "columnId": 3,
-      "value": "sheet id link",
-      "strict": false,
-      "hyperlink": {
-        "sheetId": 4
-      }
-    },
-    {
-      "columnId": 5,
-      "value": "report id link",
-      "strict": false,
-      "hyperlink": {
-        "reportId": 6
-      }
-    }
-  ],
-  "locked": false
-}
+    ],
+    "locked": false
+  }
+]
 ```
 
 ### Response
@@ -3786,42 +3796,44 @@ Validates the row object
 {
   "message": "SUCCESS",
   "resultCode": 0,
-  "result": {
-    "id": 7,
-    "sheetId": 1,
-    "rowNumber": 15,
-    "siblingId": 8,
-    "expanded": true,
-    "createdAt": "2018-03-23T18:28:54Z",
-    "modifiedAt": "2018-03-23T18:28:54Z",
-    "cells": [
-      {
-        "columnId": 2,
-        "value": "url link",
-        "displayValue": "url link",
-        "hyperlink": {
-          "url": "https://google.com"
+  "result": [
+    {
+      "id": 7,
+      "sheetId": 1,
+      "rowNumber": 15,
+      "siblingId": 8,
+      "expanded": true,
+      "createdAt": "2018-03-23T18:28:54Z",
+      "modifiedAt": "2018-03-23T18:28:54Z",
+      "cells": [
+        {
+          "columnId": 2,
+          "value": "url link",
+          "displayValue": "url link",
+          "hyperlink": {
+            "url": "https://google.com"
+          }
+        },
+        {
+          "columnId": 3,
+          "value": "sheet id link",
+          "hyperlink": {
+            "url": "https://app.smartsheet.com/b/home?lx=a",
+            "sheetId": 4
+          }
+        },
+        {
+          "columnId": 5,
+          "value": "report id link",
+          "displayValue": "report id link",
+          "hyperlink": {
+            "url": "https://app.smartsheet.com/b/home?lx=b",
+            "reportId": 6
+          }
         }
-      },
-      {
-        "columnId": 3,
-        "value": "sheet id link",
-        "hyperlink": {
-          "url": "https://app.smartsheet.com/b/home?lx=a",
-          "sheetId": 4
-        }
-      },
-      {
-        "columnId": 5,
-        "value": "report id link",
-        "displayValue": "report id link",
-        "hyperlink": {
-          "url": "https://app.smartsheet.com/b/home?lx=b",
-          "reportId": 6
-        }
-      }
-    ]
-  },
+      ]
+    }
+  ],
   "version": 88
 }
 ```
@@ -3841,20 +3853,22 @@ Validates the CellLink object can be serialized and deserialized
 #### Body
 
 ```json
-{
-  "id": 2,
-  "cells": [
-    {
-      "columnId": 3,
-      "value": null,
-      "linkInFromCell": {
-        "sheetId": 4,
-        "rowId": 5,
-        "columnId": 6
+[
+  {
+    "id": 2,
+    "cells": [
+      {
+        "columnId": 3,
+        "value": null,
+        "linkInFromCell": {
+          "sheetId": 4,
+          "rowId": 5,
+          "columnId": 6
+        }
       }
-    }
-  ]
-}
+    ]
+  }
+]
 ```
 
 ### Response
@@ -3907,10 +3921,12 @@ Validates serialization of favorite object
 #### Body
 
 ```json
-{
-  "type": "sheet",
-  "objectId": 1
-}
+[
+  {
+    "type": "sheet",
+    "objectId": 1
+  }
+]
 ```
 
 ### Response
@@ -3921,10 +3937,12 @@ Validates serialization of favorite object
 {
   "message": "SUCCESS",
   "resultCode": 0,
-  "result": {
-    "type": "sheet",
-    "objectId": 1
-  }
+  "result": [
+    {
+      "type": "sheet",
+      "objectId": 1
+    }
+  ]
 }
 ```
 
@@ -4011,13 +4029,15 @@ Validates serialization of report objects
 #### Body
 
 ```json
-{
-  "email": "john.doe@smartsheet.com",
-  "accessLevel": "VIEWER",
-  "subject": "Check out this sheet",
-  "message": "Let me know what you think. Thanks!",
-  "ccMe": true
-}
+[
+  {
+    "email": "john.doe@smartsheet.com",
+    "accessLevel": "VIEWER",
+    "subject": "Check out this sheet",
+    "message": "Let me know what you think. Thanks!",
+    "ccMe": true
+  }
+]
 ```
 
 ### Response
@@ -4028,15 +4048,17 @@ Validates serialization of report objects
 {
   "message": "SUCCESS",
   "resultCode": 0,
-  "result": {
-    "id": "abc",
-    "type": "USER",
-    "userId": 2,
-    "email": "john.doe@smartsheet.com",
-    "name": "John Doe",
-    "accessLevel": "VIEWER",
-    "scope": "ITEM"
-  }
+  "result": [
+    {
+      "id": "abc",
+      "type": "USER",
+      "userId": 2,
+      "email": "john.doe@smartsheet.com",
+      "name": "John Doe",
+      "accessLevel": "VIEWER",
+      "scope": "ITEM"
+    }
+  ]
 }
 ```
 
@@ -4378,8 +4400,7 @@ Validates serialization of container destination object
 
 ```json
 {
-  "destinationType": "home",
-  "destinationId": null,
+  "destinationType": "HOME",
   "newName": "Copy of Some Folder"
 }
 ```

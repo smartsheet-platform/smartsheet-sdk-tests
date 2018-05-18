@@ -12,7 +12,7 @@
     },
     "bodyPatterns": [
       {
-        "equalToJson": "{\"type\":\"sheet\",\"objectId\":1}",
+        "equalToJson": "[{\"type\":\"sheet\",\"objectId\":1}]",
         "ignoreExtraElements": false,
         "ignoreArrayOrder": true
       }
@@ -24,10 +24,12 @@
     "jsonBody": {
       "message": "SUCCESS",
       "resultCode": 0,
-      "result": {
-        "type": "sheet",
-        "objectId": 1
-      }
+      "result": [
+        {
+          "type": "sheet",
+          "objectId": 1
+        }
+      ]
     },
     "headers": {
       "Content-Type": "application/json;charset=UTF-8"

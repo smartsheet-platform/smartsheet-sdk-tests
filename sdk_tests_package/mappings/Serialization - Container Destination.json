@@ -12,7 +12,7 @@
     },
     "bodyPatterns": [
       {
-        "equalToJson": "{\"destinationType\":\"home\",\"destinationId\":null,\"newName\":\"Copy of Some Folder\"}",
+        "equalToJson": "{\"destinationType\":\"HOME\",\"newName\":\"Copy of Some Folder\"}",
         "ignoreExtraElements": false,
         "ignoreArrayOrder": true
       }

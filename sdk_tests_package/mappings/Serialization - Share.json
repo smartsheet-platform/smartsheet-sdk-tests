@@ -17,7 +17,7 @@
     },
     "bodyPatterns": [
       {
-        "equalToJson": "{\"email\":\"john.doe@smartsheet.com\",\"accessLevel\":\"VIEWER\",\"subject\":\"Check out this sheet\",\"message\":\"Let me know what you think. Thanks!\",\"ccMe\":true}",
+        "equalToJson": "[{\"email\":\"john.doe@smartsheet.com\",\"accessLevel\":\"VIEWER\",\"subject\":\"Check out this sheet\",\"message\":\"Let me know what you think. Thanks!\",\"ccMe\":true}]",
         "ignoreExtraElements": false,
         "ignoreArrayOrder": true
       }
@@ -29,15 +29,17 @@
     "jsonBody": {
       "message": "SUCCESS",
       "resultCode": 0,
-      "result": {
-        "id": "abc",
-        "type": "USER",
-        "userId": 2,
-        "email": "john.doe@smartsheet.com",
-        "name": "John Doe",
-        "accessLevel": "VIEWER",
-        "scope": "ITEM"
-      }
+      "result": [
+        {
+          "id": "abc",
+          "type": "USER",
+          "userId": 2,
+          "email": "john.doe@smartsheet.com",
+          "name": "John Doe",
+          "accessLevel": "VIEWER",
+          "scope": "ITEM"
+        }
+      ]
     },
     "headers": {
       "Content-Type": "application/json;charset=UTF-8"
