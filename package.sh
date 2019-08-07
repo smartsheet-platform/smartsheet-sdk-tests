@@ -53,7 +53,9 @@ echo 'Docs generated'
 
 # add wiremock extension JAR
 mkdir -p "$PACKAGE_NAME/libs"
-cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/$EXTENSION_JAR_FILENAME"
+if [ "$EXTENSION_JAR" != "$PACKAGE_NAME/libs/$EXTENSION_JAR_FILENAME" ]; then
+  cp "$EXTENSION_JAR" "$PACKAGE_NAME/libs/$EXTENSION_JAR_FILENAME"
+fi
 echo 'Wiremock diff extension included'
 
 # add launch script
