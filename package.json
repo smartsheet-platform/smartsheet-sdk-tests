@@ -22,7 +22,7 @@
   "homepage": "https://github.com/stollgr/wiremock-scenario-templating#readme",
   "dependencies": {
     "colors": "^1.3.3",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "yargs": "^13.3.0"
   },
   "devDependencies": {
